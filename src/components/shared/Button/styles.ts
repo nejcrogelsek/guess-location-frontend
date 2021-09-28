@@ -42,3 +42,20 @@ export const LinkStyled = styled(Link) <Props>`
         border: ${p => p.color && p.color === 'green' ? '2px solid' + p.theme.colors.green : 'none'};
     }
 `
+export const ButtonGuess = styled.button`
+    background: ${p => p.color && p.color === 'green' ? p.theme.colors.greenLinear : '#fff'};
+    color: ${p => p.color && p.color === 'green' ? '#fff' : p.theme.colors.green};
+    border: ${p => '2px solid' + p.theme.colors.green};
+    max-width: 137px;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 1rem;
+    line-height: 24px;
+    cursor: pointer;
+    &:hover{
+        background: ${p => p.theme.colors.dark};
+        color: #fff;
+        border-color: ${p => p.theme.colors.dark};
+    }
+`
