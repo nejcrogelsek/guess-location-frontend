@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import PrivateRoute from './components/routes/PrivateRoute'
 import { Home, Login, Profile, Register } from './pages'
+import { Footer } from './components/shared'
 
 const App: FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: FC = () => {
           <PrivateRoute exact path='/me' component={Profile} />
           <Route path='*' component={Home} />
         </Switch>
+        <Footer />
       </Router>
     </ThemeProvider>
   )

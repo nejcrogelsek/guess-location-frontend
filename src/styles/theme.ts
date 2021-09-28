@@ -7,12 +7,12 @@ const theme = {
     },
     screens: {
         xsmall: '(max-width: 576px)',
-        $small: "(min-width: 576px)",
-        $medium: "(min-width: 768px)",
-        $large: "(min-width: 992px)",
-        $xlarge: "(min-width: 1200px)",
-        $xxlarge: "(min-width: 1400px)",
-        $huge: "(min-width: 1680px)",
+        small: "(min-width: 576px)",
+        medium: "(min-width: 768px)",
+        large: "(min-width: 992px)",
+        xlarge: "(min-width: 1200px)",
+        xxlarge: "(min-width: 1400px)",
+        huge: "(min-width: 1680px)",
     }
 }
 
