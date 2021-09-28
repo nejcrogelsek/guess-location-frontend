@@ -1,46 +1,107 @@
-# Getting Started with Create React App
+# Guess location
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+### Table of Contents
+
+- [Description](#description)
+- [How To Use](#how-to-use)
+- [References](#references)
+- [License](#license)
+- [Author Info](#author-info)
+
+---
+
+## Description
+
+Full-stack application that allows users to upload an image and mark the exact location on the Google map where the image was taken.
+Registered users then try to guess where the image was taken by placing a pin on the Google map. As a result, the app returns how accurately he chose the location (error distance).
+
+#### Technologies
+
+- HTML
+- CSS
+- Materialize
+- Figma
+- JavaScript
+- Typescript
+- Node
+- NestJS
+- Express
+- React
+- Docker
+- Amazon AWS
+- Git
+- GitHub
+- Jest
+- PostgreSQL
+- TypeORM
+- JWT
+- Swagger
+- Trello
+
+[Back To The Top](#Quotastic)
+
+---
+
+## How To Use
+
+### Pre-requirements:
+
+- Google account (for maps)
+
+Clone repository and run:
+
+```bash
+$ yarn install
+```
 
 In the project directory, you can run:
 
-### `yarn start`
+```bash
+$ yarn start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+$ yarn test
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+$ yarn build
+```
 
-### `yarn test`
+## References
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- SkillUp Mentor - [skillupmentor](https://skillupmentor.com/)
 
-### `yarn build`
+- LinkedIn - [@nejcrogelsek](https://www.linkedin.com/in/nejcrogelsek/)
+- Github - [@nejcrogelsek](https://github.com/nejcrogelsek)
+- Website - [Nejc Rogelšek](https://nejcrogelsek.si)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Back To The Top](#Quotastic)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## License
 
-### `yarn eject`
+MIT License
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Copyright (c) 2021 [skillupmentor](https://skillupmentor.com/)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This assignment is protected with XYZ copyright. The Candidate may
+upload the assignment on his closed profile on GitHub (or other
+platform), but any other reproduction and distribution of the
+assignment itself or the assignment’s solutions without written
+permission of XYZ is prohibited.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+[Back To The Top](#Quotastic)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+## Author Info
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- LinkedIn - [@nejcrogelsek](https://www.linkedin.com/in/nejcrogelsek/)
+- Github - [@nejcrogelsek](https://github.com/nejcrogelsek)
+- Website - [Nejc Rogelšek](https://nejcrogelsek.si)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Back To The Top](#Quotastic)
