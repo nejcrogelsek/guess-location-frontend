@@ -5,13 +5,15 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import PrivateRoute from './components/routes/PrivateRoute'
 import { Home, Login, Profile, Register } from './pages'
-import { Footer } from './components/shared'
+import Footer from './components/Footer'
+import Header from './components/Header'
 
 const App: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Router>
+        <Header />
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/login' component={Login} />

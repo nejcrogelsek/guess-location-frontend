@@ -1,10 +1,9 @@
 import { FC } from 'react'
-import Card from '../../components/shared/Card'
 
 const Home: FC = () => {
     return (
         <div>
-            <Card />
+            homepage
         </div>
     )
 }

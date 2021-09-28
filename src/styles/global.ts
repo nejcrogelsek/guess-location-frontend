@@ -21,6 +21,7 @@ export default createGlobalStyle`
         font-family: 'Poppins', sans-serif;
         list-style: none;
         font-weight: 400;
+        color: '#233D4d';
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         -webkit-text-size-adjust: 100%;

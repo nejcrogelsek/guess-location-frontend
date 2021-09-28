@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { FooterContainer, FooterStyled } from './styles'
-import Logo from '../../../assets/images/logo-mobile.svg'
+import Logo from '../../assets/images/logo-mobile.svg'
 
 const Footer: FC = () => {
     return (
