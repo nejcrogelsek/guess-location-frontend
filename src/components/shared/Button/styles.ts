@@ -32,7 +32,6 @@ export const LinkStyled = styled(Link) <Props>`
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     font-size: 1rem;
-    line-height: 24px;
     display: block;
     text-decoration: none;
     cursor: pointer;
@@ -51,7 +50,6 @@ export const ButtonGuess = styled.button`
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     font-size: 1rem;
-    line-height: 24px;
     cursor: pointer;
     &:hover{
         background: ${p => p.theme.colors.dark};

@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { ButtonGuess, ButtonStyled, LinkStyled } from '../../components/shared/Button/styles'
+import Card from '../../components/shared/Card'
 
 const Home: FC = () => {
     return (
-        <div style={{ margin: '2rem 0' }}>
-            <ButtonGuess>Guess</ButtonGuess>
+        <div>
+            <Card />
         </div>
     )
 }
