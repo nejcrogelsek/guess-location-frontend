@@ -16,9 +16,14 @@ export default createGlobalStyle`
     }
 
     body{
-        font-family: 'Poppins', sans-serif;
+        margin: 0;
         font-size: 1rem;
-        font-weight:400;
+        font-family: 'Poppins', sans-serif;
+        list-style: none;
+        font-weight: 400;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-text-size-adjust: 100%;
     }
 
     img{
