@@ -1,12 +1,16 @@
 import { FC } from 'react'
+import Footer from '../../components/Footer'
+import Header from '../../components/Header'
 import Card from '../../components/shared/Card'
 
 const Home: FC = () => {
     return (
-        <div>
-            homepage
+        <>
+            <Header />
+            himepage
             <Card />
-        </div>
+            <Footer />
+        </>
     )
 }
 
