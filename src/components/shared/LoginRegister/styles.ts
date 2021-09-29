@@ -107,7 +107,7 @@ export const LoginRegisterForm = styled.form`
   .buttons {
     margin-bottom: 1rem;
   }
-  .goto-login {
+  .goto {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -115,16 +115,16 @@ export const LoginRegisterForm = styled.form`
       margin: 0;
       font-size: 0.85rem;
     }
-    >a{
+    > a {
         min-width: 65px;
         font-size: 0.85rem;
         margin-left: 0.5rem;
         text-decoration: none;
-        text-align: center;
+        text-align: right;
         color: #000;
-    }
-    > a:hover {
-      color: ${p => p.theme.colors.green};
+        &:hover {
+            color: ${p => p.theme.colors.green};
+        }
     }
     ${p => p.theme.screens.xxsmall}{
         >a,

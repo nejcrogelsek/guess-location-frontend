@@ -15,7 +15,6 @@ export const ButtonStyled = styled.button<Props>`
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     font-size: 1rem;
-    line-height: ${p => p.size === 'full' ? '20px' : '25px'};
     text-align: center;
     cursor: pointer;
     height: 40px;
@@ -37,7 +36,6 @@ export const LinkStyled = styled(Link) <Props>`
     font-size: 1rem;
     display: block;
     height: 40px;
-    line-height: ${p => p.size === 'full' ? '20px' : '25px'};
     text-decoration: none;
     text-align: center;
     cursor: pointer;

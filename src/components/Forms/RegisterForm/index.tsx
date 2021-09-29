@@ -64,7 +64,7 @@ const RegisterForm: FC = () => {
                 <div className='buttons'>
                     <input className='site-btn btn-orange' type='submit' value='Sign up' />
                 </div>
-                <div className="goto-login">
+                <div className="goto">
                     <p>Already have an account?</p>
                     <Link to="/login" className="orange">Sign in</Link>
                 </div>

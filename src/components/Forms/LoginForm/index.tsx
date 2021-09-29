@@ -29,7 +29,7 @@ const LoginForm: FC = () => {
             <div className='buttons'>
                 <ButtonStyled size='full' type='submit'>Sign in</ButtonStyled>
             </div>
-            <div className="goto-login">
+            <div className="goto">
                 <p>Do you want to create an account?</p>
                 <Link to="/signup">Sign up</Link>
             </div>
