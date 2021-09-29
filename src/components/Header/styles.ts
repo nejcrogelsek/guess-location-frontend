@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const Navbar = styled.header`
     min-height: 96px;
     padding: 30px 35px;
+    box-shadow: 0 0 8px ${p => p.theme.colors.shadow};
+    ${p => p.theme.screens.large}{
+        box-shadow: none;
+    }
 `
 export const NavContainer = styled.div`
     display: flex;
@@ -30,7 +34,7 @@ export const MenuButtonOpen = styled.button`
         width: 23px;
         height: 23px;
     }
-    @media ${props => props.theme.screens.large}{
+    ${p => p.theme.screens.large}{
         display: none;
     }
 `
@@ -56,7 +60,6 @@ export const NavMobile = styled.div<NavMobileProps>`
     transition: 0.25s ease-in-out;
     transform: ${p => p.toggle ? 'translateY(0)' : 'translateY(-100%)'};
     padding: 30px 35px;
-    box-shadow: 0 0 8px 0.15;
     z-index: 100;
 `
 interface NavbarNavProps {
@@ -122,4 +125,58 @@ export const NavbarNav = styled.div<NavbarNavProps>`
             }
         }
     `}
+    ${p => p.theme.screens.large}{
+        align-items: center;
+        flex-direction: row;
+        > li {
+            &.login{
+                margin: 0;
+                width: max-content;
+                > a{
+                    text-decoration: none;
+                    color: #000;
+                    font-weight: 500;
+                    letter-spacing: 0.3px;
+                }
+            }
+            &.delimeter{
+                margin: 0 1rem;
+            }
+            &.signup{
+                margin-bottom: 0;
+                width: 137px;
+                >a{
+                    width: 100%;
+                    max-width: 137px;
+                }
+            }
+        }
+        ${p => p.isAuth && `
+            > li {
+                width: max-content;
+                margin-bottom: 0;
+                margin-right: 24px;
+                
+                button,
+                .nav-link {
+                    font-size: 1rem;
+                    > span {
+                        width: 100%;
+                    }
+                }
+                &.user-item {
+                    margin-right: 16px;
+                    > a {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        font-size: 1rem;
+                    }
+                    .MuiAvatar-root {
+                        margin-right: 0;
+                    }
+                }
+            }
+        `}
+    }
 `

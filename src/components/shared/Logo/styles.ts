@@ -9,7 +9,7 @@ export const Logo = styled(Link)`
     display: block;
     width: 142px;
     height: 40px;
-    @media ${props => props.theme.screens.large}{
+    ${p => p.theme.screens.large}{
         width: 171px;
     }
 `

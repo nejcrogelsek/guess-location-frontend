@@ -4,9 +4,9 @@ import NewYork from '../../../assets/images/new-york.jpg'
 import { ButtonGuess } from '../Button/styles';
 
 const Card: FC = () => {
-    const user = false;
+    const user = true;
     return (
-        <CardStyled user='false' image={NewYork}>
+        <CardStyled user='true' image={NewYork}>
             <div className="background">
                 {user ?
                     <>

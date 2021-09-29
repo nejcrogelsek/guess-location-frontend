@@ -1,26 +1,23 @@
 import { Avatar } from '@material-ui/core'
-import { Add } from '@material-ui/icons'
 import { FC } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
+import { UserData } from '../../../interfaces/user.interface'
+import { LinkStyled } from '../../shared/Button/styles'
+import { NavbarNav } from '../styles'
 
 interface Props {
-    user: any;
-    setUserValue: any;
-    setQuoteValue: any;
+    user: UserData | null;
 }
 
-const DesktopNav: FC<Props> = ({ user, setUserValue, setQuoteValue }: Props) => {
+const DesktopNav: FC<Props> = ({ user }: Props) => {
     const history = useHistory();
 
     const signout = () => {
-        localStorage.removeItem('user');
-        setUserValue(null);
-        setQuoteValue(null);
         history.push('/');
     }
 
     return (
-        <ul className={user ? 'navbar-nav isAuth' : 'navbar-nav'}>
+        <NavbarNav isAuth={user ? 'isAuth' : null}>
             {user ?
                 <>
                     <li className='nav-item'>
@@ -43,22 +40,20 @@ const DesktopNav: FC<Props> = ({ user, setUserValue, setQuoteValue }: Props) => 
                             <Avatar src={user.profile_image} />
                         </NavLink>
                     </li>
-                    <li className='nav-item'>
-                        <button className='add-quote' type='button' data-bs-toggle='modal' data-bs-target='#addQuoteModal'>
-                            <Add />
-                        </button>
-                    </li>
                 </> :
                 <>
-                    <li className='nav-item'>
-                        <NavLink className='btn site-btn btn-orange' to='/signup' >Sign up</NavLink>
+                    <li className='nav-item login'>
+                        <NavLink to='/login' >Sign in</NavLink>
                     </li>
-                    <li className='nav-item'>
-                        <NavLink className='btn site-btn btn-light' to='/login' >Login</NavLink>
+                    <li className='delimeter'>
+                        or
+                    </li>
+                    <li className='nav-item signup'>
+                        <LinkStyled to='/signup' color='green' >Sign up</LinkStyled>
                     </li>
                 </>
             }
-        </ul>
+        </NavbarNav>
     )
 }
 

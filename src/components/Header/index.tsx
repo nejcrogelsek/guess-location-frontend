@@ -50,12 +50,8 @@ const Header: FC = () => {
                 </NavButtons>
                 {isMobile ?
                     <MobileNav user={user} toggleNav={toggleNav} toggle={toggle} />
-                    : null
-                }
-                {/* {isMobile ?
-                    <MobileNav user={user} toggleNav={toggleNav} toggle={toggle} />
                     : <DesktopNav user={user} />
-                } */}
+                }
             </NavContainer>
         </Navbar>
     )
