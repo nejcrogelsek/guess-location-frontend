@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { Link, Redirect } from 'react-router-dom';
 import axios from '../../../api/axios';
 import { SignUpData } from '../../../interfaces/auth.interface';
+import { ButtonStyled } from '../../shared/Button/styles';
+import { LoginRegisterForm } from '../../shared/LoginRegister/styles';
 
 const RegisterForm: FC = () => {
     const [file, setFile] = useState<File | null>(null);
@@ -25,7 +27,7 @@ const RegisterForm: FC = () => {
 
     return (
         <>
-            <form onSubmit={onSubmit} className='form'>
+            <LoginRegisterForm onSubmit={onSubmit}>
                 <div className='form-element image'>
                     <label htmlFor='file' className='form-label'><Avatar src={preview as string} /></label>
                     <input type='file' accept='image/*' name='file' className='file-control' onChange={fileSelected} />
@@ -38,14 +40,14 @@ const RegisterForm: FC = () => {
                 <div className="row">
                     <div className="col">
                         <div className='form-element'>
-                            <label htmlFor='first_name' className='form-label'>First name</label>
+                            <label htmlFor='first_name' className='form-label'>First Name</label>
                             <input {...register('first_name', { required: 'First name is required' })} type='text' name='first_name' className='form-control' />
                             {errors.first_name && <span className='form-text required'>{errors.first_name.message}</span>}
                         </div>
                     </div>
                     <div className="col">
                         <div className='form-element'>
-                            <label htmlFor='last_name' className='form-label'>Last name</label>
+                            <label htmlFor='last_name' className='form-label'>Last Name</label>
                             <input {...register('last_name', { required: 'Last name is required' })} type='text' name='last_name' className='form-control' />
                             {errors.last_name && <span className='form-text required'>{errors.last_name.message}</span>}
                         </div>
@@ -62,13 +64,13 @@ const RegisterForm: FC = () => {
                     {errors.confirm_password && <span className='form-text required'>{errors.confirm_password.message}</span>}
                 </div>
                 <div className='buttons'>
-                    <input className='site-btn btn-orange' type='submit' value='Sign up' />
+                    <ButtonStyled size='full' color='green' type='submit'>Sign up</ButtonStyled>
                 </div>
                 <div className="goto">
                     <p>Already have an account?</p>
                     <Link to="/login" className="orange">Sign in</Link>
                 </div>
-            </form>
+            </LoginRegisterForm>
         </>
     )
 }
