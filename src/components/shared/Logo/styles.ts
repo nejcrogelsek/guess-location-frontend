@@ -12,4 +12,13 @@ export const Logo = styled(Link)`
     ${p => p.theme.screens.large}{
         width: 171px;
     }
+    .content {
+    max-width: 480px;
+    width: 100%;
+    padding: 0 30px;
+    > p {
+      text-align: center;
+      font-size: 1rem;
+    }
+  }
 `

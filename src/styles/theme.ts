@@ -8,6 +8,7 @@ const theme = {
         shadow: 'rgba(50, 45, 56, 0.15)'
     },
     screens: {
+        xxsmall: '@media(min-width: 414px)',
         xsmall: '@media(max-width: 576px)',
         small: "@media(min-width: 576px)",
         medium: "@media(min-width: 768px)",

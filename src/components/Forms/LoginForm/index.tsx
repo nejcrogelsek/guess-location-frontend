@@ -2,7 +2,9 @@ import axios from '../../../api/axios';
 import { FC, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { SignInData } from '../../../interfaces/auth.interface';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { LoginRegisterForm } from '../../shared/LoginRegister/styles';
+import { ButtonStyled } from '../../shared/Button/styles';
 
 const LoginForm: FC = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm<SignInData>();
@@ -13,7 +15,7 @@ const LoginForm: FC = () => {
     })
 
     return (
-        <form onSubmit={onSubmit} className='form'>
+        <LoginRegisterForm onSubmit={onSubmit}>
             <div className='form-element'>
                 <label htmlFor='email' className='form-label'>Email</label>
                 <input {...register('email', { required: 'Email is required' })} type='text' name='email' className='form-control' />
@@ -25,9 +27,13 @@ const LoginForm: FC = () => {
                 {errors.password && <span className='form-text required'>{errors.password.message}</span>}
             </div>
             <div className='buttons'>
-                <input className='site-btn btn-light' type='submit' value='Login' />
+                <ButtonStyled size='full' type='submit'>Sign in</ButtonStyled>
             </div>
-        </form>
+            <div className="goto-login">
+                <p>Do you want to create an account?</p>
+                <Link to="/signup">Sign up</Link>
+            </div>
+        </LoginRegisterForm>
     )
 }
 
