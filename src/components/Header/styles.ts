@@ -181,7 +181,7 @@ export const NavbarNav = styled.div<NavbarNavProps>`
     }
 `
 export const MobileOverlay = styled.div<NavMobileProps>`
-    pointer-events: none;
+    pointer-events: ${p => p.toggle ? 'auto' : 'none'};
     width: 100%;
     height: 100vh;
     opacity: ${p => p.toggle ? '0.1' : '0'};

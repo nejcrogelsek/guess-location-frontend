@@ -1,6 +1,14 @@
 import styled from "styled-components"
 import BackgroundImage from "../../../assets/images/background.png"
 
+export const LoginRegisterContainer = styled.div`
+  ${p => p.theme.screens.large}{
+    > header{
+      display: none;
+    }
+  }
+`
+
 export const LoginRegisterWrap = styled.div`
     display: flex;
     justify-content: center;
@@ -10,23 +18,77 @@ export const LoginRegisterWrap = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
     padding: 0 35px;
-    .background{
-        display: none;
-    }
     ${p => p.theme.screens.large}{
         background-image: none;
+        justify-content: flex-start;
+        height: 100vh;
+        overflow: hidden;
+        padding: 0;
     }
 `
-
+interface LoginRegisterDesktopBackgroundProps {
+  image?: string | null;
+}
+export const LoginRegisterDesktopBackground = styled.div<LoginRegisterDesktopBackgroundProps>`
+    display: none;
+    position: relative;
+    background-image: url(${p => p.image});
+    width: 60%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    > svg{
+      position: absolute;
+      top: 50%;
+      left: 52%;
+      transform: translate(-50%,-50%);
+    }
+    ${p => p.theme.screens.large}{
+        display: block;
+    }
+`
+interface LoginRegisterContentWrapProps {
+  isRegister?: string | null;
+}
+export const LoginRegisterContentWrap = styled.div<LoginRegisterContentWrapProps>`
+  padding: 20px 15px;
+  border-radius: 2rem;
+  background: #fff;
+  text-align: center;
+  width: 40%;
+  margin: ${p => p.isRegister ? '56px 0 100px' : '0'};
+  >a{
+      display: none;
+  }
+  >p{
+      line-height: 24px;
+      max-width: 375px;
+      margin: 0 auto;
+  }
+  ${p => p.theme.screens.xxsmall}{
+      padding: 20px 30px;
+  }
+  ${p => p.theme.screens.large}{
+    margin-top: ${p => p.isRegister ? '160px' : '0'};
+    >a{
+      display: block;
+      position: absolute;
+      top: 45px;
+      left: 70;
+    }   
+  }
+`
 export const LoginRegisterTitle = styled.h1`
     font-size: 2.1875rem;
     font-weight: 400;
     margin-bottom: 0.5rem;
 `
 export const LoginRegisterForm = styled.form`
-    margin-top: 1rem;
     text-align: left;
+    max-width: 420px;
+    margin: 1rem auto 0;
     .row {
       display: flex;
       .col{
@@ -119,6 +181,7 @@ export const FormGoTo = styled.div`
           text-decoration: none;
           text-align: right;
           color: #000;
+          transition: 0.25s ease-out;
           &:hover {
               color: ${p => p.theme.colors.green};
           }
@@ -129,23 +192,4 @@ export const FormGoTo = styled.div`
               font-size: 1rem;
           }
       }
-`
-interface LoginRegisterContentWrapProps {
-  isRegister?: string | null;
-}
-export const LoginRegisterContentWrap = styled.div<LoginRegisterContentWrapProps>`
-  padding: 20px 15px;
-  border-radius: 2rem;
-  background: #fff;
-  text-align: center;
-  margin: ${p => p.isRegister ? '56px 0 100px' : '0'};
-  >a{
-      display: none;
-  }
-  >p{
-      line-height: 24px;
-  }
-  ${p => p.theme.screens.xxsmall}{
-      padding: 20px 30px;
-  }
 `
