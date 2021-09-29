@@ -57,7 +57,6 @@ export const LoginRegisterContentWrap = styled.div<LoginRegisterContentWrapProps
   border-radius: 2rem;
   background: #fff;
   text-align: center;
-  width: 40%;
   margin: ${p => p.isRegister ? '56px 0 100px' : '0'};
   >a{
       display: none;
@@ -71,6 +70,7 @@ export const LoginRegisterContentWrap = styled.div<LoginRegisterContentWrapProps
       padding: 20px 30px;
   }
   ${p => p.theme.screens.large}{
+    width: 40%;
     margin-top: ${p => p.isRegister ? '160px' : '0'};
     >a{
       display: block;

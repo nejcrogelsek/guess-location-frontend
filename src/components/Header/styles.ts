@@ -188,6 +188,7 @@ export const MobileOverlay = styled.div<NavMobileProps>`
     background: #000;
     position: fixed;
     transition: 0.25s ease-out;
+    z-index: 10;
     ${p => p.theme.screens.large}{
         display: none;
     }
