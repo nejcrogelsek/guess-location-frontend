@@ -1,11 +1,7 @@
 import styled from "styled-components"
 import BackgroundImage from "../../../assets/images/background.png"
 
-interface LoginRegisterWrapProps {
-  isRegister?: string | null;
-}
-
-export const LoginRegisterWrap = styled.div<LoginRegisterWrapProps>`
+export const LoginRegisterWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,22 +11,6 @@ export const LoginRegisterWrap = styled.div<LoginRegisterWrapProps>`
     background-repeat: no-repeat;
     background-size: cover;
     padding: 0 35px;
-    .content{
-        padding: 20px 15px;
-        border-radius: 2rem;
-        background: #fff;
-        text-align: center;
-        margin: ${p => p.isRegister ? '56px 0 100px' : '0'};
-        >a{
-            display: none;
-        }
-        >p{
-            line-height: 24px;
-        }
-        ${p => p.theme.screens.xxsmall}{
-            padding: 20px 30px;
-        }
-    }
     .background{
         display: none;
     }
@@ -58,29 +38,17 @@ export const LoginRegisterForm = styled.form`
         }
       }
     }
-    .form-element {
-      margin-bottom: 1rem;
-      .form-label {
-        font-size: 0.75rem;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-      }
-      .form-control {
-        border-radius: 32px;
-        border: 2px solid ${p => p.theme.colors.green};
-        padding: 8px 30px 8px 24px;
-        height: 40px;
-        width: 100%;
-        margin-top: 0.5rem;
-        &:focus {
-          box-shadow: none;
-        }
-      }
+`
+interface FormElementProps {
+  image?: string | null;
+}
+export const FormElement = styled.div<FormElementProps>`
+  margin-bottom: 1rem;
       .form-text {
         font-size: 0.75rem;
         color: red;
       }
-      &.image {
+      ${p => p.image ? `
         position: relative;
         margin: 0 auto 1rem;
         width: 64px;
@@ -105,16 +73,39 @@ export const LoginRegisterForm = styled.form`
           .MuiAvatar-root {
             width: 64px;
             height: 64px;
-            box-shadow: 0px 0px 8px ${p => p.theme.colors.shadow};
+            box-shadow: 0px 0px 8px ${p.theme.colors.shadow};
           }
         }
-      }
-    }
-    .buttons {
-      margin-bottom: 1rem;
-    }
-    .goto {
-      display: flex;
+      ` : null}
+`
+export const FormControl = styled.input`
+  border-radius: 32px;
+  border: 2px solid ${p => p.theme.colors.green};
+  padding: 8px 30px 8px 24px;
+  height: 40px;
+  width: 100%;
+  margin-top: 0.5rem;
+  &:focus {
+    box-shadow: none;
+  }
+`
+export const FormButtonsWrap = styled.div`
+  margin-bottom: 1rem;
+`
+export const FormLabel = styled.label`
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: block;
+`
+export const FormErrorText = styled.span`
+  font-size: 0.75rem;
+  margin: 0.5rem 0;
+  font-weight: 500;
+  color: red;
+  display: block;
+`
+export const FormGoTo = styled.div`
+  display: flex;
       align-items: center;
       justify-content: space-between;
       > p {
@@ -138,5 +129,23 @@ export const LoginRegisterForm = styled.form`
               font-size: 1rem;
           }
       }
-    }
+`
+interface LoginRegisterContentWrapProps {
+  isRegister?: string | null;
+}
+export const LoginRegisterContentWrap = styled.div<LoginRegisterContentWrapProps>`
+  padding: 20px 15px;
+  border-radius: 2rem;
+  background: #fff;
+  text-align: center;
+  margin: ${p => p.isRegister ? '56px 0 100px' : '0'};
+  >a{
+      display: none;
+  }
+  >p{
+      line-height: 24px;
+  }
+  ${p => p.theme.screens.xxsmall}{
+      padding: 20px 30px;
+  }
 `

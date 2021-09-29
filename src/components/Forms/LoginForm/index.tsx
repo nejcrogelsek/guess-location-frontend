@@ -3,7 +3,7 @@ import { FC, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { SignInData } from '../../../interfaces/auth.interface';
 import { Link, Redirect } from 'react-router-dom';
-import { LoginRegisterForm } from '../../shared/LoginRegister/styles';
+import { FormButtonsWrap, FormControl, FormElement, FormErrorText, FormGoTo, FormLabel, LoginRegisterForm } from '../../shared/LoginRegister/styles';
 import { ButtonStyled } from '../../shared/Button/styles';
 
 const LoginForm: FC = () => {
@@ -16,23 +16,23 @@ const LoginForm: FC = () => {
 
     return (
         <LoginRegisterForm onSubmit={onSubmit}>
-            <div className='form-element'>
-                <label htmlFor='email' className='form-label'>Email</label>
-                <input {...register('email', { required: 'Email is required' })} type='text' name='email' className='form-control' />
-                {errors.email && <span className='form-text required'>{errors.email.message}</span>}
-            </div>
-            <div className='form-element'>
-                <label htmlFor='password' className='form-label'>Password</label>
-                <input {...register('password', { required: 'Password is required' })} type='password' name='password' className='form-control' />
-                {errors.password && <span className='form-text required'>{errors.password.message}</span>}
-            </div>
-            <div className='buttons'>
+            <FormElement>
+                <FormLabel htmlFor='email'>Email</FormLabel>
+                <FormControl {...register('email', { required: 'Email is required' })} type='text' name='email' />
+                {errors.email && <FormErrorText>{errors.email.message}</FormErrorText>}
+            </FormElement>
+            <FormElement>
+                <FormLabel htmlFor='password'>Password</FormLabel>
+                <FormControl {...register('password', { required: 'Password is required' })} type='password' name='password' />
+                {errors.password && <FormErrorText>{errors.password.message}</FormErrorText>}
+            </FormElement>
+            <FormButtonsWrap>
                 <ButtonStyled size='full' type='submit'>Sign in</ButtonStyled>
-            </div>
-            <div className="goto">
+            </FormButtonsWrap>
+            <FormGoTo>
                 <p>Do you want to create an account?</p>
                 <Link to="/signup">Sign up</Link>
-            </div>
+            </FormGoTo>
         </LoginRegisterForm>
     )
 }

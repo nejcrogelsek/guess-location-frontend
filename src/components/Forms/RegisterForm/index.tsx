@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import axios from '../../../api/axios';
 import { SignUpData } from '../../../interfaces/auth.interface';
 import { ButtonStyled } from '../../shared/Button/styles';
-import { LoginRegisterForm } from '../../shared/LoginRegister/styles';
+import { FormButtonsWrap, FormControl, FormElement, FormErrorText, FormGoTo, FormLabel, LoginRegisterForm } from '../../shared/LoginRegister/styles';
 
 const RegisterForm: FC = () => {
     const [file, setFile] = useState<File | null>(null);
@@ -28,48 +28,48 @@ const RegisterForm: FC = () => {
     return (
         <>
             <LoginRegisterForm onSubmit={onSubmit}>
-                <div className='form-element image'>
-                    <label htmlFor='file' className='form-label'><Avatar src={preview as string} /></label>
-                    <input type='file' accept='image/*' name='file' className='file-control' onChange={fileSelected} />
-                </div>
-                <div className='form-element'>
-                    <label htmlFor='email' className='form-label'>Email</label>
-                    <input {...register('email', { required: 'Email is required' })} type='email' name='email' className='form-control' />
-                    {errors.email && <span className='form-text required'>{errors.email.message}</span>}
-                </div>
+                <FormElement image='true'>
+                    <FormLabel htmlFor='file' ><Avatar src={preview as string} /></FormLabel>
+                    <FormControl type='file' accept='image/*' name='file' onChange={fileSelected} />
+                </FormElement>
+                <FormElement>
+                    <FormLabel htmlFor='email' >Email</FormLabel>
+                    <FormControl {...register('email', { required: 'Email is required' })} type='email' name='email' />
+                    {errors.email && <FormErrorText>{errors.email.message}</FormErrorText>}
+                </FormElement>
                 <div className="row">
                     <div className="col">
-                        <div className='form-element'>
-                            <label htmlFor='first_name' className='form-label'>First Name</label>
-                            <input {...register('first_name', { required: 'First name is required' })} type='text' name='first_name' className='form-control' />
-                            {errors.first_name && <span className='form-text required'>{errors.first_name.message}</span>}
-                        </div>
+                        <FormElement>
+                            <FormLabel htmlFor='first_name' >First Name</FormLabel>
+                            <FormControl {...register('first_name', { required: 'First name is required' })} type='text' name='first_name' />
+                            {errors.first_name && <FormErrorText>{errors.first_name.message}</FormErrorText>}
+                        </FormElement>
                     </div>
                     <div className="col">
-                        <div className='form-element'>
-                            <label htmlFor='last_name' className='form-label'>Last Name</label>
-                            <input {...register('last_name', { required: 'Last name is required' })} type='text' name='last_name' className='form-control' />
-                            {errors.last_name && <span className='form-text required'>{errors.last_name.message}</span>}
-                        </div>
+                        <FormElement>
+                            <FormLabel htmlFor='last_name' >Last Name</FormLabel>
+                            <FormControl {...register('last_name', { required: 'Last name is required' })} type='text' name='last_name' />
+                            {errors.last_name && <FormErrorText>{errors.last_name.message}</FormErrorText>}
+                        </FormElement>
                     </div>
                 </div>
-                <div className='form-element'>
-                    <label htmlFor='password' className='form-label'>Password</label>
-                    <input {...register('password', { required: 'Password is required', pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/ })} type='password' name='password' className='form-control' />
-                    {errors.password && <span className='form-text required'>{errors.password.message}</span>}
-                </div>
-                <div className='form-element'>
-                    <label htmlFor='confirm_password' className='form-label'>Confirm password</label>
-                    <input {...register('confirm_password', { required: 'Please confirm password', pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/ })} type='password' name='confirm_password' className='form-control' />
-                    {errors.confirm_password && <span className='form-text required'>{errors.confirm_password.message}</span>}
-                </div>
-                <div className='buttons'>
+                <FormElement>
+                    <FormLabel htmlFor='password' >Password</FormLabel>
+                    <FormControl {...register('password', { required: 'Password is required', pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/ })} type='password' name='password' />
+                    {errors.password && <FormErrorText>{errors.password.message}</FormErrorText>}
+                </FormElement>
+                <FormElement>
+                    <FormLabel htmlFor='confirm_password' >Confirm password</FormLabel>
+                    <FormControl {...register('confirm_password', { required: 'Please confirm password', pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/ })} type='password' name='confirm_password' />
+                    {errors.confirm_password && <FormErrorText >{errors.confirm_password.message}</FormErrorText>}
+                </FormElement>
+                <FormButtonsWrap>
                     <ButtonStyled size='full' color='green' type='submit'>Sign up</ButtonStyled>
-                </div>
-                <div className="goto">
+                </FormButtonsWrap>
+                <FormGoTo>
                     <p>Already have an account?</p>
-                    <Link to="/login" className="orange">Sign in</Link>
-                </div>
+                    <Link to="/login">Sign in</Link>
+                </FormGoTo>
             </LoginRegisterForm>
         </>
     )
