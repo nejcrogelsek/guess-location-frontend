@@ -5,6 +5,11 @@ export const ProfileWrap = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    ${p => p.theme.screens.large}{
+        flex-direction: row;
+        align-items: flex-start;
+        margin-bottom: 4rem;
+    }
 `
 interface ProfileBoxProps {
     shadow?: string | null;
@@ -21,6 +26,17 @@ export const ProfileBox = styled.div<ProfileBoxProps>`
             margin-bottom: 24px;
         }
     `}
+    ${p => p.theme.screens.large}{
+        margin: 0 10px;
+        min-height: 772px;
+        max-height: 772px;
+        >form{
+            display: flex;
+            flex-direction: column;
+            min-height: 709px;
+            justify-content: space-between;
+        }
+    }
 `
 export const CurrentUserName = styled.div`
     margin: 24px;

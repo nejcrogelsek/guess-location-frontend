@@ -39,31 +39,33 @@ const UpdateProfileForm: FC = () => {
     return (
         <>
             <Form onSubmit={onSubmit}>
-                <FormElement image='true'>
-                    <FormLabel htmlFor='file' ><Avatar src={preview as string} /></FormLabel>
-                    <FormControl type='file' accept='image/*' name='file' onChange={fileSelected} />
-                </FormElement>
-                <CurrentUserName>John Doe</CurrentUserName>
-                <FormElement>
-                    <FormLabel htmlFor='first_name' >First Name</FormLabel>
-                    <FormControlSecondary {...register('first_name', { required: 'First name is required' })} type='text' name='first_name' />
-                    {errors.first_name && <FormErrorText>{errors.first_name.message}</FormErrorText>}
-                </FormElement>
-                <FormElement>
-                    <FormLabel htmlFor='last_name' >Last Name</FormLabel>
-                    <FormControlSecondary {...register('last_name', { required: 'Last name is required' })} type='text' name='last_name' />
-                    {errors.last_name && <FormErrorText>{errors.last_name.message}</FormErrorText>}
-                </FormElement>
-                <FormElement>
-                    <FormLabel htmlFor='email' >Email</FormLabel>
-                    <FormControlSecondary {...register('email', { required: 'Email is required' })} type='email' name='email' />
-                    {errors.email && <FormErrorText>{errors.email.message}</FormErrorText>}
-                </FormElement>
-                <FormElement>
-                    <FormLabel htmlFor='password' >Password</FormLabel>
-                    <FormControlSecondary {...register('password', { required: 'Password is required', pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/ })} type='password' name='password' />
-                    {errors.password && <FormErrorText>{errors.password.message}</FormErrorText>}
-                </FormElement>
+                <div>
+                    <FormElement image='true'>
+                        <FormLabel htmlFor='file' ><Avatar src={preview as string} /></FormLabel>
+                        <FormControl type='file' accept='image/*' name='file' onChange={fileSelected} />
+                    </FormElement>
+                    <CurrentUserName>John Doe</CurrentUserName>
+                    <FormElement>
+                        <FormLabel htmlFor='first_name' >First Name</FormLabel>
+                        <FormControlSecondary {...register('first_name', { required: 'First name is required' })} type='text' name='first_name' />
+                        {errors.first_name && <FormErrorText>{errors.first_name.message}</FormErrorText>}
+                    </FormElement>
+                    <FormElement>
+                        <FormLabel htmlFor='last_name' >Last Name</FormLabel>
+                        <FormControlSecondary {...register('last_name', { required: 'Last name is required' })} type='text' name='last_name' />
+                        {errors.last_name && <FormErrorText>{errors.last_name.message}</FormErrorText>}
+                    </FormElement>
+                    <FormElement>
+                        <FormLabel htmlFor='email' >Email</FormLabel>
+                        <FormControlSecondary {...register('email', { required: 'Email is required' })} type='email' name='email' />
+                        {errors.email && <FormErrorText>{errors.email.message}</FormErrorText>}
+                    </FormElement>
+                    <FormElement>
+                        <FormLabel htmlFor='password' >Password</FormLabel>
+                        <FormControlSecondary {...register('password', { required: 'Password is required', pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/ })} type='password' name='password' />
+                        {errors.password && <FormErrorText>{errors.password.message}</FormErrorText>}
+                    </FormElement>
+                </div>
                 <FormButtonsWrap>
                     <ButtonStyled size='full' color='green' type='submit'>Save profile</ButtonStyled>
                 </FormButtonsWrap>
