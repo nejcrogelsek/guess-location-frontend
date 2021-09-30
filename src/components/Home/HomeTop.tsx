@@ -9,7 +9,7 @@ const HomeTop: FC = () => {
             <Container>
                 <Content>
                     <H1 textCenter='true' top='3rem' bottom='1rem'>Explore the world with Geotagger!</H1>
-                    <P textCenter='true'>Geotagger is webiste that allowes you to post picture and tag it on the map. Other user than try to locate it via Google Maps. </P>
+                    <P max='585px' textCenter='true'>Geotagger is webiste that allowes you to post picture and tag it on the map. Other user than try to locate it via Google Maps. </P>
                     <LinkStyled to='signup' center='true' top='2rem' bottom='3rem'>Sign up</LinkStyled>
                 </Content>
             </Container>

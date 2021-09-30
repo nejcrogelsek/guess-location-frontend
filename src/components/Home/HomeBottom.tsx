@@ -9,7 +9,7 @@ const HomeBottom: FC = () => {
         <>
             <Container>
                 <H2 textCenter='true' top='5rem' bottom='1rem'>Try yourself at Geotagger!</H2>
-                <P textCenter='true' bottom='72px'>Try to guess the location of image by selecting position on the map. When you guess it, it gives you the error distance.</P>
+                <P max='585px' textCenter='true' bottom='72px'>Try to guess the location of image by selecting position on the map. When you guess it, it gives you the error distance.</P>
                 <CardContainer>
                     <Card bottom='24px' />
                     <Card bottom='24px' />

@@ -5,11 +5,13 @@ interface CardProps {
     user: string
     top?: string | null
     bottom?: string | null
+    right?: string | null
+    left?: string | null
 }
 
 export const CardContainer = styled.div`
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 `
@@ -27,6 +29,8 @@ export const CardStyled = styled.div<CardProps>`
     overflow: hidden;
     margin-top: ${p => p.top && p.top};
     margin-bottom: ${p => p.bottom && p.bottom};
+    margin-right: ${p => p.right && p.right};
+    margin-left: ${p => p.left && p.left};
     .background{
         background: ${p => p.theme.colors.greenLinearOpacity};
         width: 100%;
