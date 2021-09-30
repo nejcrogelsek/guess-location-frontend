@@ -7,6 +7,7 @@ interface CardProps {
     bottom?: string | null
     right?: string | null
     left?: string | null
+    minwidth?: string | null
 }
 
 export const CardContainer = styled.div`
@@ -25,6 +26,7 @@ export const CardContainer = styled.div`
 
 export const CardStyled = styled.div<CardProps>`
     max-width: 420px;
+    min-width: ${p => p.minwidth && p.minwidth};
     width: 100%;
     height: 236px;
     display: flex;

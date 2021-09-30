@@ -6,12 +6,15 @@ import { ButtonGuess } from '../Button/styles';
 interface Props {
     top?: string
     bottom?: string
+    right?: string
+    left?: string
+    minwidth?: string
 }
 
-const Card: FC<Props> = ({ top, bottom }: Props) => {
+const Card: FC<Props> = ({ top, bottom, right, left, minwidth }: Props) => {
     const user = true;
     return (
-        <CardStyled user='true' bottom={bottom ? bottom : null} top={top ? top : null} image={NewYork}>
+        <CardStyled user='true' bottom={bottom ? bottom : null} top={top ? top : null} right={right ? right : null} left={left ? left : null} minwidth={minwidth ? minwidth : null} image={NewYork}>
             <div className="background">
                 {user ?
                     <>

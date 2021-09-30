@@ -30,4 +30,13 @@ export default createGlobalStyle`
     img{
         max-width: 100%;
     }
+    .slick-list{
+        padding: 0 !important;
+    }
+    .slick-track{
+        width: 9999px !important;
+    }
+    .slick-slide{
+        margin-right: 1rem;
+    }
 `

@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react'
 import { Content, ContentWrap, ImageContent } from '../../pages/Home/styles'
 import { LinkStyled } from '../shared/Button/styles'
-import { Container, H1, H2, P } from '../shared/Common/styles'
-import Slider from './Slider/Slider'
+import { Container, H1, P } from '../shared/Common/styles'
+import HomeSlider from './Slider'
 
 const HomeTop: FC = () => {
     const user = true;
@@ -28,9 +28,9 @@ const HomeTop: FC = () => {
                 user ?
                     <>
                         <Container>
-                            <H1 font='2.1875rem' bottom='1rem'>Personal best guesses</H1>
+                            <H1 font='2.1875rem' bottom='1rem' top='3.5rem'>Personal best guesses</H1>
                             <P bottom='2rem'>Your personal best guesses appear here. Go on and try to beat your personal records or set new!</P>
-                            <Slider />
+                            <HomeSlider />
                         </Container>
                     </> :
                     <>
