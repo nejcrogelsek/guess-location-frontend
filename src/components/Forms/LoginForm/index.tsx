@@ -3,7 +3,7 @@ import { FC, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { SignInData } from '../../../interfaces/auth.interface';
 import { Link, Redirect } from 'react-router-dom';
-import { FormButtonsWrap, FormControl, FormElement, FormErrorText, FormGoTo, FormLabel, LoginRegisterForm } from '../../shared/LoginRegister/styles';
+import { Form, FormButtonsWrap, FormControl, FormElement, FormErrorText, FormGoTo, FormLabel } from '../../shared/Form/styles';
 import { ButtonStyled } from '../../shared/Button/styles';
 
 const LoginForm: FC = () => {
@@ -15,7 +15,7 @@ const LoginForm: FC = () => {
     })
 
     return (
-        <LoginRegisterForm onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit}>
             <FormElement>
                 <FormLabel htmlFor='email'>Email</FormLabel>
                 <FormControl {...register('email', { required: 'Email is required' })} type='text' name='email' />
@@ -33,7 +33,7 @@ const LoginForm: FC = () => {
                 <p>Do you want to create an account?</p>
                 <Link to="/signup">Sign up</Link>
             </FormGoTo>
-        </LoginRegisterForm>
+        </Form>
     )
 }
 

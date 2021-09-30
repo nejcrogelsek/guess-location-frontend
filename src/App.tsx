@@ -16,7 +16,7 @@ const App: FC = () => {
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Register} />
           <PrivateRoute exact path='/me' component={Profile} />
-          <Route path='*' component={Home} />
+          <Route path='*' component={Profile} />
         </Switch>
       </Router>
     </ThemeProvider>

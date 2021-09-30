@@ -2,10 +2,9 @@ import { Avatar, } from '@material-ui/core';
 import { FC, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, Redirect } from 'react-router-dom';
-import axios from '../../../api/axios';
 import { SignUpData } from '../../../interfaces/auth.interface';
 import { ButtonStyled } from '../../shared/Button/styles';
-import { FormButtonsWrap, FormControl, FormElement, FormErrorText, FormGoTo, FormLabel, LoginRegisterForm } from '../../shared/LoginRegister/styles';
+import { Form, FormButtonsWrap, FormControl, FormElement, FormErrorText, FormGoTo, FormLabel } from '../../shared/Form/styles';
 
 const RegisterForm: FC = () => {
     const [file, setFile] = useState<File | null>(null);
@@ -25,9 +24,21 @@ const RegisterForm: FC = () => {
         }
     }
 
+    useEffect(() => {
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result as string);
+            }
+            reader.readAsDataURL(file);
+        } else {
+            setPreview(null);
+        }
+    }, [file])
+
     return (
         <>
-            <LoginRegisterForm onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit}>
                 <FormElement image='true'>
                     <FormLabel htmlFor='file' ><Avatar src={preview as string} /></FormLabel>
                     <FormControl type='file' accept='image/*' name='file' onChange={fileSelected} />
@@ -70,7 +81,7 @@ const RegisterForm: FC = () => {
                     <p>Already have an account?</p>
                     <Link to="/login">Sign in</Link>
                 </FormGoTo>
-            </LoginRegisterForm>
+            </Form>
         </>
     )
 }
