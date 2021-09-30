@@ -8,7 +8,7 @@ export const ProfileWrap = styled.div`
     ${p => p.theme.screens.large}{
         flex-direction: row;
         align-items: flex-start;
-        margin-bottom: 4rem;
+        margin: 1rem 0 4rem;
     }
 `
 interface ProfileBoxProps {
