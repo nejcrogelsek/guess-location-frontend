@@ -30,6 +30,19 @@ const HomeBottom: FC = () => {
                     <Card bottom='24px' />
                     <Card bottom='24px' />
                     <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
+                    <Card bottom='24px' />
                 </CardContainer>
                 <LinkStyled to='signup' center='center' bottom='3rem' top='18px'>Sign up</LinkStyled>
             </Container>

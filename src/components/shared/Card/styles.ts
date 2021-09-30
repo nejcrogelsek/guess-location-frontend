@@ -14,6 +14,13 @@ export const CardContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    ${p => p.theme.screens.large}{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    ${p => p.theme.screens.xxlarge}{
+        justify-content: flex-start;
+    }
 `
 
 export const CardStyled = styled.div<CardProps>`
@@ -31,6 +38,22 @@ export const CardStyled = styled.div<CardProps>`
     margin-bottom: ${p => p.bottom && p.bottom};
     margin-right: ${p => p.right && p.right};
     margin-left: ${p => p.left && p.left};
+    ${p => p.theme.screens.large}{
+        &:nth-child(2n+0) {
+            margin: 0 0 24px 1rem;
+        }
+    }
+    ${p => p.theme.screens.xxlarge}{
+        &:nth-child(2n+0) {
+            margin: 0 0 24px;
+        }
+        &:nth-child(3n+2) {
+            margin: 0 1rem 24px;
+        }
+        &:nth-child(3n) {
+            flex: 1 1;
+        }
+    }
     .background{
         background: ${p => p.theme.colors.greenLinearOpacity};
         width: 100%;
