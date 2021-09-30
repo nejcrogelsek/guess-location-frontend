@@ -4,7 +4,7 @@ import AddImageForm from '../../components/Forms/AddImageForm'
 import UpdateProfileForm from '../../components/Forms/UpdateProfileForm'
 import Header from '../../components/Header'
 import Card from '../../components/shared/Card'
-import { Container } from '../../components/shared/Container/styles'
+import { Container } from '../../components/shared/Common/styles'
 import { ProfileBox, ProfileWrap } from './styles'
 
 const Profile: FC = () => {
