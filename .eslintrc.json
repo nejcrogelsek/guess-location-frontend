@@ -7,7 +7,8 @@
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
-		"plugin:@typescript-eslint/recommended"
+		"plugin:@typescript-eslint/recommended",
+		"plugin:prettier/recommended"
 	],
 	"parser": "@typescript-eslint/parser",
 	"settings": {
@@ -28,7 +29,6 @@
 		"indent": "off",
 		"linebreak-style": 0,
 		"quotes": ["error", "single"],
-		"semi": ["error", "never"],
-		"prettier/prettier": 0
+		"semi": ["error", "never"]
 	}
 }
