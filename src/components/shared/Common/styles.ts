@@ -7,28 +7,35 @@ export const Container = styled.div`
     padding: 0 2rem;
 `
 
-interface TitleProps {
-    textCenter?: string | null;
+interface TextProps {
+    textCenter?: string
+    size?: string
+    top?: string
+    bottom?: string
 }
-export const TitleH1 = styled.div<TitleProps>`
-    font-size: 2.1875rem;
+export const H1 = styled.h1<TextProps>`
+    font-size: ${p => p.size ? '2.1875rem' : '1.5rem'};
     color: ${p => p.theme.colors.green};
     letter-spacing: 0.25px;
     text-align: ${p => p.textCenter ? 'center' : 'left'};
     font-weight: 400;
+    margin-top: ${p => p.top && p.top};
+    margin-bottom: ${p => p.bottom && p.bottom};
 `
-export const TitleH2 = styled.div<TitleProps>`
-    font-size: 2.1875rem;
+export const H2 = styled.h2<TextProps>`
+    font-size: ${p => p.size ? '2.1875rem' : '1.5rem'};
     color: ${p => p.theme.colors.green};
     letter-spacing: 0.25px;
     text-align: ${p => p.textCenter ? 'center' : 'left'};
     font-weight: 400;
+    margin-top: ${p => p.top && p.top};
+    margin-bottom: ${p => p.bottom && p.bottom};
 `
-export const TitleH2Small = styled.div<TitleProps>`
-    font-size: 1.5rem;
-    color: ${p => p.theme.colors.green};
-    letter-spacing: 0.25px;
+export const P = styled.p<TextProps>`
+    font-size: 1rem;
+    color: ${p => p.theme.colors.dark};
     text-align: ${p => p.textCenter ? 'center' : 'left'};
-    font-weight: 400;
+    margin-top: ${p => p.top && p.top};
+    margin-bottom: ${p => p.bottom && p.bottom};
 `
 

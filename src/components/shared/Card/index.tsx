@@ -3,10 +3,15 @@ import { CardStyled } from './styles'
 import NewYork from '../../../assets/images/new-york.jpg'
 import { ButtonGuess } from '../Button/styles';
 
-const Card: FC = () => {
+interface Props {
+    top?: string
+    bottom?: string
+}
+
+const Card: FC<Props> = ({ top, bottom }: Props) => {
     const user = true;
     return (
-        <CardStyled user='true' image={NewYork}>
+        <CardStyled user='true' bottom={bottom ? bottom : null} top={top ? top : null} image={NewYork}>
             <div className="background">
                 {user ?
                     <>

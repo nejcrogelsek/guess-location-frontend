@@ -3,7 +3,16 @@ import styled from "styled-components";
 interface CardProps {
     image: string
     user: string
+    top?: string | null
+    bottom?: string | null
 }
+
+export const CardContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+`
 
 export const CardStyled = styled.div<CardProps>`
     max-width: 420px;
@@ -16,6 +25,8 @@ export const CardStyled = styled.div<CardProps>`
     background-position: center;
     border-radius: 1rem;
     overflow: hidden;
+    margin-top: ${p => p.top && p.top};
+    margin-bottom: ${p => p.bottom && p.bottom};
     .background{
         background: ${p => p.theme.colors.greenLinearOpacity};
         width: 100%;
