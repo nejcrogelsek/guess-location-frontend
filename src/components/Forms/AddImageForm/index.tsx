@@ -1,16 +1,14 @@
-import { Avatar, } from '@material-ui/core';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { SignUpData } from '../../../interfaces/auth.interface';
-import { CurrentUserName } from '../../../pages/Profile/styles';
 import { ButtonStyled } from '../../shared/Button/styles';
-import { Form, FormButtonsWrap, FormControl, FormControlSecondary, FormElement, FormElementImageUpload, FormErrorText, FormImagePlaceholder, FormLabel } from '../../shared/Form/styles';
+import { Form, FormButtonsWrap, FormControl, FormControlSecondary, FormElement, FormElementImageUpload, FormErrorText, FormImagePlaceholder, FormLabel, FormMapWrapper, FormTextArea } from '../../shared/Form/styles';
 import ImagePlaceholder from '../../../assets/images/image-placeholder.png'
+import { LocationFormData } from '../../../interfaces/location.interface';
 
 const AddImageForm: FC = () => {
     const [file, setFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<SignUpData>();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<LocationFormData>();
     const onSubmit = handleSubmit((data) => {
         console.log(data)
         reset()
@@ -51,29 +49,18 @@ const AddImageForm: FC = () => {
                     </FormLabel>
                     <FormControl type='file' accept='image/*' name='file' onChange={fileSelected} />
                 </FormElementImageUpload>
-                <CurrentUserName>John Doe</CurrentUserName>
                 <FormElement>
-                    <FormLabel htmlFor='first_name' >First Name</FormLabel>
-                    <FormControlSecondary {...register('first_name', { required: 'First name is required' })} type='text' name='first_name' />
-                    {errors.first_name && <FormErrorText>{errors.first_name.message}</FormErrorText>}
+                    <FormMapWrapper>
+
+                    </FormMapWrapper>
                 </FormElement>
                 <FormElement>
-                    <FormLabel htmlFor='last_name' >Last Name</FormLabel>
-                    <FormControlSecondary {...register('last_name', { required: 'Last name is required' })} type='text' name='last_name' />
-                    {errors.last_name && <FormErrorText>{errors.last_name.message}</FormErrorText>}
-                </FormElement>
-                <FormElement>
-                    <FormLabel htmlFor='email' >Email</FormLabel>
-                    <FormControlSecondary {...register('email', { required: 'Email is required' })} type='email' name='email' />
-                    {errors.email && <FormErrorText>{errors.email.message}</FormErrorText>}
-                </FormElement>
-                <FormElement>
-                    <FormLabel htmlFor='password' >Password</FormLabel>
-                    <FormControlSecondary {...register('password', { required: 'Password is required', pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/ })} type='password' name='password' />
-                    {errors.password && <FormErrorText>{errors.password.message}</FormErrorText>}
+                    <FormLabel htmlFor='location' >Location</FormLabel>
+                    <FormTextArea {...register('location', { required: 'Location is required' })} name='location' ></FormTextArea>
+                    {errors.location && <FormErrorText>{errors.location.message}</FormErrorText>}
                 </FormElement>
                 <FormButtonsWrap>
-                    <ButtonStyled size='full' color='green' type='submit'>Save profile</ButtonStyled>
+                    <ButtonStyled size='full' color='green' type='submit'>Add place</ButtonStyled>
                 </FormButtonsWrap>
             </Form>
         </>

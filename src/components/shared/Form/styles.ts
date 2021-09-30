@@ -56,7 +56,7 @@ export const FormElement = styled.div<FormElementProps>`
       ` : null}
 `
 export const FormControl = styled.input`
-  border-radius: 32px;
+  border-radius: 2rem;
   border: 2px solid ${p => p.theme.colors.green};
   padding: 8px 30px 8px 24px;
   height: 40px;
@@ -67,12 +67,22 @@ export const FormControl = styled.input`
   }
 `
 export const FormControlSecondary = styled.input`
-  border-radius: 32px;
+  border-radius: 2rem;
   border: none;
   padding: 8px 30px 8px 24px;
   height: 40px;
   width: 100%;
   margin-top: 0.5rem;
+  box-shadow: 0px 0px 8px ${p => p.theme.colors.shadow};
+`
+export const FormTextArea = styled.textarea`
+  border-radius: 1rem;
+  border: none;
+  padding: 8px 30px 8px 24px;
+  width: 100%;
+  height: 4rem;
+  margin-top: 1rem;
+  resize: none;
   box-shadow: 0px 0px 8px ${p => p.theme.colors.shadow};
 `
 export const FormButtonsWrap = styled.div`
@@ -90,7 +100,7 @@ export const FormElementImageUpload = styled.div`
   > input[type="file"] {
     position: absolute;
     left: 0;
-    top: 15px;
+    top: 30px;
     z-index: 10;
     opacity: 0;
     width: 100%;
@@ -106,7 +116,7 @@ export const FormElementImageUpload = styled.div`
   }
   >label{
     &.second{
-      margin-top: 0.5rem;
+      margin-top: 1rem;
       height: 215px;
     }
   }
@@ -117,7 +127,14 @@ export const FormImagePlaceholder = styled.div`
     width: 100%;
     height: 100%;
     object-fit: contain;
+    border-radius: 1rem;
   }
+`
+export const FormMapWrapper = styled.div`
+  height: 255px;
+  width: 100%;
+  background: grey;
+  border-radius: 1rem;
 `
 export const FormErrorText = styled.span`
   font-size: 0.75rem;

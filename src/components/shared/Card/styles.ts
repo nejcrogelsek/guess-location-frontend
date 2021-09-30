@@ -14,6 +14,8 @@ export const CardStyled = styled.div<CardProps>`
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    border-radius: 1rem;
+    overflow: hidden;
     .background{
         background: ${p => p.theme.colors.greenLinearOpacity};
         width: 100%;
