@@ -5,14 +5,14 @@ import HomeBottom from '../../components/Home/HomeBottom'
 import HomeTop from '../../components/Home/HomeTop'
 
 const Home: FC = () => {
-    return (
-        <>
-            <Header />
-            <HomeTop />
-            <HomeBottom />
-            <Footer />
-        </>
-    )
+	return (
+		<>
+			<Header />
+			<HomeTop />
+			<HomeBottom />
+			<Footer />
+		</>
+	)
 }
 
 export default Home

@@ -8,27 +8,27 @@ import { Container } from '../../components/shared/Common/styles'
 import { ProfileBox, ProfileWrap } from './styles'
 
 const Profile: FC = () => {
-    return (
-        <>
-            <Header />
-            <Container>
-                <ProfileWrap>
-                    <ProfileBox shadow='true'>
-                        <UpdateProfileForm />
-                    </ProfileBox>
-                    <ProfileBox shadow='true'>
-                        <AddImageForm />
-                    </ProfileBox>
-                    <ProfileBox>
-                        <Card />
-                        <Card />
-                        <Card />
-                    </ProfileBox>
-                </ProfileWrap>
-            </Container>
-            <Footer />
-        </>
-    )
+	return (
+		<>
+			<Header />
+			<Container>
+				<ProfileWrap>
+					<ProfileBox shadow='true'>
+						<UpdateProfileForm />
+					</ProfileBox>
+					<ProfileBox shadow='true'>
+						<AddImageForm />
+					</ProfileBox>
+					<ProfileBox>
+						<Card />
+						<Card />
+						<Card />
+					</ProfileBox>
+				</ProfileWrap>
+			</Container>
+			<Footer />
+		</>
+	)
 }
 
 export default Profile
