@@ -40,7 +40,7 @@ Registered users then try to guess where the image was taken by placing a pin on
 - Swagger
 - Trello
 
-[Back To The Top](#Quotastic)
+[Back To The Top](#Geotagger)
 
 ---
 
@@ -78,7 +78,7 @@ $ yarn build
 - Github - [@nejcrogelsek](https://github.com/nejcrogelsek)
 - Website - [Nejc Rogelšek](https://nejcrogelsek.si)
 
-[Back To The Top](#Quotastic)
+[Back To The Top](#Geotagger)
 
 ---
 
@@ -94,7 +94,7 @@ platform), but any other reproduction and distribution of the
 assignment itself or the assignment’s solutions without written
 permission of XYZ is prohibited.
 
-[Back To The Top](#Quotastic)
+[Back To The Top](#Geotagger)
 
 ---
 
@@ -104,4 +104,4 @@ permission of XYZ is prohibited.
 - Github - [@nejcrogelsek](https://github.com/nejcrogelsek)
 - Website - [Nejc Rogelšek](https://nejcrogelsek.si)
 
-[Back To The Top](#Quotastic)
+[Back To The Top](#Geotagger)
