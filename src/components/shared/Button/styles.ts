@@ -18,10 +18,11 @@ export const ButtonStyled = styled.button<Props>`
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     font-size: 1rem;
+    display: block;
     text-align: ${p => p.center && p.center};
     cursor: pointer;
     height: 40px;
-    margin: ${p => p.center && '0 auto'};
+    margin: ${p => p.center && p.center === 'center' ? '0 auto' : '0'};
     margin-top: ${p => p.top && p.top};
     margin-bottom: ${p => p.bottom && p.bottom};
     &:hover{
