@@ -14,14 +14,6 @@ import {
 const Header: FC = () => {
 	const [isMobile, setIsMobile] = useState(true)
 	const [toggle, setToggle] = useState(false)
-	const userr: IUser | null = {
-		id: 1,
-		email: 'nejc@gmail.com',
-		first_name: 'Nejc',
-		last_name: 'Rogla',
-		profile_image: 'undefined',
-	}
-	const user = null
 
 	const checkIfMobile = () => {
 		if (window.innerWidth < 992) {
@@ -65,9 +57,9 @@ const Header: FC = () => {
 						</MenuButtonOpen>
 					</NavButtons>
 					{isMobile ? (
-						<MobileNav user={user} toggleNav={toggleNav} toggle={toggle} />
+						<MobileNav toggleNav={toggleNav} toggle={toggle} />
 					) : (
-						<DesktopNav user={user} />
+						<DesktopNav />
 					)}
 				</NavContainer>
 			</Navbar>

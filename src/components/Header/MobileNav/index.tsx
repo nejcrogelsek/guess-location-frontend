@@ -1,18 +1,17 @@
 import { Avatar } from '@material-ui/core'
+import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
-import { IUser } from '../../../interfaces/user.interface'
 import userStore from '../../../stores/user.store'
 import { LinkStyled } from '../../shared/Button/styles'
 import { MenuButtonClose, NavMobile, NavButtons, NavbarNav } from '../styles'
 
 interface Props {
-	user: IUser | null
 	toggleNav: () => void
 	toggle: boolean
 }
 
-const MobileNav: FC<Props> = ({ user, toggleNav, toggle }: Props) => {
+const MobileNav: FC<Props> = ({ toggleNav, toggle }: Props) => {
 	const history = useHistory()
 
 	const signout = () => {
@@ -38,12 +37,12 @@ const MobileNav: FC<Props> = ({ user, toggleNav, toggle }: Props) => {
 						</svg>
 					</MenuButtonClose>
 				</NavButtons>
-				<NavbarNav isAuth={user ? 'isAuth' : null}>
-					{user ? (
+				<NavbarNav isAuth={userStore.user && 'isAuth'}>
+					{userStore.user ? (
 						<>
 							<li className='nav-item user-item'>
 								<NavLink to='/me' onClick={() => toggleNav()}>
-									<Avatar src={user.profile_image} />
+									<Avatar src={userStore.user.profile_image} />
 									<span className='auth-user'>John Scott</span>
 								</NavLink>
 							</li>
@@ -120,4 +119,4 @@ const MobileNav: FC<Props> = ({ user, toggleNav, toggle }: Props) => {
 	)
 }
 
-export default MobileNav
+export default observer(MobileNav)

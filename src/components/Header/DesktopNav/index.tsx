@@ -1,16 +1,12 @@
 import { Avatar } from '@material-ui/core'
+import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
-import { IUser } from '../../../interfaces/user.interface'
 import userStore from '../../../stores/user.store'
 import { LinkStyled } from '../../shared/Button/styles'
 import { NavbarNav } from '../styles'
 
-interface Props {
-	user: IUser | null
-}
-
-const DesktopNav: FC<Props> = ({ user }: Props) => {
+const DesktopNav: FC = () => {
 	const history = useHistory()
 
 	const signout = () => {
@@ -20,8 +16,8 @@ const DesktopNav: FC<Props> = ({ user }: Props) => {
 	}
 
 	return (
-		<NavbarNav isAuth={user ? 'isAuth' : null}>
-			{user ? (
+		<NavbarNav isAuth={userStore.user && 'isAuth'}>
+			{userStore.user ? (
 				<>
 					<li className='nav-item'>
 						<NavLink className='nav-link' to='/'>
@@ -44,7 +40,7 @@ const DesktopNav: FC<Props> = ({ user }: Props) => {
 					</li>
 					<li className='nav-item user-item'>
 						<NavLink to='/me'>
-							<Avatar src={user.profile_image} />
+							<Avatar src={userStore.user.profile_image} />
 						</NavLink>
 					</li>
 				</>
@@ -65,4 +61,4 @@ const DesktopNav: FC<Props> = ({ user }: Props) => {
 	)
 }
 
-export default DesktopNav
+export default observer(DesktopNav)
