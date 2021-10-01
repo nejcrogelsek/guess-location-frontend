@@ -25,15 +25,6 @@ const DesktopNav: FC = () => {
 						</NavLink>
 					</li>
 					<li className='nav-item'>
-						<button
-							className='nav-link'
-							type='button'
-							data-bs-toggle='modal'
-							data-bs-target='#settingsModal'>
-							<span>Settings</span>
-						</button>
-					</li>
-					<li className='nav-item'>
 						<button onClick={() => signout()} className='nav-link'>
 							<span>Logout</span>
 						</button>

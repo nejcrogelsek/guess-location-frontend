@@ -90,7 +90,7 @@ const RegisterForm: FC = () => {
 		}
 	}, [file])
 
-	if (userStore) {
+	if (userStore.user) {
 		return <Redirect to='/me' />
 	}
 

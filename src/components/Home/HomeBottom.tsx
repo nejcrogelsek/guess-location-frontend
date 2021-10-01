@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react'
+import userStore from '../../stores/user.store'
 import { ButtonStyled, LinkStyled } from '../shared/Button/styles'
 import Card from '../shared/Card'
 import { CardContainer } from '../shared/Card/styles'
 import { Container, H2, P } from '../shared/Common/styles'
 
 const HomeBottom: FC = () => {
-	const user = true
 	const [isMobile, setIsMobile] = useState(true)
 	const checkIfMobile = () => {
 		if (window.innerWidth < 992) {
@@ -25,7 +25,7 @@ const HomeBottom: FC = () => {
 	return (
 		<>
 			<Container>
-				{user ? (
+				{userStore.user ? (
 					<>
 						<H2 font='2.1875rem' top='4rem' bottom='1rem'>
 							New uploads

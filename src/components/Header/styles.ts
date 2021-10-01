@@ -131,6 +131,7 @@ export const NavbarNav = styled.div<NavbarNavProps>`
 		align-items: center;
 		flex-direction: row;
 		> li {
+			margin: 0 2rem 0 !important;
 			&.login {
 				margin: 0;
 				width: max-content;

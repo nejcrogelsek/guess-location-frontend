@@ -9,7 +9,6 @@ import {
 	NavButtons,
 	NavContainer,
 } from './styles'
-import { observer } from 'mobx-react-lite'
 
 const Header: FC = () => {
 	const [isMobile, setIsMobile] = useState(true)
@@ -68,4 +67,4 @@ const Header: FC = () => {
 	)
 }
 
-export default observer(Header)
+export default Header

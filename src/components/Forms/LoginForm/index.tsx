@@ -44,7 +44,7 @@ const LoginForm: FC = () => {
 		}
 	}
 
-	if (userStore) {
+	if (userStore.user) {
 		return <Redirect to='/me' />
 	}
 

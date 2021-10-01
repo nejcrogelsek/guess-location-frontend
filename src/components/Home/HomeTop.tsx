@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react'
 import { Content, ContentWrap, ImageContent } from '../../pages/Home/styles'
+import userStore from '../../stores/user.store'
 import { LinkStyled } from '../shared/Button/styles'
 import { Container, H1, P } from '../shared/Common/styles'
 import HomeSlider from './Slider'
 
 const HomeTop: FC = () => {
-	const user = true
 	const [isMobile, setIsMobile] = useState(true)
 	const checkIfMobile = () => {
 		if (window.innerWidth < 992) {
@@ -24,7 +24,7 @@ const HomeTop: FC = () => {
 	}, [])
 	return (
 		<>
-			{user ? (
+			{userStore.user ? (
 				<>
 					<Container>
 						<H1 font='2.1875rem' bottom='1rem' top='3.5rem'>

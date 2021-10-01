@@ -22,6 +22,9 @@ export const ProfileBox = styled.div<ProfileBoxProps>`
 	border-radius: 2rem;
 	width: 100%;
 	max-width: 420px;
+	> div{
+		margin: 0 0 24px !important;
+	}
 	${(p) =>
 		p.shadow
 			? null

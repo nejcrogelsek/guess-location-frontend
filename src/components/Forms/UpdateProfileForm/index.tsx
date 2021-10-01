@@ -1,8 +1,10 @@
 import { Avatar } from '@material-ui/core'
+import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { SignUpData } from '../../../interfaces/auth.interface'
 import { CurrentUserName } from '../../../pages/Profile/styles'
+import userStore from '../../../stores/user.store'
 import { ButtonStyled } from '../../shared/Button/styles'
 import {
 	Form,
@@ -64,7 +66,10 @@ const UpdateProfileForm: FC = () => {
 							onChange={fileSelected}
 						/>
 					</FormElement>
-					<CurrentUserName>John Doe</CurrentUserName>
+					<CurrentUserName>
+						{userStore.user && userStore.user.first_name}{' '}
+						{userStore.user && userStore.user.last_name}
+					</CurrentUserName>
 					<FormElement>
 						<FormLabel htmlFor='first_name'>First Name</FormLabel>
 						<FormControlSecondary
@@ -121,4 +126,4 @@ const UpdateProfileForm: FC = () => {
 	)
 }
 
-export default UpdateProfileForm
+export default observer(UpdateProfileForm)
