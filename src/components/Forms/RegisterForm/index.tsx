@@ -150,7 +150,7 @@ const RegisterForm: FC = () => {
 					<FormControl
 						{...register('password', {
 							required: 'Password is required',
-							pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+							min: 6,
 						})}
 						type='password'
 						name='password'
@@ -164,7 +164,7 @@ const RegisterForm: FC = () => {
 					<FormControl
 						{...register('confirm_password', {
 							required: 'Please confirm password',
-							pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+							min: 6,
 						})}
 						type='password'
 						name='confirm_password'

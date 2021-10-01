@@ -150,7 +150,7 @@ const UpdateProfileForm: FC = () => {
 						<FormControlSecondary
 							{...register('password', {
 								required: false,
-								pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+								min: 6,
 							})}
 							type='password'
 							name='password'
