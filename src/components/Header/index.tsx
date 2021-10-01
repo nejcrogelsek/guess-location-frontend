@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import MobileNav from './MobileNav'
 import DesktopNav from './DesktopNav'
-import { UserData } from '../../interfaces/user.interface'
+import { IUser } from '../../interfaces/user.interface'
 import { Logo } from '../shared/Logo/styles'
 import {
 	MenuButtonOpen,
@@ -14,7 +14,7 @@ import {
 const Header: FC = () => {
 	const [isMobile, setIsMobile] = useState(true)
 	const [toggle, setToggle] = useState(false)
-	const userr: UserData | null = {
+	const userr: IUser | null = {
 		id: 1,
 		email: 'nejc@gmail.com',
 		first_name: 'Nejc',

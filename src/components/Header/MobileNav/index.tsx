@@ -1,12 +1,12 @@
 import { Avatar } from '@material-ui/core'
 import { FC } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
-import { UserData } from '../../../interfaces/user.interface'
+import { IUser } from '../../../interfaces/user.interface'
 import { LinkStyled } from '../../shared/Button/styles'
 import { MenuButtonClose, NavMobile, NavButtons, NavbarNav } from '../styles'
 
 interface Props {
-	user: UserData | null
+	user: IUser | null
 	toggleNav: () => void
 	toggle: boolean
 }

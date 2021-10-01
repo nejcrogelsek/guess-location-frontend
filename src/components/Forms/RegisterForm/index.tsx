@@ -1,8 +1,11 @@
 import { Avatar } from '@material-ui/core'
-import { FC, useContext, useEffect, useState } from 'react'
+import axios from '../../../api/axios'
+import { observer } from 'mobx-react-lite'
+import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, Redirect } from 'react-router-dom'
 import { SignUpData } from '../../../interfaces/auth.interface'
+import userStore from '../../../stores/user.store'
 import { ButtonStyled } from '../../shared/Button/styles'
 import {
 	Form,
@@ -23,10 +26,49 @@ const RegisterForm: FC = () => {
 		formState: { errors },
 		reset,
 	} = useForm<SignUpData>()
+
 	const onSubmit = handleSubmit((data) => {
-		console.log(data)
+		signup(data)
 		reset()
 	})
+
+	const signup = async (createUserDto: SignUpData) => {
+		try {
+			if (createUserDto.password === createUserDto.confirm_password) {
+				// get secure url from our server
+				if (file !== null) {
+					const { data } = await axios.get('users/upload')
+
+					await axios.put(data.url, file, {
+						headers: { 'Content-Type': 'multipart/form-data' },
+					})
+					const imageUrl = data.url.split('?')
+
+					const finalData = {
+						profile_image: imageUrl[0],
+						email: createUserDto.email,
+						first_name: createUserDto.first_name,
+						last_name: createUserDto.last_name,
+						password: createUserDto.password,
+						confirm_password: createUserDto.confirm_password,
+					}
+					await axios.post('/auth/register', finalData).then(async (res) => {
+						userStore.register(res.data.user)
+						localStorage.setItem('user', res.data.access_token)
+						console.log('Register worked')
+					})
+				} else {
+					alert('You need to upload a profile image.')
+				}
+			} else {
+				alert(
+					'Passwords do not match. Password must have at least 1 upper & lower case letter, 1 number or special character and it must be long more than 5 characters.'
+				)
+			}
+		} catch (err) {
+			console.log('ERROR MESSAGE:', err)
+		}
+	}
 
 	const fileSelected = async (e: any) => {
 		const file = e.target.files[0]
@@ -48,6 +90,10 @@ const RegisterForm: FC = () => {
 			setPreview(null)
 		}
 	}, [file])
+
+	if (userStore.user) {
+		return <Redirect to='/me' />
+	}
 
 	return (
 		<>
@@ -142,4 +188,4 @@ const RegisterForm: FC = () => {
 	)
 }
 
-export default RegisterForm
+export default observer(RegisterForm)
