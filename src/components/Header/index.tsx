@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import MobileNav from './MobileNav'
 import DesktopNav from './DesktopNav'
-import { IUser } from '../../interfaces/user.interface'
 import { Logo } from '../shared/Logo/styles'
 import {
 	MenuButtonOpen,
@@ -10,6 +9,7 @@ import {
 	NavButtons,
 	NavContainer,
 } from './styles'
+import { observer } from 'mobx-react-lite'
 
 const Header: FC = () => {
 	const [isMobile, setIsMobile] = useState(true)
@@ -68,4 +68,4 @@ const Header: FC = () => {
 	)
 }
 
-export default Header
+export default observer(Header)

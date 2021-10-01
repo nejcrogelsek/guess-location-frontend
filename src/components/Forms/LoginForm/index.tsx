@@ -1,5 +1,5 @@
 import axios from '../../../api/axios'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { SignInData } from '../../../interfaces/auth.interface'
 import { Link, Redirect } from 'react-router-dom'
@@ -13,6 +13,8 @@ import {
 	FormLabel,
 } from '../../shared/Form/styles'
 import { ButtonStyled } from '../../shared/Button/styles'
+import userStore from '../../../stores/user.store'
+import { observer } from 'mobx-react-lite'
 
 const LoginForm: FC = () => {
 	const {
@@ -23,9 +25,28 @@ const LoginForm: FC = () => {
 	} = useForm<SignInData>()
 
 	const onSubmit = handleSubmit((data) => {
-		console.log(data)
+		signin(data)
 		reset()
 	})
+
+	const signin = async (data: SignInData) => {
+		try {
+			const repairedData = {
+				username: data.email,
+				password: data.password,
+			}
+			await axios.post('/auth/login', repairedData).then((res) => {
+				userStore.login(res.data.user)
+				localStorage.setItem('user', res.data.access_token)
+			})
+		} catch (err) {
+			console.log('Error message:', err)
+		}
+	}
+
+	if (userStore) {
+		return <Redirect to='/me' />
+	}
 
 	return (
 		<Form onSubmit={onSubmit}>
@@ -62,4 +83,4 @@ const LoginForm: FC = () => {
 	)
 }
 
-export default LoginForm
+export default observer(LoginForm)

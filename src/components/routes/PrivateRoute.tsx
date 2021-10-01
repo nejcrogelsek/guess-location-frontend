@@ -1,18 +1,22 @@
-import { FC } from 'react'
-import { Route, Redirect, RouteProps } from 'react-router-dom'
+import React, { FC } from 'react'
+import {
+	Route,
+	Redirect,
+	RouteProps,
+	RouteComponentProps,
+} from 'react-router-dom'
+import userStore from '../../stores/user.store'
 
 interface Props extends RouteProps {
-	component: any
+	component: FC<RouteComponentProps>
 }
 
 const PrivateRoute: FC<Props> = ({ component: Component, ...rest }) => {
-	const userValue = false
-
 	return (
 		<Route
 			{...rest}
 			render={(props) =>
-				userValue ? <Component {...props} /> : <Redirect to='/login' />
+				userStore.user ? <Component {...props} /> : <Redirect to='/login' />
 			}
 		/>
 	)

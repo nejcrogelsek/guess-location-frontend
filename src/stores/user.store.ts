@@ -1,5 +1,4 @@
 import { makeAutoObservable } from 'mobx'
-import axios from '../api/axios'
 import { IUser } from '../interfaces/user.interface'
 
 class UserStore {

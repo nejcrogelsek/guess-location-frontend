@@ -35,7 +35,6 @@ const RegisterForm: FC = () => {
 	const signup = async (createUserDto: SignUpData) => {
 		try {
 			if (createUserDto.password === createUserDto.confirm_password) {
-				// get secure url from our server
 				if (file !== null) {
 					const { data } = await axios.get('users/upload')
 
@@ -52,7 +51,7 @@ const RegisterForm: FC = () => {
 						password: createUserDto.password,
 						confirm_password: createUserDto.confirm_password,
 					}
-					await axios.post('/auth/register', finalData).then(async (res) => {
+					await axios.post('/auth/register', finalData).then((res) => {
 						userStore.register(res.data.user)
 						localStorage.setItem('user', res.data.access_token)
 						console.log('Register worked')
@@ -91,7 +90,7 @@ const RegisterForm: FC = () => {
 		}
 	}, [file])
 
-	if (userStore.user) {
+	if (userStore) {
 		return <Redirect to='/me' />
 	}
 
