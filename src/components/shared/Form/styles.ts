@@ -16,6 +16,21 @@ export const Form = styled.form`
 		}
 	}
 `
+export const FormValidation = styled.p`
+	color: #fff;
+	position: relative;
+	padding: 1rem;
+	background: red;
+	border-radius: 2rem;
+	margin: 0 0 1rem;
+	> svg{
+		cursor: pointer;
+		position: absolute;
+		right: 1rem;
+		top: 50%;
+		transform: translate(0,-50%) scale(2);
+	}
+`
 interface FormElementProps {
 	image?: string | null
 }
