@@ -41,7 +41,7 @@ const LoginForm: FC = () => {
 				userStore.login(res.data.user)
 				localStorage.setItem('user', res.data.access_token)
 			})
-		} catch (err: unknown) {
+		} catch (err) {
 			console.log(err)
 			if (err instanceof Error) {
 				setError(err.message)
