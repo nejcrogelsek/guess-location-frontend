@@ -34,8 +34,8 @@ const RegisterForm: FC = () => {
 
 	const signup = async (createUserDto: SignUpData) => {
 		try {
-			if (createUserDto.password === createUserDto.confirm_password) {
-				if (file !== null) {
+			if (file !== null) {
+				if (createUserDto.password === createUserDto.confirm_password) {
 					const { data } = await axios.get('users/upload')
 
 					await axios.put(data.url, file, {
@@ -57,15 +57,15 @@ const RegisterForm: FC = () => {
 						console.log('Register worked')
 					})
 				} else {
-					alert('You need to upload a profile image.')
+					alert(
+						'Passwords do not match. Password must have at least 1 upper & lower case letter, 1 number or special character and it must be long more than 5 characters.'
+					)
 				}
 			} else {
-				alert(
-					'Passwords do not match. Password must have at least 1 upper & lower case letter, 1 number or special character and it must be long more than 5 characters.'
-				)
+				alert('You need to upload a profile image.')
 			}
 		} catch (err) {
-			console.log('ERROR MESSAGE:', err)
+			console.log(err)
 		}
 	}
 

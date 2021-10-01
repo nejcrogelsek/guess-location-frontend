@@ -5,3 +5,11 @@ export type IUser = {
 	last_name: string
 	profile_image: string
 }
+
+export type UpdateUserDto = {
+	email: string
+	first_name: string
+	last_name: string
+	profile_image: string
+	password: string
+}

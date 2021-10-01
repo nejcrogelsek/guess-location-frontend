@@ -1,8 +1,8 @@
 import { Avatar } from '@material-ui/core'
+import axios from '../../../api/axios'
 import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { SignUpData } from '../../../interfaces/auth.interface'
 import { CurrentUserName } from '../../../pages/Profile/styles'
 import userStore from '../../../stores/user.store'
 import { ButtonStyled } from '../../shared/Button/styles'
@@ -15,6 +15,7 @@ import {
 	FormErrorText,
 	FormLabel,
 } from '../../shared/Form/styles'
+import { UpdateUserDto } from '../../../interfaces/user.interface'
 
 const UpdateProfileForm: FC = () => {
 	const [file, setFile] = useState<File | null>(null)
@@ -24,11 +25,51 @@ const UpdateProfileForm: FC = () => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<SignUpData>()
+	} = useForm<UpdateUserDto>()
 	const onSubmit = handleSubmit((data) => {
-		console.log(data)
+		updateUser(data)
 		reset()
 	})
+
+	const updateUser = async (updateUserDto: UpdateUserDto) => {
+		try {
+			let imageUrl: string[] | null = null
+			if (file !== null) {
+				const { data } = await axios.get('users/upload')
+
+				await axios.put(data.url, file, {
+					headers: { 'Content-Type': 'multipart/form-data' },
+				})
+				imageUrl = data.url.split('?')
+			}
+			let finalData
+			if (imageUrl) {
+				finalData = {
+					id: userStore.user!.id,
+					email: updateUserDto.email,
+					first_name: updateUserDto.first_name,
+					last_name: updateUserDto.last_name,
+					profile_image: imageUrl[0],
+					password: updateUserDto.password,
+				}
+			} else {
+				finalData = {
+					id: userStore.user!.id,
+					email: updateUserDto.email,
+					first_name: updateUserDto.first_name,
+					last_name: updateUserDto.last_name,
+					password: updateUserDto.password,
+				}
+			}
+
+			await axios.patch('/users/me/update', finalData).then((res) => {
+				userStore.update(res.data)
+			})
+		} catch (err) {
+			console.log(err)
+			alert(`Email: ${updateUserDto.email} already exist!`)
+		}
+	}
 
 	const fileSelected = async (e: any) => {
 		const file = e.target.files[0]
@@ -73,9 +114,10 @@ const UpdateProfileForm: FC = () => {
 					<FormElement>
 						<FormLabel htmlFor='first_name'>First Name</FormLabel>
 						<FormControlSecondary
-							{...register('first_name', { required: 'First name is required' })}
+							{...register('first_name', { required: false })}
 							type='text'
 							name='first_name'
+							placeholder={userStore.user!.first_name}
 						/>
 						{errors.first_name && (
 							<FormErrorText>{errors.first_name.message}</FormErrorText>
@@ -84,9 +126,10 @@ const UpdateProfileForm: FC = () => {
 					<FormElement>
 						<FormLabel htmlFor='last_name'>Last Name</FormLabel>
 						<FormControlSecondary
-							{...register('last_name', { required: 'Last name is required' })}
+							{...register('last_name', { required: false })}
 							type='text'
 							name='last_name'
+							placeholder={userStore.user!.last_name}
 						/>
 						{errors.last_name && (
 							<FormErrorText>{errors.last_name.message}</FormErrorText>
@@ -95,9 +138,10 @@ const UpdateProfileForm: FC = () => {
 					<FormElement>
 						<FormLabel htmlFor='email'>Email</FormLabel>
 						<FormControlSecondary
-							{...register('email', { required: 'Email is required' })}
-							type='email'
+							{...register('email', { required: false })}
+							type='text'
 							name='email'
+							placeholder={userStore.user!.email}
 						/>
 						{errors.email && <FormErrorText>{errors.email.message}</FormErrorText>}
 					</FormElement>
@@ -105,7 +149,7 @@ const UpdateProfileForm: FC = () => {
 						<FormLabel htmlFor='password'>Password</FormLabel>
 						<FormControlSecondary
 							{...register('password', {
-								required: 'Password is required',
+								required: false,
 								pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
 							})}
 							type='password'

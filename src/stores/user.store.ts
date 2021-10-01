@@ -16,6 +16,10 @@ class UserStore {
 		this.user = user
 	}
 
+	update(user: IUser) {
+		this.user = user
+	}
+
 	logout() {
 		this.user = null
 	}

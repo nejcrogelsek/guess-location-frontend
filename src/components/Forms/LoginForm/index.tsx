@@ -40,7 +40,7 @@ const LoginForm: FC = () => {
 				localStorage.setItem('user', res.data.access_token)
 			})
 		} catch (err) {
-			console.log('Error message:', err)
+			console.log(err)
 		}
 	}
 
