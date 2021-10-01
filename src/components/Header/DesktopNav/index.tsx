@@ -2,6 +2,7 @@ import { Avatar } from '@material-ui/core'
 import { FC } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { IUser } from '../../../interfaces/user.interface'
+import userStore from '../../../stores/user.store'
 import { LinkStyled } from '../../shared/Button/styles'
 import { NavbarNav } from '../styles'
 
@@ -13,6 +14,8 @@ const DesktopNav: FC<Props> = ({ user }: Props) => {
 	const history = useHistory()
 
 	const signout = () => {
+		localStorage.removeItem('user')
+		userStore.logout()
 		history.push('/')
 	}
 
