@@ -33,6 +33,9 @@ export const ButtonStyled = styled.button<Props>`
 	margin: ${(p) => (p.center && p.center === 'center' ? '0 auto' : '0')};
 	margin-top: ${(p) => p.top && p.top};
 	margin-bottom: ${(p) => p.bottom && p.bottom};
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	&:hover {
 		background: ${(p) =>
 			p.color && p.color === 'green' ? '#fff' : p.theme.colors.greenLinear};
@@ -70,6 +73,9 @@ export const LinkStyled = styled(Link)<Props>`
 	margin: ${(p) => (p.center && p.center === 'center' ? '0 auto' : '0')};
 	margin-top: ${(p) => p.top && p.top};
 	margin-bottom: ${(p) => p.bottom && p.bottom};
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	&:hover {
 		background: ${(p) =>
 			p.color && p.color === 'green' ? '#fff' : p.theme.colors.greenLinear};
@@ -96,6 +102,9 @@ export const ButtonGuess = styled.button`
 	border-radius: 2rem;
 	font-size: 1rem;
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	&:hover {
 		background: ${(p) => p.theme.colors.dark};
 		color: #fff;

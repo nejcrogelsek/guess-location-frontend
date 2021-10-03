@@ -1,6 +1,6 @@
 export interface LocationFormData {
-	lat: number,
-	long: number
+	lat: string,
+	long: string
 	location_image: string
 	address: string
 }
@@ -13,6 +13,6 @@ export interface LocationData {
 	}
 }
 export interface IGuessLocation{
-	lat: number
-	lng: number
+	lat: string
+	lng: string
 }
