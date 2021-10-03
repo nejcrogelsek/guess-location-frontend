@@ -8,6 +8,7 @@ import { Home, Login, Profile, Register } from './pages'
 import { observer } from 'mobx-react-lite'
 import userStore from './stores/user.store'
 import axios from './api/axios'
+import locationStore from './stores/location.store'
 
 const App: FC = () => {
 	const checkIfAccessTokenExists = async () => {
@@ -42,11 +43,13 @@ const App: FC = () => {
 		}
 	}
 
-	function getPayload() {
+	const getPayload = () => {
 		const token: string = localStorage.getItem('user')!
 		return atob(token.split('.')[1])
 	}
+
 	useEffect(() => {
+		locationStore.getRecent()
 		checkIfAccessTokenExists()
 		const interval = setInterval(() => {
 			checkForRefreshToken()

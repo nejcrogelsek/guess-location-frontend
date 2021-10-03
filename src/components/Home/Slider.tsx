@@ -3,6 +3,8 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Card from '../shared/Card'
+import locationStore from '../../stores/location.store'
+import { observer } from 'mobx-react-lite'
 
 const HomeSlider: FC = () => {
 	const settings = {
@@ -34,11 +36,11 @@ const HomeSlider: FC = () => {
 	}
 	return (
 		<Slider {...settings}>
-			<Card />
-			<Card />
-			<Card />
+			{locationStore.recentLocations?.map((location) => (
+				<Card key={location.id} {...location} bottom='24px' />
+			))}
 		</Slider>
 	)
 }
 
-export default HomeSlider
+export default observer(HomeSlider)

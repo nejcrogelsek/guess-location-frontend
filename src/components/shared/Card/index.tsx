@@ -5,6 +5,7 @@ import { ButtonGuess } from '../Button/styles'
 import GuessLocationForm from '../../Forms/GuessLocationForm'
 import { motion } from 'framer-motion'
 import userStore from '../../../stores/user.store'
+import { LocationData } from '../../../interfaces/location.interface'
 
 interface Props {
 	top?: string
@@ -12,9 +13,29 @@ interface Props {
 	right?: string
 	left?: string
 	minwidth?: string
+	id: number
+	lat: number
+	long: number
+	city: string
+	location_image: string
+	user_id: number
+	created_at: Date
+	updated_at: Date
 }
 
-const Card: FC<Props> = ({ top, bottom, right, left, minwidth }: Props) => {
+const Card: FC<Props> = ({
+	top,
+	bottom,
+	right,
+	left,
+	minwidth,
+	id,
+	lat,
+	long,
+	city,
+	location_image,
+	user_id,
+}: Props) => {
 	const [modal, setModal] = useState(false)
 	return (
 		<>
@@ -25,7 +46,7 @@ const Card: FC<Props> = ({ top, bottom, right, left, minwidth }: Props) => {
 				right={right ? right : null}
 				left={left ? left : null}
 				minwidth={minwidth ? minwidth : null}
-				image={NewYork}>
+				image={location_image}>
 				<div className='background'>
 					{userStore.user ? (
 						<>
@@ -56,7 +77,7 @@ const Card: FC<Props> = ({ top, bottom, right, left, minwidth }: Props) => {
 						animate={{ opacity: 1, transform: 'translate(-50%,-50%)' }}
 						className='motion'>
 						<ModalWrapper shadow='true'>
-							<GuessLocationForm image={NewYork} />
+							<GuessLocationForm image={location_image} user_id={user_id} />
 						</ModalWrapper>
 					</motion.div>
 					<Backdrop onClick={() => setModal(false)}></Backdrop>

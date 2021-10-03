@@ -19,9 +19,10 @@ import ImagePlaceholder from '../../../assets/images/image-placeholder.png'
 
 interface Props {
 	image: string
+	user_id: number
 }
 
-const GuessLocationForm: FC<Props> = ({ image }: Props) => {
+const GuessLocationForm: FC<Props> = ({ image, user_id }: Props) => {
 	const {
 		register,
 		handleSubmit,

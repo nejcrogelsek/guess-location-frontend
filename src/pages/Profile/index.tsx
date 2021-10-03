@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import Footer from '../../components/Footer'
 import AddImageForm from '../../components/Forms/AddImageForm'
@@ -5,6 +6,7 @@ import UpdateProfileForm from '../../components/Forms/UpdateProfileForm'
 import Header from '../../components/Header'
 import Card from '../../components/shared/Card'
 import { Container } from '../../components/shared/Common/styles'
+import locationStore from '../../stores/location.store'
 import { ProfileBox, ProfileWrap } from './styles'
 
 const Profile: FC = () => {
@@ -20,9 +22,9 @@ const Profile: FC = () => {
 						<AddImageForm />
 					</ProfileBox>
 					<ProfileBox>
-						<Card />
-						<Card />
-						<Card />
+						{locationStore.recentLocations?.map((location) => (
+							<Card key={location.id} {...location} bottom='24px' />
+						))}
 					</ProfileBox>
 				</ProfileWrap>
 			</Container>
@@ -31,4 +33,4 @@ const Profile: FC = () => {
 	)
 }
 
-export default Profile
+export default observer(Profile)

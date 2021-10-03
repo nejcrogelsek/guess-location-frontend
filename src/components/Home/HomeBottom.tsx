@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
+import locationStore from '../../stores/location.store'
 import userStore from '../../stores/user.store'
 import { ButtonStyled, LinkStyled } from '../shared/Button/styles'
 import Card from '../shared/Card'
@@ -36,7 +37,9 @@ const HomeBottom: FC = () => {
 							picture.
 						</P>
 						<CardContainer>
-							<Card bottom='24px' />
+							{locationStore.recentLocations?.map((location) => (
+								<Card key={location.id} {...location} bottom='24px' />
+							))}
 						</CardContainer>
 						<ButtonStyled
 							color='white'
@@ -60,7 +63,9 @@ const HomeBottom: FC = () => {
 							you guess it, it gives you the error distance.
 						</P>
 						<CardContainer>
-							<Card bottom='24px' />
+							{locationStore.recentLocations?.map((location) => (
+								<Card key={location.id} {...location} bottom='24px' />
+							))}
 						</CardContainer>
 						<LinkStyled to='signup' center='center' bottom='3rem' top='18px'>
 							Sign up
