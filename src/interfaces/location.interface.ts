@@ -2,7 +2,7 @@ export interface LocationFormData {
 	lat: number,
 	long: number
 	location_image: string
-	city: string
+	address: string
 }
 export interface LocationData {
 	location_image: string

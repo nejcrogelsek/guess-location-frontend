@@ -98,9 +98,9 @@ const AddImageForm: FC = () => {
 					<FormLabel htmlFor='location'>Location</FormLabel>
 					<FormTextArea
 						className='reg-input-city'
-						{...register('city', { required: 'City is required' })}
+						{...register('address', { required: 'Address is required' })}
 						name='location'></FormTextArea>
-					{errors.city && <FormErrorText>{errors.city.message}</FormErrorText>}
+					{errors.address && <FormErrorText>{errors.address.message}</FormErrorText>}
 				</FormElement>
 				<FormButtonsWrap>
 					<ButtonStyled size='full' color='green' type='submit'>
