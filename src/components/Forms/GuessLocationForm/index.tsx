@@ -10,7 +10,6 @@ import {
 	FormControl,
 	FormControlSecondary,
 	FormElement,
-	FormErrorText,
 	FormImagePlaceholder,
 	FormLabel,
 	FormMapWrapper,
@@ -18,7 +17,11 @@ import {
 import { IGuessLocation } from '../../../interfaces/location.interface'
 import ImagePlaceholder from '../../../assets/images/image-placeholder.png'
 
-const GuessLocationForm: FC = () => {
+interface Props {
+	image: string
+}
+
+const GuessLocationForm: FC<Props> = ({ image }: Props) => {
 	const {
 		register,
 		handleSubmit,
@@ -26,11 +29,11 @@ const GuessLocationForm: FC = () => {
 		reset,
 	} = useForm<IGuessLocation>()
 	const onSubmit = handleSubmit((data) => {
-		updateUser(data)
+		addGuess(data)
 		reset()
 	})
 
-	const updateUser = async (updateUserDto: IGuessLocation) => {
+	const addGuess = async (addGuessDto: IGuessLocation) => {
 		try {
 			console.log('Guess location')
 		} catch (err) {
@@ -38,11 +41,20 @@ const GuessLocationForm: FC = () => {
 		}
 	}
 
+	useEffect(() => {
+		const script = document.createElement('script')
+
+		script.src =
+			'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places&callback=initialize'
+		script.async = true
+		document.body.appendChild(script)
+	}, [])
+
 	return (
 		<>
 			<Form onSubmit={onSubmit} className='relative guess'>
 				<FormImagePlaceholder className='guess'>
-					<img src={ImagePlaceholder} alt='' />
+					<img src={image} alt='' />
 				</FormImagePlaceholder>
 				<div className='form'>
 					<FormElement>
@@ -67,7 +79,7 @@ const GuessLocationForm: FC = () => {
 						</FormElement>
 						<FormElement className='location'>
 							<FormLabel htmlFor='location'>Location</FormLabel>
-							<FormControlSecondary type='text' name='location' />
+							<FormControlSecondary type='text' name='location' id='address' />
 						</FormElement>
 					</div>
 					<FormButtonsWrap className='buttons'>

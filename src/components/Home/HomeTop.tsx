@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
 import { Content, ContentWrap, ImageContent } from '../../pages/Home/styles'
 import userStore from '../../stores/user.store'
@@ -72,4 +73,4 @@ const HomeTop: FC = () => {
 	)
 }
 
-export default HomeTop
+export default observer(HomeTop)

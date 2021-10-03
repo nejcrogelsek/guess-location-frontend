@@ -5,7 +5,6 @@ import {
 	Form,
 	FormButtonsWrap,
 	FormControl,
-	FormControlSecondary,
 	FormElement,
 	FormElementImageUpload,
 	FormErrorText,

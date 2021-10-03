@@ -53,4 +53,7 @@ export default createGlobalStyle`
 			}
 		}
 	}
+	.gmnoprint{
+		display: none;
+	}
 `

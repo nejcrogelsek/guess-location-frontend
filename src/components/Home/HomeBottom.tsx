@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
 import userStore from '../../stores/user.store'
 import { ButtonStyled, LinkStyled } from '../shared/Button/styles'
@@ -71,4 +72,4 @@ const HomeBottom: FC = () => {
 	)
 }
 
-export default HomeBottom
+export default observer(HomeBottom)
