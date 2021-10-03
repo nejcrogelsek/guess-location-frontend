@@ -4,6 +4,12 @@ export const Form = styled.form`
 	text-align: left;
 	max-width: 420px;
 	margin: 1rem auto 0;
+	&.relative {
+		position: relative;
+	}
+	&.guess {
+		margin-top: 0;
+	}
 	.row {
 		display: flex;
 		.col {
@@ -23,12 +29,12 @@ export const FormValidation = styled.p`
 	background: red;
 	border-radius: 2rem;
 	margin: 0 0 1rem;
-	> svg{
+	> svg {
 		cursor: pointer;
 		position: absolute;
 		right: 1rem;
 		top: 50%;
-		transform: translate(0,-50%) scale(2);
+		transform: translate(0, -50%) scale(2);
 	}
 `
 interface FormElementProps {
@@ -36,6 +42,14 @@ interface FormElementProps {
 }
 export const FormElement = styled.div<FormElementProps>`
 	margin-bottom: 1rem;
+	&.hidden {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		z-index: -1;
+		opacity: 0;
+		pointer-events: none;
+	}
 	.form-text {
 		font-size: 0.75rem;
 		color: red;
@@ -147,12 +161,22 @@ export const FormImagePlaceholder = styled.div`
 		object-fit: contain;
 		border-radius: 1rem;
 	}
+	&.guess {
+		height: 148px;
+		> img {
+			object-fit: cover;
+		}
+	}
 `
 export const FormMapWrapper = styled.div`
 	height: 255px;
 	width: 100%;
 	background: grey;
 	border-radius: 1rem;
+	&.small {
+		height: 206px;
+		margin-top: 1rem;
+	}
 `
 export const FormErrorText = styled.span`
 	font-size: 0.75rem;

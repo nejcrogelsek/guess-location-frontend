@@ -39,4 +39,18 @@ export default createGlobalStyle`
     .slick-slide{
         margin-right: 1rem;
     }
+	.motion{
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		width: 90%;
+		z-index: 10;
+		max-width: 378px;
+		@media (min-width: 991px){
+			max-width: 1253px;
+			>div{
+				max-width: 1253px;
+			}
+		}
+	}
 `

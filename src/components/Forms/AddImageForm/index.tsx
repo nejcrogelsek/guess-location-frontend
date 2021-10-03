@@ -16,6 +16,7 @@ import {
 } from '../../shared/Form/styles'
 import ImagePlaceholder from '../../../assets/images/image-placeholder.png'
 import { LocationFormData } from '../../../interfaces/location.interface'
+import axios from '../../../api/axios'
 
 const AddImageForm: FC = () => {
 	const [file, setFile] = useState<File | null>(null)
@@ -26,10 +27,19 @@ const AddImageForm: FC = () => {
 		formState: { errors },
 		reset,
 	} = useForm<LocationFormData>()
+
 	const onSubmit = handleSubmit((data) => {
-		console.log(data)
+		uploadLocation(data)
 		reset()
 	})
+
+	const uploadLocation = async (createLocationDto: LocationFormData) => {
+		try {
+			console.log(createLocationDto)
+		} catch (err) {
+			console.log(err)
+		}
+	}
 
 	const fileSelected = async (e: any) => {
 		const file = e.target.files[0]
@@ -54,7 +64,7 @@ const AddImageForm: FC = () => {
 
 	return (
 		<>
-			<Form onSubmit={onSubmit}>
+			<Form className='relative' onSubmit={onSubmit}>
 				<FormElementImageUpload>
 					<FormLabel htmlFor='file'>Upload image:</FormLabel>
 					<FormLabel htmlFor='file' className='second'>
@@ -70,16 +80,27 @@ const AddImageForm: FC = () => {
 					/>
 				</FormElementImageUpload>
 				<FormElement>
-					<FormMapWrapper></FormMapWrapper>
+					<FormMapWrapper id='map-canvas'></FormMapWrapper>
+				</FormElement>
+				<FormElement className='hidden'>
+					<FormControl
+						{...register('lat', { required: 'Latitude is required' })}
+						name='lat'
+						id='latitude'
+						placeholder='lat'></FormControl>
+					<FormControl
+						{...register('long', { required: 'Longitude is required' })}
+						name='long'
+						id='longitude'
+						placeholder='long'></FormControl>
 				</FormElement>
 				<FormElement>
 					<FormLabel htmlFor='location'>Location</FormLabel>
 					<FormTextArea
-						{...register('location', { required: 'Location is required' })}
+						className='reg-input-city'
+						{...register('city', { required: 'City is required' })}
 						name='location'></FormTextArea>
-					{errors.location && (
-						<FormErrorText>{errors.location.message}</FormErrorText>
-					)}
+					{errors.city && <FormErrorText>{errors.city.message}</FormErrorText>}
 				</FormElement>
 				<FormButtonsWrap>
 					<ButtonStyled size='full' color='green' type='submit'>
