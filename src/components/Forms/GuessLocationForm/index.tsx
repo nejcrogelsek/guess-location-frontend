@@ -1,4 +1,3 @@
-import { Avatar } from '@material-ui/core'
 import axios from '../../../api/axios'
 import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
@@ -10,19 +9,25 @@ import {
 	FormControl,
 	FormControlSecondary,
 	FormElement,
+	FormErrorText,
 	FormImagePlaceholder,
 	FormLabel,
 	FormMapWrapper,
 } from '../../shared/Form/styles'
 import { IGuessLocation } from '../../../interfaces/location.interface'
-import ImagePlaceholder from '../../../assets/images/image-placeholder.png'
 
 interface Props {
 	image: string
 	user_id: number
+	location_id: number
 }
 
-const GuessLocationForm: FC<Props> = ({ image, user_id }: Props) => {
+const GuessLocationForm: FC<Props> = ({
+	image,
+	user_id,
+	location_id,
+}: Props) => {
+	const [errorDistance, setErrorDistance] = useState<string>('')
 	const {
 		register,
 		handleSubmit,
@@ -30,13 +35,26 @@ const GuessLocationForm: FC<Props> = ({ image, user_id }: Props) => {
 		reset,
 	} = useForm<IGuessLocation>()
 	const onSubmit = handleSubmit((data) => {
+		console.log(data)
 		addGuess(data)
 		reset()
 	})
 
 	const addGuess = async (addGuessDto: IGuessLocation) => {
 		try {
-			console.log('Guess location')
+			const finalData = {
+				user_id,
+				location_id,
+				lat: addGuessDto.lat,
+				long: addGuessDto.lng,
+				address: addGuessDto.address,
+			}
+			await axios.post(`/location/guess/${location_id}`, finalData).then((res) => {
+				console.log(res.data.address)
+				setErrorDistance(res.data.distance.toString())
+				const addressEl = document.getElementById('address')!
+				addressEl.setAttribute('value', res.data.address)
+			})
 		} catch (err) {
 			console.log(err)
 		}
@@ -76,11 +94,24 @@ const GuessLocationForm: FC<Props> = ({ image, user_id }: Props) => {
 					<div className='results'>
 						<FormElement className='error'>
 							<FormLabel htmlFor='error-distance'>Error distance</FormLabel>
-							<FormControlSecondary type='text' name='error-distance' />
+							<FormControlSecondary
+								type='text'
+								name='error-distance'
+								id='error-distance'
+								value={errorDistance}
+								readOnly={true}
+								onChange={(e) => setErrorDistance(e.target.value)}
+							/>
 						</FormElement>
 						<FormElement className='location'>
-							<FormLabel htmlFor='location'>Location</FormLabel>
-							<FormControlSecondary type='text' name='location' id='address' />
+							<FormLabel htmlFor='address'>Location</FormLabel>
+							<FormControlSecondary
+								type='text'
+								id='address'
+								{...register('address', { required: 'Address is required' })}
+								placeholder='Address'
+								readOnly={true}
+							/>
 						</FormElement>
 					</div>
 					<FormButtonsWrap className='buttons'>

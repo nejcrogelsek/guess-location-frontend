@@ -33,11 +33,11 @@ const LoginForm: FC = () => {
 
 	const signin = async (data: SignInData) => {
 		try {
-			const repairedData = {
+			const finalData = {
 				username: data.email,
 				password: data.password,
 			}
-			await axios.post('/auth/login', repairedData).then((res) => {
+			await axios.post('/auth/login', finalData).then((res) => {
 				userStore.login(res.data.user)
 				localStorage.setItem('user', res.data.access_token)
 			})

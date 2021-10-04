@@ -5,7 +5,8 @@ function initialize() {
 		latEl = document.querySelector('#latitude'),
 		longEl = document.querySelector('#longitude'),
 		addressEl = document.querySelector('#address'),
-		element = document.getElementById('map-canvas')
+		element = document.getElementById('map-canvas'),
+		errorEl = document.getElementById('error-distance')
 	const map = new google.maps.Map(element, {
 		zoom: 8,
 		center: { lat: 46.056946, lng: 14.505751 },
@@ -20,6 +21,7 @@ function initialize() {
 	})
 
 	map.addListener('click', (mapsMouseEvent) => {
+		errorEl.value = ''
 		var geocoder = new google.maps.Geocoder()
 		geocoder.geocode(
 			{ latLng: mapsMouseEvent.latLng },

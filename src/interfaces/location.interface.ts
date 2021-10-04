@@ -17,4 +17,5 @@ export interface LocationData {
 export interface IGuessLocation {
 	lat: string
 	lng: string
+	address: string
 }

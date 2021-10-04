@@ -77,7 +77,7 @@ const Card: FC<Props> = ({
 						animate={{ opacity: 1, transform: 'translate(-50%,-50%)' }}
 						className='motion'>
 						<ModalWrapper shadow='true'>
-							<GuessLocationForm image={location_image} user_id={user_id} />
+							<GuessLocationForm image={location_image} user_id={user_id} location_id={id} />
 						</ModalWrapper>
 					</motion.div>
 					<Backdrop onClick={() => setModal(false)}></Backdrop>
