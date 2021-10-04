@@ -28,7 +28,42 @@ const HomeSlider: FC = () => {
 			{
 				breakpoint: 991,
 				settings: {
+					slidesToShow: 1.9,
+					slidesToScroll: 1,
+				},
+			},
+			{
+				breakpoint: 900,
+				settings: {
+					slidesToShow: 1.5,
+					slidesToScroll: 1,
+				},
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 1.2,
+					slidesToScroll: 1,
+				},
+			},
+			{
+				breakpoint: 700,
+				settings: {
 					slidesToShow: 1,
+					slidesToScroll: 1,
+				},
+			},
+			{
+				breakpoint: 600,
+				settings: {
+					slidesToShow: 0.9,
+					slidesToScroll: 1,
+				},
+			},
+			{
+				breakpoint: 460,
+				settings: {
+					slidesToShow: 0.8,
 					slidesToScroll: 1,
 				},
 			},
