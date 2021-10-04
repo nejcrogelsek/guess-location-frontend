@@ -16,7 +16,7 @@ const App: FC = () => {
 		if (token) {
 			await axios
 				.get('/auth/protected', { headers: { Authorization: `Bearer ${token}` } })
-				.then(async (res) => {
+				.then((res) => {
 					userStore.login(res.data)
 					checkForRefreshToken()
 				})
@@ -36,7 +36,7 @@ const App: FC = () => {
 			if (expiration.getTime() - now.getTime() < minutes) {
 				axios
 					.post('/auth/refresh-token', { name: payload.name, sub: payload.sub })
-					.then(async (res) => {
+					.then((res) => {
 						localStorage.setItem('user', res.data.access_token)
 					})
 			}

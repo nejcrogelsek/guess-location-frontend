@@ -14,6 +14,10 @@ class LocationStore {
 			this.recentLocations = res.data
 		})
 	}
+
+	addLocation(location:LocationData){
+		this.recentLocations?.push(location)
+	}
 }
 const locationStore = new LocationStore()
 export default locationStore

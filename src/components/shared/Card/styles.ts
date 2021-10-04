@@ -23,7 +23,6 @@ export const CardContainer = styled.div`
 		justify-content: flex-start;
 	}
 `
-
 export const CardStyled = styled.div<CardProps>`
 	max-width: 420px;
 	min-width: ${(p) => p.minwidth && p.minwidth};

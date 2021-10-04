@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import Footer from '../../components/Footer'
 import AddImageForm from '../../components/Forms/AddImageForm'
 import UpdateProfileForm from '../../components/Forms/UpdateProfileForm'
@@ -22,7 +22,7 @@ const Profile: FC = () => {
 						<AddImageForm />
 					</ProfileBox>
 					<ProfileBox>
-						{locationStore.recentLocations?.map((location) => (
+						{locationStore.recentLocations?.slice(0, 3).map((location) => (
 							<Card key={location.id} {...location} bottom='24px' />
 						))}
 					</ProfileBox>

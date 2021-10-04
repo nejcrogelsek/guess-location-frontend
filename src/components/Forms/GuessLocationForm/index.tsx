@@ -20,12 +20,16 @@ interface Props {
 	image: string
 	user_id: number
 	location_id: number
+	lat: number
+	long: number
 }
 
 const GuessLocationForm: FC<Props> = ({
 	image,
 	user_id,
 	location_id,
+	lat,
+	long,
 }: Props) => {
 	const [errorDistance, setErrorDistance] = useState<string>('')
 	const {
@@ -40,14 +44,29 @@ const GuessLocationForm: FC<Props> = ({
 		reset()
 	})
 
+	//calculates distance between two points in km's
+	const calcDistance = (p1: any, p2: any) => {
+		return (
+			google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000
+		).toFixed(4)
+	}
+
 	const addGuess = async (addGuessDto: IGuessLocation) => {
 		try {
+			const p1 = new google.maps.LatLng(Number(lat), Number(long))
+			const p2 = new google.maps.LatLng(
+				Number(addGuessDto.lat),
+				Number(addGuessDto.lng)
+			)
+
+			const distance: string = (+calcDistance(p1, p2) * 1000).toFixed(0)
 			const finalData = {
 				user_id,
 				location_id,
 				lat: addGuessDto.lat,
 				long: addGuessDto.lng,
 				address: addGuessDto.address,
+				distance,
 			}
 			await axios.post(`/location/guess/${location_id}`, finalData).then((res) => {
 				console.log(res.data.address)
@@ -64,7 +83,7 @@ const GuessLocationForm: FC<Props> = ({
 		const script = document.createElement('script')
 
 		script.src =
-			'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places&callback=initialize'
+			'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places,geometry&callback=initialize'
 		script.async = true
 		document.body.appendChild(script)
 	}, [])
@@ -98,7 +117,7 @@ const GuessLocationForm: FC<Props> = ({
 								type='text'
 								name='error-distance'
 								id='error-distance'
-								value={errorDistance}
+								value={errorDistance && errorDistance + 'm'}
 								readOnly={true}
 								onChange={(e) => setErrorDistance(e.target.value)}
 							/>

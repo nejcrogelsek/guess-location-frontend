@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
 import locationStore from '../../stores/location.store'
@@ -9,16 +10,28 @@ import { Container, H2, P } from '../shared/Common/styles'
 
 const HomeBottom: FC = () => {
 	const [isMobile, setIsMobile] = useState(true)
+	const [limit, setLimit] = useState<number>(0)
 	const checkIfMobile = () => {
 		if (window.innerWidth < 992) {
 			setIsMobile(true)
+			setLimit(3)
 		} else {
 			setIsMobile(false)
+			setLimit(9)
+		}
+	}
+
+	const showMoreLocations = () => {
+		if (isMobile) {
+			setLimit(limit + 3)
+		} else {
+			setLimit(limit + 9)
 		}
 	}
 
 	useEffect(() => {
 		checkIfMobile()
+		showMoreLocations()
 		window.addEventListener('resize', checkIfMobile)
 		return () => {
 			window.removeEventListener('resize', checkIfMobile)
@@ -37,15 +50,22 @@ const HomeBottom: FC = () => {
 							picture.
 						</P>
 						<CardContainer>
-							{locationStore.recentLocations?.map((location) => (
-								<Card key={location.id} {...location} bottom='24px' />
+							{locationStore.recentLocations?.slice(0, limit).map((location) => (
+								<motion.div
+									className='motion-card'
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									key={location.id}>
+									<Card {...location} bottom='24px' />
+								</motion.div>
 							))}
 						</CardContainer>
 						<ButtonStyled
 							color='white'
 							center='center'
 							top='1.6875rem'
-							bottom='3.1875rem'>
+							bottom='3.1875rem'
+							onClick={showMoreLocations}>
 							Load more
 						</ButtonStyled>
 					</>
@@ -63,7 +83,7 @@ const HomeBottom: FC = () => {
 							you guess it, it gives you the error distance.
 						</P>
 						<CardContainer>
-							{locationStore.recentLocations?.map((location) => (
+							{locationStore.recentLocations?.slice(0, limit).map((location) => (
 								<Card key={location.id} {...location} bottom='24px' />
 							))}
 						</CardContainer>

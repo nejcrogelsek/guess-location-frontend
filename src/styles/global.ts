@@ -56,4 +56,32 @@ export default createGlobalStyle`
 	.gmnoprint{
 		display: none;
 	}
+	.motion-card{
+		max-width: 420px;
+		width: 100%;
+		height: 236px;
+		display: flex;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		border-radius: 1rem;
+		margin-bottom: 24px;
+		overflow: hidden;
+		@media (min-width: 991px){
+			&:nth-child(2n + 0) {
+				margin: 0 0 24px 1rem;
+			}
+		}
+		@media (min-width: 1200px){
+			&:nth-child(2n + 0) {
+				margin: 0 0 24px;
+			}
+			&:nth-child(3n + 2) {
+				margin: 0 1rem 24px;
+			}
+			&:nth-child(3n) {
+				flex: 1 1;
+			}
+		}
+	}
 `

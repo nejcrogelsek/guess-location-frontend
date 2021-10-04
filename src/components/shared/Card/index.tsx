@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Backdrop, CardStyled, ModalWrapper } from './styles'
 import NewYork from '../../../assets/images/new-york.jpg'
 import { ButtonGuess } from '../Button/styles'
@@ -6,6 +6,7 @@ import GuessLocationForm from '../../Forms/GuessLocationForm'
 import { motion } from 'framer-motion'
 import userStore from '../../../stores/user.store'
 import { LocationData } from '../../../interfaces/location.interface'
+import axios from '../../../api/axios'
 
 interface Props {
 	top?: string
@@ -37,6 +38,17 @@ const Card: FC<Props> = ({
 	user_id,
 }: Props) => {
 	const [modal, setModal] = useState(false)
+	const [distance, setDistance] = useState<number | null>(null)
+
+	const getDistance = async () => {
+		await axios.get(`/location/${id}/user/${user_id}`).then((res) => {
+			setDistance(res.data.distance)
+		})
+	}
+
+	useEffect(() => {
+		getDistance()
+	}, [])
 	return (
 		<>
 			<CardStyled
@@ -50,7 +62,7 @@ const Card: FC<Props> = ({
 				<div className='background'>
 					{userStore.user ? (
 						<>
-							<span className='error-distance'>544 m</span>
+							<span className='error-distance'>{distance && `${distance}m`}</span>
 							<ButtonGuess onClick={() => setModal(true)}>Guess</ButtonGuess>
 						</>
 					) : (
@@ -77,7 +89,13 @@ const Card: FC<Props> = ({
 						animate={{ opacity: 1, transform: 'translate(-50%,-50%)' }}
 						className='motion'>
 						<ModalWrapper shadow='true'>
-							<GuessLocationForm image={location_image} user_id={user_id} location_id={id} />
+							<GuessLocationForm
+								image={location_image}
+								user_id={user_id}
+								location_id={id}
+								lat={lat}
+								long={long}
+							/>
 						</ModalWrapper>
 					</motion.div>
 					<Backdrop onClick={() => setModal(false)}></Backdrop>

@@ -71,7 +71,7 @@ const HomeSlider: FC = () => {
 	}
 	return (
 		<Slider {...settings}>
-			{locationStore.recentLocations?.map((location) => (
+			{locationStore.recentLocations?.slice(0, 3).map((location) => (
 				<Card key={location.id} {...location} bottom='24px' />
 			))}
 		</Slider>

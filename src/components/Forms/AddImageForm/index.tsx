@@ -17,6 +17,7 @@ import ImagePlaceholder from '../../../assets/images/image-placeholder.png'
 import { LocationFormData } from '../../../interfaces/location.interface'
 import axios from '../../../api/axios'
 import userStore from '../../../stores/user.store'
+import locationStore from '../../../stores/location.store'
 
 const AddImageForm: FC = () => {
 	const [file, setFile] = useState<File | null>(null)
@@ -52,6 +53,9 @@ const AddImageForm: FC = () => {
 				}
 				await axios.post('/location', finalData).then((res) => {
 					console.log('Upload location worked')
+					locationStore.addLocation(res.data)
+					setPreview(null)
+					setFile(null)
 				})
 			} else {
 				alert('You need to upload a location image.')
@@ -86,7 +90,7 @@ const AddImageForm: FC = () => {
 		const script = document.createElement('script')
 
 		script.src =
-			'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places&callback=initialize'
+			'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places,geometry&callback=initialize'
 		script.async = true
 
 		document.body.appendChild(script)
@@ -125,6 +129,7 @@ const AddImageForm: FC = () => {
 						name='long'
 						id='longitude'
 						placeholder='long'></FormControl>
+					<div id='error-distance' className='hidden'></div>
 				</FormElement>
 				<FormElement>
 					<FormLabel htmlFor='address'>Location</FormLabel>
