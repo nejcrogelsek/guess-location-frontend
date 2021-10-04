@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { FormElementProps } from '../../../interfaces/style.interface'
 
 export const Form = styled.form`
 	text-align: left;
@@ -37,9 +38,7 @@ export const FormValidation = styled.p`
 		transform: translate(0, -50%) scale(2);
 	}
 `
-interface FormElementProps {
-	image?: string | null
-}
+
 export const FormElement = styled.div<FormElementProps>`
 	margin-bottom: 1rem;
 	&.hidden {

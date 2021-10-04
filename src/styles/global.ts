@@ -32,9 +32,15 @@ export default createGlobalStyle`
     }
     .slick-list{
         padding: 0 !important;
+		&.open{
+			transform: none !important;
+		}
     }
     .slick-track{
         width: 9999px !important;
+		&.open{
+			transform: none !important;
+		}
     }
     .slick-slide{
         margin-right: 1rem;

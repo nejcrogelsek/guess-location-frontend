@@ -1,15 +1,10 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { ButtonProps } from '../../../interfaces/style.interface'
 
-interface Props {
-	size?: string
-	color?: string
-	top?: string
-	bottom?: string
-	center?: string
-}
 
-export const ButtonStyled = styled.button<Props>`
+
+export const ButtonStyled = styled.button<ButtonProps>`
 	background: ${(p) =>
 		p.color && p.color === 'green' ? p.theme.colors.greenLinear : '#fff'};
 	max-width: ${(p) =>
@@ -48,7 +43,7 @@ export const ButtonStyled = styled.button<Props>`
 		line-height: 20px;
 	}
 `
-export const LinkStyled = styled(Link)<Props>`
+export const LinkStyled = styled(Link)<ButtonProps>`
 	background: ${(p) =>
 		p.color && p.color === 'green' ? p.theme.colors.greenLinear : '#fff'};
 	max-width: ${(p) =>

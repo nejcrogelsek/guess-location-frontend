@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import BackgroundImage from '../../../assets/images/background.png'
+import { LoginRegisterContentWrapProps, LoginRegisterDesktopBackgroundProps } from '../../../interfaces/style.interface'
 
 export const LoginRegisterContainer = styled.div`
 	${(p) => p.theme.screens.large} {
@@ -28,9 +29,7 @@ export const LoginRegisterWrap = styled.div`
 		padding: 0;
 	}
 `
-interface LoginRegisterDesktopBackgroundProps {
-	image?: string | null
-}
+
 export const LoginRegisterDesktopBackground = styled.div<LoginRegisterDesktopBackgroundProps>`
 	display: none;
 	position: relative;
@@ -49,9 +48,7 @@ export const LoginRegisterDesktopBackground = styled.div<LoginRegisterDesktopBac
 		display: block;
 	}
 `
-interface LoginRegisterContentWrapProps {
-	isRegister?: string | null
-}
+
 export const LoginRegisterContentWrap = styled.div<LoginRegisterContentWrapProps>`
 	padding: 20px 15px;
 	border-radius: 2rem;

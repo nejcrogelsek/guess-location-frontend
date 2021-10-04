@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react'
 import { Backdrop, CardStyled, ModalWrapper } from './styles'
-import NewYork from '../../../assets/images/new-york.jpg'
 import { ButtonGuess } from '../Button/styles'
 import GuessLocationForm from '../../Forms/GuessLocationForm'
 import { motion } from 'framer-motion'
@@ -22,6 +21,8 @@ interface Props {
 	user_id: number
 	created_at: Date
 	updated_at: Date
+	nostyle?: string
+	mobile?: string
 }
 
 const Card: FC<Props> = ({
@@ -36,6 +37,8 @@ const Card: FC<Props> = ({
 	city,
 	location_image,
 	user_id,
+	nostyle,
+	mobile,
 }: Props) => {
 	const [modal, setModal] = useState(false)
 	const [distance, setDistance] = useState<number | null>(null)
@@ -53,13 +56,17 @@ const Card: FC<Props> = ({
 		<>
 			<CardStyled
 				user={userStore.user ? 'true' : 'false'}
+				nostyle={nostyle ? nostyle : null}
 				bottom={bottom ? bottom : null}
 				top={top ? top : null}
 				right={right ? right : null}
 				left={left ? left : null}
 				minwidth={minwidth ? minwidth : null}
-				image={location_image}>
-				<div className='background'>
+				image={location_image}
+				onClick={() => nostyle && setModal(true)}>
+				<div
+					className='background'
+					onClick={() => (mobile && mobile === 'true' ? setModal(true) : null)}>
 					{userStore.user ? (
 						<>
 							<span className='error-distance'>{distance && `${distance}m`}</span>

@@ -43,7 +43,9 @@ const MobileNav: FC<Props> = ({ toggleNav, toggle }: Props) => {
 							<li className='nav-item user-item'>
 								<NavLink to='/me' onClick={() => toggleNav()}>
 									<Avatar src={userStore.user.profile_image} />
-									<span className='auth-user'>John Scott</span>
+									<span className='auth-user'>
+										{userStore.user.first_name} {userStore.user.last_name}
+									</span>
 								</NavLink>
 							</li>
 							<li className='nav-item'>

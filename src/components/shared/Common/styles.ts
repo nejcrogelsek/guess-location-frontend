@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { TextProps } from '../../../interfaces/style.interface'
 
 export const Container = styled.div`
 	width: 100%;
@@ -7,13 +8,7 @@ export const Container = styled.div`
 	padding: 0 2rem;
 `
 
-interface TextProps {
-	textCenter?: string | null
-	font?: string | null
-	top?: string | null
-	bottom?: string | null
-	max?: string | null
-}
+
 export const H1 = styled.h1<TextProps>`
 	font-size: ${(p) => p.font && p.font};
 	color: ${(p) => p.theme.colors.green};

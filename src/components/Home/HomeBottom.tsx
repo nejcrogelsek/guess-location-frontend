@@ -56,7 +56,7 @@ const HomeBottom: FC = () => {
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
 									key={location.id}>
-									<Card {...location} bottom='24px' />
+									<Card {...location} bottom='24px' nostyle='true' />
 								</motion.div>
 							))}
 						</CardContainer>

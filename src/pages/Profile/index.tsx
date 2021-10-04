@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Footer from '../../components/Footer'
 import AddImageForm from '../../components/Forms/AddImageForm'
 import UpdateProfileForm from '../../components/Forms/UpdateProfileForm'
@@ -10,6 +10,22 @@ import locationStore from '../../stores/location.store'
 import { ProfileBox, ProfileWrap } from './styles'
 
 const Profile: FC = () => {
+	const [isMobile, setIsMobile] = useState(true)
+	const checkIfMobile = () => {
+		if (window.innerWidth < 992) {
+			setIsMobile(true)
+		} else {
+			setIsMobile(false)
+		}
+	}
+
+	useEffect(() => {
+		checkIfMobile()
+		window.addEventListener('resize', checkIfMobile)
+		return () => {
+			window.removeEventListener('resize', checkIfMobile)
+		}
+	}, [])
 	return (
 		<>
 			<Header />
@@ -23,7 +39,7 @@ const Profile: FC = () => {
 					</ProfileBox>
 					<ProfileBox>
 						{locationStore.recentLocations?.slice(0, 3).map((location) => (
-							<Card key={location.id} {...location} bottom='24px' />
+							<Card key={location.id} {...location} bottom='24px' mobile={isMobile ? 'true' : 'false'} />
 						))}
 					</ProfileBox>
 				</ProfileWrap>

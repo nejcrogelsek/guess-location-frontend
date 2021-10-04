@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { ProfileBoxProps } from '../../interfaces/style.interface'
 
 export const ProfileWrap = styled.div`
 	display: flex;
@@ -11,9 +12,7 @@ export const ProfileWrap = styled.div`
 		margin: 1rem 0 4rem;
 	}
 `
-interface ProfileBoxProps {
-	shadow?: string | null
-}
+
 export const ProfileBox = styled.div<ProfileBoxProps>`
 	margin-top: 2rem;
 	padding: ${(p) => (p.shadow ? '24px' : '0')};

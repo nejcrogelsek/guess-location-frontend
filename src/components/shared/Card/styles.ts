@@ -1,14 +1,8 @@
 import styled from 'styled-components'
-
-interface CardProps {
-	image: string
-	user: string
-	top?: string | null
-	bottom?: string | null
-	right?: string | null
-	left?: string | null
-	minwidth?: string | null
-}
+import {
+	CardProps,
+	ModalWrapperProps,
+} from '../../../interfaces/style.interface'
 
 export const CardContainer = styled.div`
 	display: flex;
@@ -40,6 +34,7 @@ export const CardStyled = styled.div<CardProps>`
 	margin-right: ${(p) => p.right && p.right};
 	margin-left: ${(p) => p.left && p.left};
 	${(p) => p.theme.screens.large} {
+		transition: 0.25s ease-out;
 		&:nth-child(2n + 0) {
 			margin: 0 0 24px 1rem;
 		}
@@ -56,7 +51,8 @@ export const CardStyled = styled.div<CardProps>`
 		}
 	}
 	.background {
-		background: ${(p) => p.theme.colors.greenLinearOpacity};
+		background: ${(p) =>
+			p.nostyle ? 'none' : p.theme.colors.greenLinearOpacity};
 		width: 100%;
 		display: flex;
 		justify-content: center;
@@ -70,6 +66,7 @@ export const CardStyled = styled.div<CardProps>`
 			font-size: 1.5rem;
 			font-weight: 700;
 			color: #fff;
+			display: ${(p) => (p.nostyle ? 'none' : 'block')};
 		}
 		${(p) =>
 			p.user && p.user === 'true'
@@ -78,12 +75,13 @@ export const CardStyled = styled.div<CardProps>`
                 display: none;
             }
             &:hover{
-                background: ${p.theme.colors.greenLinear};
+				transition: 0.25s ease-out;
+                background: ${p.nostyle ? 'none' : p.theme.colors.greenLinear};
                 .error-distance{
                     display: none;
                 }
                 > button{
-                    display: block;
+                    display: ${p.nostyle ? 'none' : 'block'};
                 }
             }
         `
@@ -101,9 +99,7 @@ export const Backdrop = styled.div`
 	left: 0;
 	z-index: 5;
 `
-interface ModalWrapperProps {
-	shadow?: string | null
-}
+
 export const ModalWrapper = styled.div<ModalWrapperProps>`
 	padding: ${(p) => (p.shadow ? '1rem' : '0')};
 	box-shadow: ${(p) =>

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { NavbarNavProps, NavButtonsProps, NavMobileProps } from '../../interfaces/style.interface'
 
 export const Navbar = styled.header`
 	min-height: 96px;
@@ -15,9 +16,7 @@ export const NavContainer = styled.div`
 	height: 100%;
 	padding: 0;
 `
-interface NavButtonsProps {
-	reverse?: string
-}
+
 export const NavButtons = styled.div<NavButtonsProps>`
 	display: flex;
 	flex-wrap: inherit;
@@ -48,9 +47,7 @@ export const MenuButtonClose = styled.button`
 		height: 2rem;
 	}
 `
-interface NavMobileProps {
-	toggle: string | null
-}
+
 export const NavMobile = styled.div<NavMobileProps>`
 	position: fixed;
 	top: 0;
@@ -62,9 +59,7 @@ export const NavMobile = styled.div<NavMobileProps>`
 	padding: 30px 35px;
 	z-index: 100;
 `
-interface NavbarNavProps {
-	isAuth: string | null
-}
+
 export const NavbarNav = styled.div<NavbarNavProps>`
 	display: flex;
 	flex-direction: column;
