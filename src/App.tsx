@@ -57,6 +57,7 @@ const App: FC = () => {
 
 		return () => clearInterval(interval)
 	}, [])
+	
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />

@@ -4,7 +4,6 @@ import { ButtonGuess } from '../Button/styles'
 import GuessLocationForm from '../../Forms/GuessLocationForm'
 import { motion } from 'framer-motion'
 import userStore from '../../../stores/user.store'
-import { LocationData } from '../../../interfaces/location.interface'
 import axios from '../../../api/axios'
 
 interface Props {
@@ -34,7 +33,6 @@ const Card: FC<Props> = ({
 	id,
 	lat,
 	long,
-	city,
 	location_image,
 	user_id,
 	nostyle,
@@ -102,6 +100,7 @@ const Card: FC<Props> = ({
 								location_id={id}
 								lat={lat}
 								long={long}
+								setDistance={setDistance}
 							/>
 						</ModalWrapper>
 					</motion.div>

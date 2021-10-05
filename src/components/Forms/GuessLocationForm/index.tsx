@@ -1,6 +1,6 @@
 import axios from '../../../api/axios'
 import { observer } from 'mobx-react-lite'
-import { FC, useEffect, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ButtonStyled } from '../../shared/Button/styles'
 import {
@@ -22,6 +22,7 @@ interface Props {
 	location_id: number
 	lat: number
 	long: number
+	setDistance: Dispatch<SetStateAction<number | null>>
 }
 
 const GuessLocationForm: FC<Props> = ({
@@ -30,6 +31,7 @@ const GuessLocationForm: FC<Props> = ({
 	location_id,
 	lat,
 	long,
+	setDistance,
 }: Props) => {
 	const [errorDistance, setErrorDistance] = useState<string>('')
 	const {
@@ -60,6 +62,7 @@ const GuessLocationForm: FC<Props> = ({
 			)
 
 			const distance: string = (+calcDistance(p1, p2) * 1000).toFixed(0)
+			setDistance(Number(distance))
 			const finalData = {
 				user_id,
 				location_id,
