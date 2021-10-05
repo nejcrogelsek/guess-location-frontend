@@ -7,7 +7,6 @@ export type IUser = {
 }
 
 export type UpdateUserDto = {
-	email: string
 	first_name: string
 	last_name: string
 	profile_image: string

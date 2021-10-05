@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import { Loading } from './pages'
 import reportWebVitals from './reportWebVitals'
-import { config } from 'dotenv'
+import * as dotenv from 'dotenv'
 
 if (process.env.NODE_ENV === 'development') {
-	config()
+	dotenv.config()
 }
 
 ReactDOM.render(

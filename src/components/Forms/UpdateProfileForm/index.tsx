@@ -46,7 +46,6 @@ const UpdateProfileForm: FC = () => {
 			if (imageUrl) {
 				finalData = {
 					id: userStore.user!.id,
-					email: updateUserDto.email,
 					first_name: updateUserDto.first_name,
 					last_name: updateUserDto.last_name,
 					profile_image: imageUrl[0],
@@ -55,7 +54,6 @@ const UpdateProfileForm: FC = () => {
 			} else {
 				finalData = {
 					id: userStore.user!.id,
-					email: updateUserDto.email,
 					first_name: updateUserDto.first_name,
 					last_name: updateUserDto.last_name,
 					password: updateUserDto.password,
@@ -67,7 +65,6 @@ const UpdateProfileForm: FC = () => {
 			})
 		} catch (err) {
 			console.log(err)
-			alert(`Email: ${updateUserDto.email} already exist!`)
 		}
 	}
 
@@ -138,12 +135,11 @@ const UpdateProfileForm: FC = () => {
 					<FormElement>
 						<FormLabel htmlFor='email'>Email</FormLabel>
 						<FormControlSecondary
-							{...register('email', { required: false })}
 							type='text'
 							name='email'
-							placeholder={userStore.user!.email}
+							readOnly={true}
+							value={userStore.user!.email}
 						/>
-						{errors.email && <FormErrorText>{errors.email.message}</FormErrorText>}
 					</FormElement>
 					<FormElement>
 						<FormLabel htmlFor='password'>Password</FormLabel>
