@@ -16,7 +16,7 @@ const PrivateRoute: FC<Props> = ({ component: Component, ...rest }) => {
 		<Route
 			{...rest}
 			render={(props) =>
-				userStore.user!.confirmed ? (
+				userStore.user && userStore.user.confirmed ? (
 					<Component {...props} />
 				) : (
 					<Redirect to='/login' />
