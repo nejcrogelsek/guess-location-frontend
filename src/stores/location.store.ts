@@ -1,9 +1,10 @@
 import axios from '../api/axios'
 import { makeAutoObservable } from 'mobx'
-import { LocationData } from '../interfaces/location.interface'
+import { IPersonalBest, LocationData } from '../interfaces/location.interface'
 
 class LocationStore {
 	recentLocations: LocationData[] | null = null
+	personalBest: IPersonalBest[] | null = null
 
 	constructor() {
 		makeAutoObservable(this)
@@ -15,7 +16,15 @@ class LocationStore {
 		})
 	}
 
-	addLocation(location:LocationData){
+	async getPersonalBest(user_id: number) {
+		await axios
+			.get(`/location/best/${user_id.toString()}`, { data: { user_id: user_id }, params: { _limit: 3 } })
+			.then((res) => {
+				this.recentLocations = res.data
+			})
+	}
+
+	addLocation(location: LocationData) {
 		this.recentLocations?.push(location)
 	}
 }
