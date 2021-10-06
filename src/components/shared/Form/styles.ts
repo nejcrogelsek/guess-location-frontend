@@ -39,6 +39,22 @@ export const FormValidation = styled.p`
 	}
 `
 
+export const FormValidationSuccess = styled.p`
+	color: #fff;
+	position: relative;
+	padding: 1rem;
+	background: ${(p) => p.theme.colors.green};
+	border-radius: 2rem;
+	margin: 0 0 1rem;
+	> svg {
+		cursor: pointer;
+		position: absolute;
+		right: 1rem;
+		top: 50%;
+		transform: translate(0, -50%) scale(2);
+	}
+`
+
 export const FormElement = styled.div<FormElementProps>`
 	margin-bottom: 1rem;
 	&.hidden {

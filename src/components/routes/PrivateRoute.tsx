@@ -16,7 +16,11 @@ const PrivateRoute: FC<Props> = ({ component: Component, ...rest }) => {
 		<Route
 			{...rest}
 			render={(props) =>
-				userStore.user ? <Component {...props} /> : <Redirect to='/login' />
+				userStore.user!.confirmed ? (
+					<Component {...props} />
+				) : (
+					<Redirect to='/login' />
+				)
 			}
 		/>
 	)

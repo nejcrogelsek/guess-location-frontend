@@ -52,7 +52,7 @@ const LoginForm: FC = () => {
 		}
 	}
 
-	if (userStore.user) {
+	if (userStore.user?.confirmed) {
 		return <Redirect to='/me' />
 	}
 
