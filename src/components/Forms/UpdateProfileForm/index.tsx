@@ -28,7 +28,6 @@ const UpdateProfileForm: FC = () => {
 	} = useForm<UpdateUserDto>()
 	const onSubmit = handleSubmit((data) => {
 		updateUser(data)
-		reset()
 	})
 
 	const updateUser = async (updateUserDto: UpdateUserDto) => {
@@ -62,6 +61,9 @@ const UpdateProfileForm: FC = () => {
 
 			await axios.patch('/users/me/update', finalData).then((res) => {
 				userStore.update(res.data)
+				setPreview(null)
+				setFile(null)
+				reset()
 			})
 		} catch (err) {
 			console.log(err)
@@ -147,6 +149,7 @@ const UpdateProfileForm: FC = () => {
 							{...register('password', {
 								required: false,
 								min: 6,
+								pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
 							})}
 							type='password'
 							name='password'

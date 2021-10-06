@@ -185,6 +185,7 @@ const RegisterForm: FC = () => {
 						{...register('password', {
 							required: 'Password is required',
 							min: 6,
+							pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
 						})}
 						type='password'
 						name='password'
@@ -199,6 +200,7 @@ const RegisterForm: FC = () => {
 						{...register('confirm_password', {
 							required: 'Please confirm password',
 							min: 6,
+							pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
 						})}
 						type='password'
 						name='confirm_password'

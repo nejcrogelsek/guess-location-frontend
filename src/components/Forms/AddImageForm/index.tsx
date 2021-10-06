@@ -31,7 +31,6 @@ const AddImageForm: FC = () => {
 
 	const onSubmit = handleSubmit((data) => {
 		uploadLocation(data)
-		reset()
 	})
 
 	const uploadLocation = async (createLocationDto: LocationFormData) => {
@@ -56,6 +55,7 @@ const AddImageForm: FC = () => {
 					locationStore.addLocation(res.data)
 					setPreview(null)
 					setFile(null)
+					reset()
 				})
 			} else {
 				alert('You need to upload a location image.')

@@ -28,7 +28,6 @@ const LoginForm: FC = () => {
 
 	const onSubmit = handleSubmit((data) => {
 		signin(data)
-		reset()
 	})
 
 	const signin = async (data: SignInData) => {
@@ -40,6 +39,7 @@ const LoginForm: FC = () => {
 			await axios.post('/auth/login', finalData).then((res) => {
 				userStore.login(res.data.user)
 				localStorage.setItem('user', res.data.access_token)
+				reset()
 			})
 		} catch (err) {
 			console.log(err)
@@ -85,7 +85,11 @@ const LoginForm: FC = () => {
 			<FormElement>
 				<FormLabel htmlFor='password'>Password</FormLabel>
 				<FormControl
-					{...register('password', { required: 'Password is required' })}
+					{...register('password', {
+						required: 'Password is required',
+						min: 6,
+						pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+					})}
 					type='password'
 					name='password'
 				/>

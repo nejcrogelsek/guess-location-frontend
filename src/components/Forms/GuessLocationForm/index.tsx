@@ -33,7 +33,7 @@ const GuessLocationForm: FC<Props> = ({
 	long,
 	setDistance,
 }: Props) => {
-	const [errorDistance, setErrorDistance] = useState<string>('')
+	const [errorDistance, setErrorDistance] = useState<string | null>(null)
 	const {
 		register,
 		handleSubmit,
@@ -43,7 +43,6 @@ const GuessLocationForm: FC<Props> = ({
 	const onSubmit = handleSubmit((data) => {
 		console.log(data)
 		addGuess(data)
-		reset()
 	})
 
 	//calculates distance between two points in km's
@@ -72,7 +71,7 @@ const GuessLocationForm: FC<Props> = ({
 				distance,
 			}
 			await axios.post(`/location/guess/${location_id}`, finalData).then((res) => {
-				console.log(res.data.address)
+				reset()
 				setErrorDistance(res.data.distance.toString())
 				const addressEl = document.getElementById('address')!
 				addressEl.setAttribute('value', res.data.address)
@@ -99,7 +98,10 @@ const GuessLocationForm: FC<Props> = ({
 				</FormImagePlaceholder>
 				<div className='form'>
 					<FormElement>
-						<FormMapWrapper id='map-canvas' className='small'></FormMapWrapper>
+						<FormMapWrapper
+							id='map-canvas'
+							className='small'
+							onClick={() => setErrorDistance(null)}></FormMapWrapper>
 					</FormElement>
 					<FormElement className='hidden'>
 						<FormControl
@@ -120,7 +122,7 @@ const GuessLocationForm: FC<Props> = ({
 								type='text'
 								name='error-distance'
 								id='error-distance'
-								value={errorDistance && errorDistance + 'm'}
+								value={errorDistance ? errorDistance + 'm' : ''}
 								readOnly={true}
 								onChange={(e) => setErrorDistance(e.target.value)}
 							/>
