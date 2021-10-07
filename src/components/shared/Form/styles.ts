@@ -124,6 +124,9 @@ export const FormControlSecondary = styled.input`
 	width: 100%;
 	margin-top: 0.5rem;
 	box-shadow: 0px 0px 8px ${(p) => p.theme.colors.shadow};
+	&.is-invalid{
+		box-shadow: 0px 0px 3px #f00;
+	}
 `
 export const FormTextArea = styled.textarea`
 	border-radius: 1rem;
@@ -134,6 +137,9 @@ export const FormTextArea = styled.textarea`
 	margin-top: 1rem;
 	resize: none;
 	box-shadow: 0px 0px 8px ${(p) => p.theme.colors.shadow};
+	&.is-invalid{
+		box-shadow: 0px 0px 3px #f00;
+	}
 `
 export const FormButtonsWrap = styled.div`
 	margin-bottom: 1rem;

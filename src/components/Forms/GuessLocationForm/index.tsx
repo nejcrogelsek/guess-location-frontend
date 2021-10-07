@@ -9,12 +9,13 @@ import {
 	FormControl,
 	FormControlSecondary,
 	FormElement,
-	FormErrorText,
 	FormImagePlaceholder,
 	FormLabel,
 	FormMapWrapper,
 } from '../../shared/Form/styles'
 import { IGuessLocation } from '../../../interfaces/location.interface'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 interface Props {
 	image: string
@@ -33,13 +34,21 @@ const GuessLocationForm: FC<Props> = ({
 	long,
 	setDistance,
 }: Props) => {
+	const validationSchema = Yup.object().shape({
+		lat: Yup.string().required('Latitude is required'),
+		lng: Yup.string().required('Longitude is required'),
+		address: Yup.string().required('Address is required'),
+	})
 	const [errorDistance, setErrorDistance] = useState<string | null>(null)
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<IGuessLocation>()
+	} = useForm<IGuessLocation>({
+		resolver: yupResolver(validationSchema),
+		mode: 'onChange',
+	})
 	const onSubmit = handleSubmit((data) => {
 		console.log(data)
 		addGuess(data)
@@ -105,12 +114,13 @@ const GuessLocationForm: FC<Props> = ({
 					</FormElement>
 					<FormElement className='hidden'>
 						<FormControl
-							{...register('lat', { required: 'Latitude is required' })}
+							{...register('lat')}
 							name='lat'
 							id='latitude'
-							placeholder='lat'></FormControl>
+							placeholder='lat'
+							className={errors.lat ? 'is-invalid' : ''}></FormControl>
 						<FormControl
-							{...register('lng', { required: 'Longitude is required' })}
+							{...register('lng')}
 							name='lng'
 							id='longitude'
 							placeholder='lng'></FormControl>
@@ -132,9 +142,10 @@ const GuessLocationForm: FC<Props> = ({
 							<FormControlSecondary
 								type='text'
 								id='address'
-								{...register('address', { required: 'Address is required' })}
+								{...register('address')}
 								placeholder='Address'
 								readOnly={true}
+								className={errors.address ? 'is-invalid' : ''}
 							/>
 						</FormElement>
 					</div>

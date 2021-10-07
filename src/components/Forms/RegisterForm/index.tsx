@@ -61,33 +61,27 @@ const RegisterForm: FC = () => {
 	const signup = async (createUserDto: SignUpData) => {
 		try {
 			if (file !== null) {
-				if (createUserDto.password === createUserDto.confirm_password) {
-					const { data } = await axios.get('users/upload')
+				const { data } = await axios.get('users/upload')
 
-					await axios.put(data.url, file, {
-						headers: { 'Content-Type': 'multipart/form-data' },
-					})
-					const imageUrl = data.url.split('?')
+				await axios.put(data.url, file, {
+					headers: { 'Content-Type': 'multipart/form-data' },
+				})
+				const imageUrl = data.url.split('?')
 
-					const finalData = {
-						profile_image: imageUrl[0],
-						email: createUserDto.email,
-						first_name: createUserDto.first_name,
-						last_name: createUserDto.last_name,
-						password: createUserDto.password,
-						confirm_password: createUserDto.confirm_password,
-					}
-					await axios.post('/auth/register', finalData).then(() => {
-						setSuccess('Check your inbox and verify your email.')
-						setPreview(null)
-						setFile(null)
-						reset()
-					})
-				} else {
-					alert(
-						'Passwords do not match. Password must have at least 1 upper & lower case letter, 1 number or special character and it must be long more than 5 characters.'
-					)
+				const finalData = {
+					profile_image: imageUrl[0],
+					email: createUserDto.email,
+					first_name: createUserDto.first_name,
+					last_name: createUserDto.last_name,
+					password: createUserDto.password,
+					confirm_password: createUserDto.confirm_password,
 				}
+				await axios.post('/auth/register', finalData).then(() => {
+					setSuccess('Check your inbox and verify your email.')
+					setPreview(null)
+					setFile(null)
+					reset()
+				})
 			} else {
 				alert('You need to upload a profile image.')
 			}

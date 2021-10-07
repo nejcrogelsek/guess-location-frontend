@@ -16,8 +16,27 @@ import {
 	FormLabel,
 } from '../../shared/Form/styles'
 import { UpdateUserDto } from '../../../interfaces/user.interface'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const UpdateProfileForm: FC = () => {
+	const validationSchema = Yup.object().shape(
+		{
+			first_name: Yup.string().required('First name is required'),
+			last_name: Yup.string().required('Last name is required'),
+			password: Yup.string()
+				.matches(
+					/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+					'Password must have at least 1 upper & lower case letter, 1 number or special character and it must be long more than 5 characters.'
+				)
+				.min(6, 'Password must be at least 6 characters')
+				.nullable()
+				.notRequired()
+				.optional(),
+		},
+		[['password', 'password']]
+	)
+
 	const [file, setFile] = useState<File | null>(null)
 	const [preview, setPreview] = useState<string | null>(null)
 	const {
@@ -25,7 +44,10 @@ const UpdateProfileForm: FC = () => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<UpdateUserDto>()
+	} = useForm<UpdateUserDto>({
+		resolver: yupResolver(validationSchema),
+		mode: 'onChange',
+	})
 	const onSubmit = handleSubmit((data) => {
 		updateUser(data)
 	})
@@ -113,10 +135,11 @@ const UpdateProfileForm: FC = () => {
 					<FormElement>
 						<FormLabel htmlFor='first_name'>First Name</FormLabel>
 						<FormControlSecondary
-							{...register('first_name', { required: false })}
+							{...register('first_name')}
 							type='text'
 							name='first_name'
 							placeholder={userStore.user!.first_name}
+							className={errors.first_name ? 'is-invalid' : ''}
 						/>
 						{errors.first_name && (
 							<FormErrorText>{errors.first_name.message}</FormErrorText>
@@ -125,10 +148,11 @@ const UpdateProfileForm: FC = () => {
 					<FormElement>
 						<FormLabel htmlFor='last_name'>Last Name</FormLabel>
 						<FormControlSecondary
-							{...register('last_name', { required: false })}
+							{...register('last_name')}
 							type='text'
 							name='last_name'
 							placeholder={userStore.user!.last_name}
+							className={errors.last_name ? 'is-invalid' : ''}
 						/>
 						{errors.last_name && (
 							<FormErrorText>{errors.last_name.message}</FormErrorText>
@@ -146,13 +170,10 @@ const UpdateProfileForm: FC = () => {
 					<FormElement>
 						<FormLabel htmlFor='password'>Password</FormLabel>
 						<FormControlSecondary
-							{...register('password', {
-								required: false,
-								min: 6,
-								pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-							})}
+							{...register('password')}
 							type='password'
 							name='password'
+							className={errors.password ? 'is-invalid' : ''}
 						/>
 						{errors.password && (
 							<FormErrorText>{errors.password.message}</FormErrorText>

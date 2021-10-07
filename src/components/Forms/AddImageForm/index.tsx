@@ -18,8 +18,15 @@ import { LocationFormData } from '../../../interfaces/location.interface'
 import axios from '../../../api/axios'
 import userStore from '../../../stores/user.store'
 import locationStore from '../../../stores/location.store'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const AddImageForm: FC = () => {
+	const validationSchema = Yup.object().shape({
+		lat: Yup.string().required('Latitude is required'),
+		long: Yup.string().required('Longitude is required'),
+		address: Yup.string().required('Address is required'),
+	})
 	const [file, setFile] = useState<File | null>(null)
 	const [preview, setPreview] = useState<string | null>(null)
 	const {
@@ -27,7 +34,10 @@ const AddImageForm: FC = () => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<LocationFormData>()
+	} = useForm<LocationFormData>({
+		resolver: yupResolver(validationSchema),
+		mode: 'onChange',
+	})
 
 	const onSubmit = handleSubmit((data) => {
 		uploadLocation(data)
@@ -118,17 +128,19 @@ const AddImageForm: FC = () => {
 				</FormElement>
 				<FormElement className='hidden'>
 					<FormControl
-						{...register('lat', { required: 'Latitude is required' })}
+						{...register('lat')}
 						type='text'
 						name='lat'
 						id='latitude'
-						placeholder='lat'></FormControl>
+						placeholder='lat'
+						className={errors.lat ? 'is-invalid' : ''}></FormControl>
 					<FormControl
-						{...register('long', { required: 'Longitude is required' })}
+						{...register('long')}
 						type='text'
 						name='long'
 						id='longitude'
-						placeholder='long'></FormControl>
+						placeholder='long'
+						className={errors.long ? 'is-invalid' : ''}></FormControl>
 					<div id='error-distance' className='hidden'></div>
 				</FormElement>
 				<FormElement>
@@ -136,8 +148,9 @@ const AddImageForm: FC = () => {
 					<FormTextArea
 						readOnly={true}
 						id='address'
-						{...register('address', { required: 'Address is required' })}
-						name='address'></FormTextArea>
+						{...register('address')}
+						name='address'
+						className={errors.address ? 'is-invalid' : ''}></FormTextArea>
 					{errors.address && <FormErrorText>{errors.address.message}</FormErrorText>}
 				</FormElement>
 				<FormButtonsWrap>
