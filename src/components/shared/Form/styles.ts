@@ -112,6 +112,9 @@ export const FormControl = styled.input`
 	&:focus {
 		box-shadow: none;
 	}
+	&.is-invalid{
+		border-color: red;
+	}
 `
 export const FormControlSecondary = styled.input`
 	border-radius: 2rem;

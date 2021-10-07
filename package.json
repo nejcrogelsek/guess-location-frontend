@@ -4,6 +4,7 @@
   "description": "Full-stack application that allows users to upload an image and mark the exact location on the Google map where the image was taken. Registered users then try to guess where the image was taken by placing a pin on the Google map. As a result, the app returns how accurately he chose the location (error distance).",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^2.8.2",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.4",
@@ -29,7 +30,8 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.1",
     "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

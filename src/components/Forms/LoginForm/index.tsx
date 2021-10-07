@@ -16,15 +16,30 @@ import {
 import { ButtonStyled } from '../../shared/Button/styles'
 import userStore from '../../../stores/user.store'
 import { observer } from 'mobx-react-lite'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const LoginForm: FC = () => {
+	const validationSchema = Yup.object().shape({
+		email: Yup.string().required('Email is required').email('Email is invalid'),
+		password: Yup.string()
+			.required('Password is required')
+			.matches(
+				/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+				'Password must have at least 1 upper & lower case letter, 1 number or special character and it must be long more than 5 characters.'
+			)
+			.min(6, 'Password must be at least 6 characters'),
+	})
 	const [error, setError] = useState<string | null>(null)
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<SignInData>()
+	} = useForm<SignInData>({
+		resolver: yupResolver(validationSchema),
+		mode: 'onChange',
+	})
 
 	const onSubmit = handleSubmit((data) => {
 		signin(data)
@@ -76,22 +91,20 @@ const LoginForm: FC = () => {
 			<FormElement>
 				<FormLabel htmlFor='email'>Email</FormLabel>
 				<FormControl
-					{...register('email', { required: 'Email is required' })}
+					{...register('email')}
 					type='text'
 					name='email'
+					className={errors.email ? 'is-invalid' : ''}
 				/>
 				{errors.email && <FormErrorText>{errors.email.message}</FormErrorText>}
 			</FormElement>
 			<FormElement>
 				<FormLabel htmlFor='password'>Password</FormLabel>
 				<FormControl
-					{...register('password', {
-						required: 'Password is required',
-						min: 6,
-						pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-					})}
+					{...register('password')}
 					type='password'
 					name='password'
+					className={errors.password ? 'is-invalid' : ''}
 				/>
 				{errors.password && (
 					<FormErrorText>{errors.password.message}</FormErrorText>

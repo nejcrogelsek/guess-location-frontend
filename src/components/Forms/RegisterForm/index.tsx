@@ -18,8 +18,27 @@ import {
 	FormValidation,
 	FormValidationSuccess,
 } from '../../shared/Form/styles'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const RegisterForm: FC = () => {
+	// form validation rules
+	const validationSchema = Yup.object().shape({
+		email: Yup.string().required('Email is required').email('Email is invalid'),
+		first_name: Yup.string().required('First name is required'),
+		last_name: Yup.string().required('Last name is required'),
+		password: Yup.string()
+			.required('Password is required')
+			.matches(
+				/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+				'Password must have at least 1 upper & lower case letter, 1 number or special character and it must be long more than 5 characters.'
+			)
+			.min(6, 'Password must be at least 6 characters'),
+		confirm_password: Yup.string()
+			.required('Password is required')
+			.oneOf([Yup.ref('password'), null], 'Passwords must match'),
+	})
+
 	const [error, setError] = useState<string | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
 	const [file, setFile] = useState<File | null>(null)
@@ -29,9 +48,13 @@ const RegisterForm: FC = () => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<SignUpData>()
+	} = useForm<SignUpData>({
+		resolver: yupResolver(validationSchema),
+		mode: 'onChange',
+	})
 
 	const onSubmit = handleSubmit((data) => {
+		console.log('sign up')
 		signup(data)
 	})
 
@@ -145,9 +168,10 @@ const RegisterForm: FC = () => {
 				<FormElement>
 					<FormLabel htmlFor='email'>Email</FormLabel>
 					<FormControl
-						{...register('email', { required: 'Email is required' })}
+						{...register('email')}
 						type='email'
 						name='email'
+						className={errors.email ? 'is-invalid' : ''}
 					/>
 					{errors.email && <FormErrorText>{errors.email.message}</FormErrorText>}
 				</FormElement>
@@ -156,9 +180,10 @@ const RegisterForm: FC = () => {
 						<FormElement>
 							<FormLabel htmlFor='first_name'>First Name</FormLabel>
 							<FormControl
-								{...register('first_name', { required: 'First name is required' })}
+								{...register('first_name')}
 								type='text'
 								name='first_name'
+								className={errors.first_name ? 'is-invalid' : ''}
 							/>
 							{errors.first_name && (
 								<FormErrorText>{errors.first_name.message}</FormErrorText>
@@ -169,9 +194,10 @@ const RegisterForm: FC = () => {
 						<FormElement>
 							<FormLabel htmlFor='last_name'>Last Name</FormLabel>
 							<FormControl
-								{...register('last_name', { required: 'Last name is required' })}
+								{...register('last_name')}
 								type='text'
 								name='last_name'
+								className={errors.last_name ? 'is-invalid' : ''}
 							/>
 							{errors.last_name && (
 								<FormErrorText>{errors.last_name.message}</FormErrorText>
@@ -182,13 +208,10 @@ const RegisterForm: FC = () => {
 				<FormElement>
 					<FormLabel htmlFor='password'>Password</FormLabel>
 					<FormControl
-						{...register('password', {
-							required: 'Password is required',
-							min: 6,
-							pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-						})}
+						{...register('password')}
 						type='password'
 						name='password'
+						className={errors.password ? 'is-invalid' : ''}
 					/>
 					{errors.password && (
 						<FormErrorText>{errors.password.message}</FormErrorText>
@@ -197,13 +220,10 @@ const RegisterForm: FC = () => {
 				<FormElement>
 					<FormLabel htmlFor='confirm_password'>Confirm password</FormLabel>
 					<FormControl
-						{...register('confirm_password', {
-							required: 'Please confirm password',
-							min: 6,
-							pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-						})}
+						{...register('confirm_password')}
 						type='password'
 						name='confirm_password'
+						className={errors.confirm_password ? 'is-invalid' : ''}
 					/>
 					{errors.confirm_password && (
 						<FormErrorText>{errors.confirm_password.message}</FormErrorText>
