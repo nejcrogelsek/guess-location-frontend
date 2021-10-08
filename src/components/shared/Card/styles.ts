@@ -75,7 +75,6 @@ export const CardStyled = styled.div<CardProps>`
                 display: none;
             }
             &:hover{
-				transition: 0.25s ease-out;
                 background: ${p.nostyle ? 'none' : p.theme.colors.greenLinear};
                 .error-distance{
                     display: none;
