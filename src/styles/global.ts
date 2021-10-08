@@ -30,21 +30,6 @@ export default createGlobalStyle`
     img{
         max-width: 100%;
     }
-    .slick-list{
-        padding: 0 !important;
-		&.open{
-			transform: none !important;
-		}
-    }
-    .slick-track{
-        width: 9999px !important;
-		&.open{
-			transform: none !important;
-		}
-    }
-    .slick-slide{
-        margin-right: 1rem;
-    }
 	.motion{
 		position: fixed;
 		top: 50%;
