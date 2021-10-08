@@ -87,6 +87,7 @@ export const NavbarNav = styled.div<NavbarNavProps>`
 			border: none;
 			width: 100%;
 			text-align: left;
+			cursor: pointer;
 		}
 		&:last-child {
 			button.nav-link {
@@ -126,7 +127,7 @@ export const NavbarNav = styled.div<NavbarNavProps>`
 		align-items: center;
 		flex-direction: row;
 		> li {
-			margin: 0 2rem 0 !important;
+			margin: 0 1.5rem 0 !important;
 			&.login {
 				margin: 0;
 				width: max-content;
@@ -143,6 +144,7 @@ export const NavbarNav = styled.div<NavbarNavProps>`
 			&.signup {
 				margin-bottom: 0;
 				width: 137px;
+				margin-right: 0 !important;
 				> a {
 					width: 100%;
 					max-width: 137px;
@@ -165,7 +167,7 @@ export const NavbarNav = styled.div<NavbarNavProps>`
                     }
                 }
                 &.user-item {
-                    margin-right: 16px;
+                    margin-right: 0 !important;
                     > a {
                         display: flex;
                         justify-content: flex-start;

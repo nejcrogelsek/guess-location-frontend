@@ -58,6 +58,15 @@ const App: FC = () => {
 		return () => clearInterval(interval)
 	}, [])
 
+	useEffect(() => {
+		if (userStore.user) {
+			console.log('Getting personal best')
+			locationStore.getPersonalBest(userStore.user.id)
+		} else {
+			console.log('NOT GETTING')
+		}
+	}, [userStore.user])
+
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />

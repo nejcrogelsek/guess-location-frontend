@@ -56,7 +56,7 @@ const HomeBottom: FC = () => {
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
 									key={location.id}>
-									<Card {...location} bottom='24px' nostyle='true' />
+									<Card location={location} bottom='24px' nostyle='true' />
 								</motion.div>
 							))}
 						</CardContainer>
@@ -84,7 +84,7 @@ const HomeBottom: FC = () => {
 						</P>
 						<CardContainer>
 							{locationStore.recentLocations?.slice(0, limit).map((location) => (
-								<Card key={location.id} {...location} bottom='24px' />
+								<Card key={location.id} location={location} bottom='24px' />
 							))}
 						</CardContainer>
 						<LinkStyled to='signup' center='center' bottom='3rem' top='18px'>

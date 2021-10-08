@@ -20,7 +20,7 @@ class LocationStore {
 		await axios
 			.get(`/location/best/${user_id.toString()}`, { data: { user_id: user_id }, params: { _limit: 3 } })
 			.then((res) => {
-				this.recentLocations = res.data
+				this.personalBest = res.data
 			})
 	}
 

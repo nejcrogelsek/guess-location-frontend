@@ -38,8 +38,14 @@ const Profile: FC = () => {
 						<AddImageForm />
 					</ProfileBox>
 					<ProfileBox>
-						{locationStore.recentLocations?.slice(0, 3).map((location) => (
-							<Card key={location.id} {...location} bottom='24px' mobile={isMobile ? 'true' : 'false'} />
+						{locationStore.personalBest?.slice(0, 3).map((item) => (
+							<Card
+								key={item.location.id}
+								{...item}
+								ddistance={item.distance}
+								bottom='24px'
+								mobile={isMobile ? 'true' : 'false'}
+							/>
 						))}
 					</ProfileBox>
 				</ProfileWrap>

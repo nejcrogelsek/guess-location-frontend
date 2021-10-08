@@ -12,14 +12,17 @@ interface Props {
 	right?: string
 	left?: string
 	minwidth?: string
-	id: number
-	lat: number
-	long: number
-	city: string
-	location_image: string
-	user_id: number
-	created_at: Date
-	updated_at: Date
+	location: {
+		id: number
+		lat: number
+		long: number
+		city: string
+		location_image: string
+		user_id: number
+		created_at: Date
+		updated_at: Date
+	}
+	ddistance?: number
 	nostyle?: string
 	mobile?: string
 }
@@ -30,21 +33,20 @@ const Card: FC<Props> = ({
 	right,
 	left,
 	minwidth,
-	id,
-	lat,
-	long,
-	location_image,
-	user_id,
 	nostyle,
+	location,
+	ddistance,
 	mobile,
 }: Props) => {
 	const [modal, setModal] = useState(false)
 	const [distance, setDistance] = useState<number | null>(null)
 
 	const getDistance = async () => {
-		await axios.get(`/location/${id}/user/${user_id}`).then((res) => {
-			setDistance(res.data.distance)
-		})
+		await axios
+			.get(`/location/${location.id}/user/${location.user_id}`)
+			.then((res) => {
+				setDistance(res.data.distance)
+			})
 	}
 
 	useEffect(() => {
@@ -60,7 +62,7 @@ const Card: FC<Props> = ({
 				right={right ? right : null}
 				left={left ? left : null}
 				minwidth={minwidth ? minwidth : null}
-				image={location_image}
+				image={location.location_image}
 				onClick={() => nostyle && setModal(true)}>
 				<div
 					className='background'
@@ -95,11 +97,11 @@ const Card: FC<Props> = ({
 						className='motion'>
 						<ModalWrapper shadow='true'>
 							<GuessLocationForm
-								image={location_image}
-								user_id={user_id}
-								location_id={id}
-								lat={lat}
-								long={long}
+								image={location.location_image}
+								user_id={location.user_id}
+								location_id={location.id}
+								lat={location.lat}
+								long={location.long}
 								setDistance={setDistance}
 							/>
 						</ModalWrapper>
