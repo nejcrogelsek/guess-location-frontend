@@ -83,7 +83,7 @@ const HomeBottom: FC = () => {
 							you guess it, it gives you the error distance.
 						</P>
 						<CardContainer>
-							{locationStore.recentLocations?.slice(0, limit).map((location) => (
+							{locationStore.defaultLocations?.slice(0, 3).map((location) => (
 								<Card key={location.id} location={location} bottom='24px' />
 							))}
 						</CardContainer>

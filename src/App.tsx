@@ -49,7 +49,6 @@ const App: FC = () => {
 	}
 
 	useEffect(() => {
-		locationStore.getRecent()
 		checkIfAccessTokenExists()
 		const interval = setInterval(() => {
 			checkForRefreshToken()
@@ -60,7 +59,7 @@ const App: FC = () => {
 
 	useEffect(() => {
 		if (userStore.user) {
-			console.log('Getting personal best')
+			locationStore.getRecent()
 			locationStore.getPersonalBest(userStore.user.id)
 		} else {
 			console.log('NOT GETTING')
