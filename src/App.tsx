@@ -59,7 +59,7 @@ const App: FC = () => {
 
 	useEffect(() => {
 		if (userStore.user) {
-			locationStore.getRecent()
+			locationStore.getRecent(userStore.user.id)
 			locationStore.getPersonalBest(userStore.user.id)
 		} else {
 			console.log('NOT GETTING')

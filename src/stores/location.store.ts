@@ -46,21 +46,37 @@ class LocationStore {
 		makeAutoObservable(this)
 	}
 
-	async getRecent() {
-		await axios.get(`/location/${userStore.user!.id}`, { params: { _limit: 18 } }).then((res) => {
-			this.recentLocations = res.data
-		})
+	async getRecent(user_id:number) {
+		const token: string | null = localStorage.getItem('user')
+		if (!token) {
+			console.log('Token missing')
+		} else {
+			await axios
+				.get(`/location/${user_id}`, {
+					params: { _limit: 18 },
+					headers: { Authorization: `Bearer ${token}` },
+				})
+				.then((res) => {
+					this.recentLocations = res.data
+				})
+		}
 	}
 
 	async getPersonalBest(user_id: number) {
-		await axios
-			.get(`/location/best/${user_id.toString()}`, {
-				data: { user_id: user_id },
-				params: { _limit: 3 },
-			})
-			.then((res) => {
-				this.personalBest = res.data
-			})
+		const token: string | null = localStorage.getItem('user')
+		if (!token) {
+			console.log('Token missing')
+		} else {
+			await axios
+				.get(`/location/best/${user_id.toString()}`, {
+					data: { user_id: user_id },
+					params: { _limit: 3 },
+					headers: { Authorization: `Bearer ${token}` },
+				})
+				.then((res) => {
+					this.personalBest = res.data
+				})
+		}
 	}
 
 	addLocation(location: LocationData) {

@@ -79,12 +79,19 @@ const GuessLocationForm: FC<Props> = ({
 				address: addGuessDto.address,
 				distance,
 			}
-			await axios.post(`/location/guess/${location_id}`, finalData).then((res) => {
-				reset()
-				setErrorDistance(res.data.distance.toString())
-				const addressEl = document.getElementById('address')!
-				addressEl.setAttribute('value', res.data.address)
-			})
+			const token: string | null = localStorage.getItem('user')
+			if (token) {
+				await axios
+					.post(`/location/guess/${location_id}`, finalData, {
+						headers: { Authorization: `Bearer ${token}` },
+					})
+					.then((res) => {
+						reset()
+						setErrorDistance(res.data.distance.toString())
+						const addressEl = document.getElementById('address')!
+						addressEl.setAttribute('value', res.data.address)
+					})
+			}
 		} catch (err) {
 			console.log(err)
 		}

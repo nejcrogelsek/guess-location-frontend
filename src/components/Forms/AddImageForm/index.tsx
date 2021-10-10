@@ -60,13 +60,20 @@ const AddImageForm: FC = () => {
 					long: createLocationDto.long,
 					address: createLocationDto.address,
 				}
-				await axios.post('/location', finalData).then((res) => {
-					console.log('Upload location worked')
-					locationStore.addLocation(res.data)
-					setPreview(null)
-					setFile(null)
-					reset()
-				})
+				const token: string | null = localStorage.getItem('user')
+				if (token) {
+					await axios
+						.post('/location', finalData, {
+							headers: { Authorization: `Bearer ${token}` },
+						})
+						.then((res) => {
+							console.log('Upload location worked')
+							locationStore.addLocation(res.data)
+							setPreview(null)
+							setFile(null)
+							reset()
+						})
+				}
 			} else {
 				alert('You need to upload a location image.')
 			}
