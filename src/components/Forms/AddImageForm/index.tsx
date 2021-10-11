@@ -68,7 +68,6 @@ const AddImageForm: FC = () => {
 						})
 						.then((res) => {
 							console.log('Upload location worked')
-							locationStore.addLocation(res.data)
 							setPreview(null)
 							setFile(null)
 							reset()
