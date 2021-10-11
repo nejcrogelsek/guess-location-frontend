@@ -42,11 +42,15 @@ const Card: FC<Props> = ({
 	const [distance, setDistance] = useState<number | null>(null)
 
 	const getDistance = async () => {
-		await axios
-			.get(`/location/${location.id}/user/${location.user_id}`)
-			.then((res) => {
-				setDistance(res.data.distance)
-			})
+		if (userStore.user) {
+			await axios
+				.get(`/location/${location.id}/user/${userStore.user.id}`)
+				.then((res) => {
+					setDistance(res.data.distance)
+				})
+		} else {
+			setDistance(0)
+		}
 	}
 
 	useEffect(() => {

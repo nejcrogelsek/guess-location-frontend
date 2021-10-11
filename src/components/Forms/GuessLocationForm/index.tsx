@@ -16,6 +16,7 @@ import {
 import { IGuessLocation } from '../../../interfaces/location.interface'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import userStore from '../../../stores/user.store'
 
 interface Props {
 	image: string
@@ -72,7 +73,7 @@ const GuessLocationForm: FC<Props> = ({
 			const distance: string = (+calcDistance(p1, p2) * 1000).toFixed(0)
 			setDistance(Number(distance))
 			const finalData = {
-				user_id,
+				user_id: userStore.user!.id,
 				location_id,
 				lat: addGuessDto.lat,
 				long: addGuessDto.lng,
