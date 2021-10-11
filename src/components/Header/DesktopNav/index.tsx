@@ -2,6 +2,7 @@ import { Avatar } from '@material-ui/core'
 import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
+import locationStore from '../../../stores/location.store'
 import userStore from '../../../stores/user.store'
 import { LinkStyled } from '../../shared/Button/styles'
 import { NavbarNav } from '../styles'
@@ -12,6 +13,7 @@ const DesktopNav: FC = () => {
 	const signout = () => {
 		localStorage.removeItem('user')
 		userStore.logout()
+		locationStore.logout()
 		history.push('/')
 	}
 

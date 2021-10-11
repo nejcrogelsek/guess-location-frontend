@@ -72,6 +72,11 @@ class LocationStore {
 	addLocation(location: LocationData) {
 		this.recentLocations?.push(location)
 	}
+
+	logout() {
+		this.recentLocations = null
+		this.personalBest = null
+	}
 }
 const locationStore = new LocationStore()
 export default locationStore

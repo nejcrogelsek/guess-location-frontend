@@ -7,6 +7,7 @@ import Header from '../../components/Header'
 import Card from '../../components/shared/Card'
 import { Container } from '../../components/shared/Common/styles'
 import locationStore from '../../stores/location.store'
+import userStore from '../../stores/user.store'
 import { ProfileBox, ProfileWrap } from './styles'
 
 const Profile: FC = () => {
@@ -26,6 +27,15 @@ const Profile: FC = () => {
 			window.removeEventListener('resize', checkIfMobile)
 		}
 	}, [])
+
+	useEffect(() => {
+		if (userStore.user) {
+			const token: string | null = localStorage.getItem('user')
+			if (token) {
+				locationStore.getPersonalBest(userStore.user.id, token)
+			}
+		}
+	}, [userStore.user])
 	return (
 		<>
 			<Header />

@@ -37,6 +37,15 @@ const HomeBottom: FC = () => {
 			window.removeEventListener('resize', checkIfMobile)
 		}
 	}, [])
+
+	useEffect(() => {
+		if (userStore.user) {
+			const token: string | null = localStorage.getItem('user')
+			if (token) {
+				locationStore.getRecent(userStore.user.id, token)
+			}
+		}
+	}, [userStore.user])
 	return (
 		<>
 			<Container>

@@ -75,4 +75,10 @@ export default createGlobalStyle`
 			}
 		}
 	}
+	.swiper-container.modal-open{
+		overflow: initial !important;
+		.swiper-wrapper{
+			transform: none !important;
+		}
+	}
 `

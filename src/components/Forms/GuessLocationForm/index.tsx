@@ -17,6 +17,7 @@ import { IGuessLocation } from '../../../interfaces/location.interface'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import userStore from '../../../stores/user.store'
+import locationStore from '../../../stores/location.store'
 
 interface Props {
 	image: string
@@ -92,6 +93,7 @@ const GuessLocationForm: FC<Props> = ({
 						const addressEl = document.getElementById('address')!
 						addressEl.setAttribute('value', res.data.address)
 					})
+				locationStore.getPersonalBest(userStore.user!.id, token)
 			}
 		} catch (err) {
 			console.log(err)

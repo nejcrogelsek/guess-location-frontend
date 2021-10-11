@@ -8,7 +8,6 @@ import { Home, Login, Profile, Register } from './pages'
 import { observer } from 'mobx-react-lite'
 import userStore from './stores/user.store'
 import axios from './api/axios'
-import locationStore from './stores/location.store'
 
 const App: FC = () => {
 	const checkIfAccessTokenExists = async () => {
@@ -56,16 +55,6 @@ const App: FC = () => {
 
 		return () => clearInterval(interval)
 	}, [])
-
-	useEffect(() => {
-		if (userStore.user) {
-			const token: string | null = localStorage.getItem('user')
-			if (token) {
-				locationStore.getRecent(userStore.user.id, token)
-				locationStore.getPersonalBest(userStore.user.id, token)
-			}
-		}
-	}, [userStore.user])
 
 	return (
 		<ThemeProvider theme={theme}>

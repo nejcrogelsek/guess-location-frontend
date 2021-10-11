@@ -26,8 +26,9 @@ export const Form = styled.form`
 export const FormValidation = styled.p`
 	color: #fff;
 	position: relative;
-	padding: 1rem;
+	padding: 1rem 2.5rem 1rem 1rem;
 	background: red;
+	line-height: 24px;
 	border-radius: 2rem;
 	margin: 0 0 1rem;
 	> svg {
@@ -42,10 +43,11 @@ export const FormValidation = styled.p`
 export const FormValidationSuccess = styled.p`
 	color: #fff;
 	position: relative;
-	padding: 1rem;
+	padding: 1rem 2.5rem 1rem 1rem;
 	background: ${(p) => p.theme.colors.green};
 	border-radius: 2rem;
 	margin: 0 0 1rem;
+	line-height: 24px;
 	> svg {
 		cursor: pointer;
 		position: absolute;

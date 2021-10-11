@@ -25,6 +25,7 @@ interface Props {
 	ddistance?: number
 	nostyle?: string
 	mobile?: string
+	isSlider?: boolean
 }
 
 const Card: FC<Props> = ({
@@ -37,6 +38,7 @@ const Card: FC<Props> = ({
 	location,
 	ddistance,
 	mobile,
+	isSlider,
 }: Props) => {
 	const [modal, setModal] = useState(false)
 	const [distance, setDistance] = useState<number | null>(null)
@@ -51,6 +53,15 @@ const Card: FC<Props> = ({
 		} else {
 			setDistance(0)
 		}
+	}
+
+	const openModalSlider = () => {
+		document.querySelector('.swiper-container')?.classList.add('modal-open')
+		setModal(true)
+	}
+	const closeModalSlider = () => {
+		document.querySelector('.swiper-container')?.classList.remove('modal-open')
+		setModal(false)
 	}
 
 	useEffect(() => {
@@ -74,7 +85,11 @@ const Card: FC<Props> = ({
 					{userStore.user ? (
 						<>
 							<span className='error-distance'>{distance && `${distance}m`}</span>
-							<ButtonGuess onClick={() => setModal(true)}>Guess</ButtonGuess>
+							{isSlider ? (
+								<ButtonGuess onClick={openModalSlider}>Guess</ButtonGuess>
+							) : (
+								<ButtonGuess onClick={() => setModal(true)}>Guess</ButtonGuess>
+							)}
 						</>
 					) : (
 						<svg
@@ -110,7 +125,11 @@ const Card: FC<Props> = ({
 							/>
 						</ModalWrapper>
 					</motion.div>
-					<Backdrop onClick={() => setModal(false)}></Backdrop>
+					{isSlider ? (
+						<Backdrop onClick={closeModalSlider}></Backdrop>
+					) : (
+						<Backdrop onClick={() => setModal(false)}></Backdrop>
+					)}
 				</>
 			) : null}
 		</>
