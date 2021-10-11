@@ -24,13 +24,7 @@ const LoginForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
 	const validationSchema = Yup.object().shape({
 		email: Yup.string().required('Email is required').email('Email is invalid'),
-		password: Yup.string()
-			.required('Password is required')
-			.matches(
-				/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-				'Password must have at least 1 upper & lower case letter, 1 number or special character and it must be long more than 5 characters.'
-			)
-			.min(6, 'Password must be at least 6 characters'),
+		password: Yup.string().required('Password is required'),
 	})
 	const [error, setError] = useState<string | null>(null)
 	const {

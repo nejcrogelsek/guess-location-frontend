@@ -22,8 +22,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 const UpdateProfileForm: FC = () => {
 	const validationSchema = Yup.object().shape(
 		{
-			first_name: Yup.string().required('First name is required'),
-			last_name: Yup.string().required('Last name is required'),
+			first_name: Yup.string().notRequired(),
+			last_name: Yup.string().notRequired(),
 			password: Yup.string()
 				.matches(
 					/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
@@ -31,8 +31,7 @@ const UpdateProfileForm: FC = () => {
 				)
 				.min(6, 'Password must be at least 6 characters')
 				.nullable()
-				.notRequired()
-				.optional(),
+				.notRequired(),
 		},
 		[['password', 'password']]
 	)
