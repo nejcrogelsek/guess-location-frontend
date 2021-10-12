@@ -44,9 +44,12 @@ const Card: FC<Props> = ({
 	const [distance, setDistance] = useState<number | null>(null)
 
 	const getDistance = async () => {
-		if (userStore.user) {
+		const token: string | null = localStorage.getItem('user')
+		if (userStore.user && token) {
 			await axios
-				.get(`/location/${location.id}/user/${userStore.user.id}`)
+				.get(`/location/${location.id}/user/${userStore.user.id}`, {
+					headers: { Authorization: `Bearer ${token}` },
+				})
 				.then((res) => {
 					setDistance(res.data.distance)
 				})

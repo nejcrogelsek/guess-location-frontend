@@ -47,15 +47,20 @@ const LoginForm: FC = () => {
 				username: data.email,
 				password: data.password,
 			}
-			await axios.post('/auth/login', finalData).then((res) => {
-				userStore.login(res.data.user)
-				localStorage.setItem('user', res.data.access_token)
-				reset()
-			})
+			await axios
+				.post('/auth/login', finalData)
+				.then((res) => {
+					userStore.login(res.data.user)
+					localStorage.setItem('user', res.data.access_token)
+					reset()
+				})
+				.catch((err) => {
+					setError(err.response.data.message)
+				})
 		} catch (err) {
 			console.log(err)
 			if (err instanceof Error) {
-				setError(err.message)
+				//setError(err.response.message)
 			} else {
 				console.log(err)
 				err
