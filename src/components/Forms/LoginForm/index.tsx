@@ -19,6 +19,7 @@ import userStore from '../../../stores/user.store'
 import { observer } from 'mobx-react-lite'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { login } from '../../../api/userActions'
 
 const LoginForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
@@ -43,28 +44,12 @@ const LoginForm: FC = () => {
 
 	const signin = async (data: SignInData) => {
 		try {
-			const finalData = {
-				username: data.email,
-				password: data.password,
-			}
-			await axios
-				.post('/auth/login', finalData)
-				.then((res) => {
-					userStore.login(res.data.user)
-					localStorage.setItem('user', res.data.access_token)
-					reset()
-				})
-				.catch((err) => {
-					setError(err.response.data.message)
-				})
+			const res = await login(data)
+			userStore.login(res.data.user)
+			localStorage.setItem('user', res.data.access_token)
+			reset()
 		} catch (err) {
 			console.log(err)
-			if (err instanceof Error) {
-				//setError(err.response.message)
-			} else {
-				console.log(err)
-				err
-			}
 		}
 	}
 
