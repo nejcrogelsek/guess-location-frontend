@@ -19,7 +19,7 @@ import userStore from '../../../stores/user.store'
 import { observer } from 'mobx-react-lite'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { login } from '../../../api/userActions'
+import { login } from '../../../api/authActions'
 
 const LoginForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
