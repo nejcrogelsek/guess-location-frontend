@@ -19,6 +19,7 @@ import { observer } from 'mobx-react-lite'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { login } from '../../../api/auth.actions'
+import { motion } from 'framer-motion'
 
 const LoginForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
@@ -44,9 +45,13 @@ const LoginForm: FC = () => {
 	const signin = async (data: SignInData) => {
 		try {
 			const res = await login(data)
-			userStore.login(res.data.user)
-			localStorage.setItem('user', res.data.access_token)
-			reset()
+			if (res.data) {
+				userStore.login(res.data.user)
+				localStorage.setItem('user', res.data.access_token)
+				reset()
+			} else {
+				setError('error')
+			}
 		} catch (err) {
 			console.log(err)
 		}
@@ -67,34 +72,38 @@ const LoginForm: FC = () => {
 	return (
 		<Form onSubmit={onSubmit}>
 			{error && (
-				<FormValidation>
-					{error}
-					<svg
-						onClick={() => setError(null)}
-						xmlns='http://www.w3.org/2000/svg'
-						width='16'
-						height='16'
-						fill='currentColor'
-						className='bi bi-x'
-						viewBox='0 0 16 16'>
-						<path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z' />
-					</svg>
-				</FormValidation>
+				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+					<FormValidation>
+						{error}
+						<svg
+							onClick={() => setError(null)}
+							xmlns='http://www.w3.org/2000/svg'
+							width='16'
+							height='16'
+							fill='currentColor'
+							className='bi bi-x'
+							viewBox='0 0 16 16'>
+							<path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z' />
+						</svg>
+					</FormValidation>
+				</motion.div>
 			)}
 			{success && (
-				<FormValidationSuccess>
-					{success}
-					<svg
-						onClick={() => setSuccess(null)}
-						xmlns='http://www.w3.org/2000/svg'
-						width='16'
-						height='16'
-						fill='currentColor'
-						className='bi bi-x'
-						viewBox='0 0 16 16'>
-						<path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z' />
-					</svg>
-				</FormValidationSuccess>
+				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+					<FormValidationSuccess>
+						{success}
+						<svg
+							onClick={() => setSuccess(null)}
+							xmlns='http://www.w3.org/2000/svg'
+							width='16'
+							height='16'
+							fill='currentColor'
+							className='bi bi-x'
+							viewBox='0 0 16 16'>
+							<path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z' />
+						</svg>
+					</FormValidationSuccess>
+				</motion.div>
 			)}
 			<FormElement>
 				<FormLabel htmlFor='email'>Email</FormLabel>

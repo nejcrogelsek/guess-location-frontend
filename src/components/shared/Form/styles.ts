@@ -39,7 +39,6 @@ export const FormValidation = styled.p`
 		transform: translate(0, -50%) scale(2);
 	}
 `
-
 export const FormValidationSuccess = styled.p`
 	color: #fff;
 	position: relative;
@@ -56,7 +55,6 @@ export const FormValidationSuccess = styled.p`
 		transform: translate(0, -50%) scale(2);
 	}
 `
-
 export const FormElement = styled.div<FormElementProps>`
 	margin-bottom: 1rem;
 	&.hidden {

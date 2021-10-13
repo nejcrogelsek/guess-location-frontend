@@ -15,7 +15,7 @@ const Register: FC = () => {
 	return (
 		<LoginRegisterContainer>
 			<Header />
-			<LoginRegisterWrap>
+			<LoginRegisterWrap isRegister='true'>
 				<LoginRegisterContentWrap isRegister='true'>
 					<Logo to='/' />
 					<LoginRegisterTitle>Sign up</LoginRegisterTitle>

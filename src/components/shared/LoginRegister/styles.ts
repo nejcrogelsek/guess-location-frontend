@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import BackgroundImage from '../../../assets/images/background.png'
-import { LoginRegisterContentWrapProps, LoginRegisterDesktopBackgroundProps } from '../../../interfaces/style.interface'
+import {
+	LoginRegisterContentWrapProps,
+	LoginRegisterDesktopBackgroundProps,
+} from '../../../interfaces/style.interface'
 
 export const LoginRegisterContainer = styled.div`
 	${(p) => p.theme.screens.large} {
@@ -10,7 +13,7 @@ export const LoginRegisterContainer = styled.div`
 	}
 `
 
-export const LoginRegisterWrap = styled.div`
+export const LoginRegisterWrap = styled.div<LoginRegisterContentWrapProps>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -24,9 +27,12 @@ export const LoginRegisterWrap = styled.div`
 	${(p) => p.theme.screens.large} {
 		background-image: none;
 		justify-content: flex-start;
-		height: 100vh;
+		height: ${(p) => (p.isRegister ? '125vh' : '100vh')};
 		overflow: hidden;
 		padding: 0;
+	}
+	${(p) => p.theme.screens.huge} {
+		height: 100vh;
 	}
 `
 
@@ -69,7 +75,7 @@ export const LoginRegisterContentWrap = styled.div<LoginRegisterContentWrapProps
 	}
 	${(p) => p.theme.screens.large} {
 		width: 40%;
-		margin-top: ${(p) => (p.isRegister ? '160px' : '0')};
+		margin-top: ${(p) => (p.isRegister ? '25vh' : '0')};
 		box-shadow: none;
 		> a {
 			display: block;
