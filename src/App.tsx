@@ -7,22 +7,17 @@ import PrivateRoute from './components/routes/PrivateRoute'
 import { Home, Login, Profile, Register } from './pages'
 import { observer } from 'mobx-react-lite'
 import userStore from './stores/user.store'
-import axios from './api/axios'
-import { refreshTokenFC } from './api/auth.actions'
+import { accessTokenFC, refreshTokenFC } from './api/auth.actions'
 
 const App: FC = () => {
 	const checkIfAccessTokenExists = async () => {
 		const token: string | null = localStorage.getItem('user')
 		if (token) {
-			await axios
-				.get('/auth/protected', { headers: { Authorization: `Bearer ${token}` } })
-				.then((res) => {
-					userStore.login(res.data)
-					checkForRefreshToken()
-				})
-				.catch((err) => {
-					console.error('ERROR MESSAGE: ', err)
-				})
+			const res = await accessTokenFC(token)
+			if (res.data) {
+				userStore.login(res.data)
+				await checkForRefreshToken()
+			}
 		}
 	}
 

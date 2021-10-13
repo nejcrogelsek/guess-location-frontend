@@ -64,3 +64,10 @@ export const refreshTokenFC = async (
 		}
 	)
 }
+export const accessTokenFC = async (
+	token: string
+): Promise<AxiosResponse<any>> => {
+	return axios.get('/auth/protected', {
+		headers: { Authorization: `Bearer ${token}` },
+	})
+}
