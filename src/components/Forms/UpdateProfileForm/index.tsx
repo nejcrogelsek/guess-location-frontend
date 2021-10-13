@@ -64,13 +64,9 @@ const UpdateProfileForm: FC = () => {
 				const imageUrl: string = data.url.split('?')
 				updateUserDto.profile_image = imageUrl[0]
 			}
-			const finalData = {
-				id: userStore.user!.id,
-				...updateUserDto,
-			}
 			const token: string | null = localStorage.getItem('user')
 			if (token) {
-				const res = await update(finalData, token)
+				const res = await update(updateUserDto,userStore.user!.id, token)
 				if (res.data) {
 					userStore.update(res.data)
 					setPreview(null)

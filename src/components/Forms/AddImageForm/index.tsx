@@ -55,16 +55,9 @@ const AddImageForm: FC = () => {
 				const { data } = await generateUploadUrl()
 				uploadImage(data.url, file)
 				const imageUrl = data.url.split('?')
-
-				const finalData: LocationFormData = {
-					location_image: imageUrl[0],
-					lat: createLocationDto.lat,
-					long: createLocationDto.long,
-					address: createLocationDto.address,
-				}
 				const token: string | null = localStorage.getItem('user')
 				if (token) {
-					const res = await addLocation(finalData, token)
+					const res = await addLocation(createLocationDto, imageUrl[0], token)
 					if (res.data) {
 						setSuccess('Location successfully added.')
 						setPreview(null)

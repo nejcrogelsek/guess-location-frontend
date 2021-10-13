@@ -38,17 +38,15 @@ export const createUser = async (
 }
 
 export const update = (
-	finalData: {
-		id: number
-		first_name: string
-		last_name: string
-		profile_image?: string
-		password: string
-	},
+	updateUserDto: UpdateUserDto,
+	user_id: number,
 	token: string
 ): Promise<AxiosResponse<any>> => {
-	return axios.patch('/users/me/update', finalData, {
-		headers: { Authorization: `Bearer ${token}` },
-	})
+	return axios.patch(
+		'/users/me/update',
+		{ ...updateUserDto, id: user_id },
+		{
+			headers: { Authorization: `Bearer ${token}` },
+		}
+	)
 }
-
