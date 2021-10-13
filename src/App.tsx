@@ -33,11 +33,18 @@ const App: FC = () => {
 			const minutes = 1000 * 60 * 14
 
 			if (expiration.getTime() - now.getTime() < minutes) {
-				axios
-					.post('/auth/refresh-token', { name: payload.name, sub: payload.sub })
-					.then((res) => {
-						localStorage.setItem('user', res.data.access_token)
-					})
+				const token: string | null = localStorage.getItem('user')
+				if (token) {
+					axios
+						.post(
+							'/auth/refresh-token',
+							{ name: payload.name, sub: payload.sub },
+							{ headers: { Authorization: `Bearer ${token}` } }
+						)
+						.then((res) => {
+							localStorage.setItem('user', res.data.access_token)
+						})
+				}
 			}
 		}
 	}
