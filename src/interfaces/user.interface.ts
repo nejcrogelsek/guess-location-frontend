@@ -10,6 +10,6 @@ export type IUser = {
 export type UpdateUserDto = {
 	first_name: string
 	last_name: string
-	profile_image: string
+	profile_image?: string
 	password: string
 }

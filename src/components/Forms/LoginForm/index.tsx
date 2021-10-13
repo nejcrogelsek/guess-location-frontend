@@ -1,4 +1,3 @@
-import axios from '../../../api/axios'
 import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { SignInData } from '../../../interfaces/auth.interface'

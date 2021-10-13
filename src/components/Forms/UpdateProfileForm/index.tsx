@@ -18,6 +18,11 @@ import {
 import { UpdateUserDto } from '../../../interfaces/user.interface'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import {
+	generateUploadUrl,
+	update,
+	uploadImage,
+} from '../../../api/authActions'
 
 const UpdateProfileForm: FC = () => {
 	const validationSchema = Yup.object().shape(
@@ -53,39 +58,26 @@ const UpdateProfileForm: FC = () => {
 
 	const updateUser = async (updateUserDto: UpdateUserDto) => {
 		try {
-			let imageUrl: string[] | null = null
 			if (file !== null) {
-				const { data } = await axios.get('users/upload')
-
-				await axios.put(data.url, file, {
-					headers: { 'Content-Type': 'multipart/form-data' },
-				})
-				imageUrl = data.url.split('?')
+				const { data } = await generateUploadUrl()
+				uploadImage(data.url, file)
+				const imageUrl: string = data.url.split('?')
+				updateUserDto.profile_image = imageUrl[0]
 			}
-			let finalData
-			if (imageUrl) {
-				finalData = {
-					id: userStore.user!.id,
-					first_name: updateUserDto.first_name,
-					last_name: updateUserDto.last_name,
-					profile_image: imageUrl[0],
-					password: updateUserDto.password,
-				}
-			} else {
-				finalData = {
-					id: userStore.user!.id,
-					first_name: updateUserDto.first_name,
-					last_name: updateUserDto.last_name,
-					password: updateUserDto.password,
+			const finalData = {
+				id: userStore.user!.id,
+				...updateUserDto,
+			}
+			const token: string | null = localStorage.getItem('user')
+			if (token) {
+				const res = await update(finalData, token)
+				if (res.data) {
+					userStore.update(res.data)
+					setPreview(null)
+					setFile(null)
+					reset()
 				}
 			}
-
-			await axios.patch('/users/me/update', finalData).then((res) => {
-				userStore.update(res.data)
-				setPreview(null)
-				setFile(null)
-				reset()
-			})
 		} catch (err) {
 			console.log(err)
 		}

@@ -1,5 +1,4 @@
 import { Avatar } from '@material-ui/core'
-import axios from '../../../api/axios'
 import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -20,6 +19,11 @@ import {
 } from '../../shared/Form/styles'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import {
+	generateUploadUrl,
+	uploadImage,
+	createUser,
+} from '../../../api/authActions'
 
 const RegisterForm: FC = () => {
 	// form validation rules
@@ -54,36 +58,27 @@ const RegisterForm: FC = () => {
 	})
 
 	const onSubmit = handleSubmit((data) => {
-		console.log('sign up')
 		signup(data)
 	})
 
 	const signup = async (createUserDto: SignUpData) => {
 		try {
 			if (file !== null) {
-				const { data } = await axios.get('users/upload')
-
-				await axios.put(data.url, file, {
-					headers: { 'Content-Type': 'multipart/form-data' },
-				})
+				const { data } = await generateUploadUrl()
+				uploadImage(data.url, file)
 				const imageUrl = data.url.split('?')
 
-				const finalData = {
-					profile_image: imageUrl[0],
-					email: createUserDto.email,
-					first_name: createUserDto.first_name,
-					last_name: createUserDto.last_name,
-					password: createUserDto.password,
-					confirm_password: createUserDto.confirm_password,
-				}
-				await axios.post('/auth/register', finalData).then(() => {
+				const res = await createUser(createUserDto, imageUrl[0])
+				if (res.data) {
 					setSuccess('Check your inbox and verify your email.')
 					setPreview(null)
 					setFile(null)
 					reset()
-				})
+				} else {
+					setError('error')
+				}
 			} else {
-				alert('You need to upload a profile image.')
+				setError('You need to upload a profile image.')
 			}
 		} catch (err) {
 			console.log(err)
