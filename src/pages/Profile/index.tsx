@@ -52,7 +52,6 @@ const Profile: FC = () => {
 							<Card
 								key={item.location.id}
 								{...item}
-								ddistance={item.distance}
 								bottom='24px'
 								mobile={isMobile ? 'true' : 'false'}
 							/>

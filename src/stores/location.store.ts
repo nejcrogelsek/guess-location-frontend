@@ -4,7 +4,6 @@ import { IPersonalBest, LocationData } from '../interfaces/location.interface'
 import DefaultImage_one from '../assets/images/default_image1.png'
 import DefaultImage_two from '../assets/images/default_image2.png'
 import DefaultImage_three from '../assets/images/default_image3.png'
-import userStore from './user.store'
 
 class LocationStore {
 	defaultLocations: LocationData[] = [

@@ -41,7 +41,7 @@ const HomeSlider: FC = () => {
 				onSwiper={(swiper: any) => console.log(swiper)}>
 				{locationStore.personalBest?.slice(0, 3).map((item) => (
 					<SwiperSlide key={item.location.id}>
-						<Card {...item} ddistance={item.distance} isSlider={true} bottom='24px' />
+						<Card {...item} isSlider={true} bottom='24px' />
 					</SwiperSlide>
 				))}
 			</Swiper>

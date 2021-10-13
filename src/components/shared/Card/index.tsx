@@ -22,7 +22,6 @@ interface Props {
 		created_at: Date
 		updated_at: Date
 	}
-	ddistance?: number
 	nostyle?: string
 	mobile?: string
 	isSlider?: boolean
@@ -36,7 +35,6 @@ const Card: FC<Props> = ({
 	minwidth,
 	nostyle,
 	location,
-	ddistance,
 	mobile,
 	isSlider,
 }: Props) => {
