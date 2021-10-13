@@ -35,7 +35,6 @@ export const ProfileBox = styled.div<ProfileBoxProps>`
 	${(p) => p.theme.screens.large} {
 		margin: 0 10px;
 		min-height: 772px;
-		max-height: 772px;
 		> form {
 			display: flex;
 			flex-direction: column;
