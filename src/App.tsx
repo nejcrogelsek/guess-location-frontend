@@ -8,6 +8,7 @@ import { Home, Login, Profile, Register } from './pages'
 import { observer } from 'mobx-react-lite'
 import userStore from './stores/user.store'
 import axios from './api/axios'
+import { refreshTokenFC } from './api/auth.actions'
 
 const App: FC = () => {
 	const checkIfAccessTokenExists = async () => {
@@ -25,7 +26,7 @@ const App: FC = () => {
 		}
 	}
 
-	const checkForRefreshToken = () => {
+	const checkForRefreshToken = async () => {
 		if (localStorage.getItem('user')) {
 			const payload = JSON.parse(getPayload())
 			const expiration = new Date(payload.exp)
@@ -35,15 +36,10 @@ const App: FC = () => {
 			if (expiration.getTime() - now.getTime() < minutes) {
 				const token: string | null = localStorage.getItem('user')
 				if (token) {
-					axios
-						.post(
-							'/auth/refresh-token',
-							{ name: payload.name, sub: payload.sub },
-							{ headers: { Authorization: `Bearer ${token}` } }
-						)
-						.then((res) => {
-							localStorage.setItem('user', res.data.access_token)
-						})
+					const res = await refreshTokenFC(payload.name, payload.sub, token)
+					if (res.data) {
+						localStorage.setItem('user', res.data.access_token)
+					}
 				}
 			}
 		}

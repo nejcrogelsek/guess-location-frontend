@@ -50,3 +50,17 @@ export const update = async (
 		}
 	)
 }
+
+export const refreshTokenFC = async (
+	name: string,
+	sub: number,
+	token: string
+): Promise<AxiosResponse<any>> => {
+	return axios.post(
+		'/auth/refresh-token',
+		{ name: name, sub: sub },
+		{
+			headers: { Authorization: `Bearer ${token}` },
+		}
+	)
+}

@@ -1,5 +1,4 @@
 import { Avatar } from '@material-ui/core'
-import axios from '../../../api/axios'
 import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -66,7 +65,7 @@ const UpdateProfileForm: FC = () => {
 			}
 			const token: string | null = localStorage.getItem('user')
 			if (token) {
-				const res = await update(updateUserDto,userStore.user!.id, token)
+				const res = await update(updateUserDto, userStore.user!.id, token)
 				if (res.data) {
 					userStore.update(res.data)
 					setPreview(null)
