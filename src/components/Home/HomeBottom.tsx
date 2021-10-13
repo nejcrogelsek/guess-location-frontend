@@ -46,6 +46,7 @@ const HomeBottom: FC = () => {
 			}
 		}
 	}, [userStore.user])
+
 	return (
 		<>
 			<Container>
