@@ -1,4 +1,3 @@
-import axios from '../../../api/axios'
 import { observer } from 'mobx-react-lite'
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -12,16 +11,18 @@ import {
 	FormImagePlaceholder,
 	FormLabel,
 	FormMapWrapper,
+	FormValidation,
+	FormValidationSuccess,
 } from '../../shared/Form/styles'
 import { IGuessLocation } from '../../../interfaces/location.interface'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import userStore from '../../../stores/user.store'
 import locationStore from '../../../stores/location.store'
+import { createGuess } from '../../../api/location.actions'
 
 interface Props {
 	image: string
-	user_id: number
 	location_id: number
 	lat: number
 	long: number
@@ -30,12 +31,13 @@ interface Props {
 
 const GuessLocationForm: FC<Props> = ({
 	image,
-	user_id,
 	location_id,
 	lat,
 	long,
 	setDistance,
 }: Props) => {
+	const [success, setSuccess] = useState<string | null>(null)
+	const [error, setError] = useState<string | null>(null)
 	const validationSchema = Yup.object().shape({
 		lat: Yup.string().required('Latitude is required'),
 		lng: Yup.string().required('Longitude is required'),
@@ -57,7 +59,7 @@ const GuessLocationForm: FC<Props> = ({
 	})
 
 	//calculates distance between two points in km's
-	const calcDistance = (p1: any, p2: any) => {
+	const calcDistance = (p1: google.maps.LatLng, p2: google.maps.LatLng) => {
 		return (
 			google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000
 		).toFixed(4)
@@ -73,27 +75,25 @@ const GuessLocationForm: FC<Props> = ({
 
 			const distance: string = (+calcDistance(p1, p2) * 1000).toFixed(0)
 			setDistance(Number(distance))
-			const finalData = {
-				user_id: userStore.user!.id,
-				location_id,
-				lat: addGuessDto.lat,
-				long: addGuessDto.lng,
-				address: addGuessDto.address,
-				distance,
-			}
 			const token: string | null = localStorage.getItem('user')
 			if (token) {
-				await axios
-					.post(`/location/guess/${location_id}`, finalData, {
-						headers: { Authorization: `Bearer ${token}` },
-					})
-					.then((res) => {
-						reset()
-						setErrorDistance(res.data.distance.toString())
-						const addressEl = document.getElementById('address')!
-						addressEl.setAttribute('value', res.data.address)
-					})
-				locationStore.getPersonalBest(userStore.user!.id, token)
+				const res = await createGuess(
+					addGuessDto.address,
+					location_id,
+					distance,
+					token
+				)
+				if (res.data) {
+					setErrorDistance(res.data.distance.toString())
+					const addressEl = document.getElementById('address')!
+					addressEl.setAttribute('value', res.data.address)
+					reset()
+					setSuccess('Guess successfully added.')
+					// Get personal best
+					locationStore.getPersonalBest(userStore.user!.id, token)
+				} else {
+					setError('error')
+				}
 			}
 		} catch (err) {
 			console.log(err)
@@ -159,6 +159,36 @@ const GuessLocationForm: FC<Props> = ({
 							/>
 						</FormElement>
 					</div>
+					{error && (
+						<FormValidation>
+							{error}
+							<svg
+								onClick={() => setError(null)}
+								xmlns='http://www.w3.org/2000/svg'
+								width='16'
+								height='16'
+								fill='currentColor'
+								className='bi bi-x'
+								viewBox='0 0 16 16'>
+								<path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z' />
+							</svg>
+						</FormValidation>
+					)}
+					{success && (
+						<FormValidationSuccess>
+							{success}
+							<svg
+								onClick={() => setSuccess(null)}
+								xmlns='http://www.w3.org/2000/svg'
+								width='16'
+								height='16'
+								fill='currentColor'
+								className='bi bi-x'
+								viewBox='0 0 16 16'>
+								<path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z' />
+							</svg>
+						</FormValidationSuccess>
+					)}
 					<FormButtonsWrap className='buttons'>
 						<ButtonStyled size='full' color='green' type='submit'>
 							Guess

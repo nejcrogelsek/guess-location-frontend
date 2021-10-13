@@ -37,7 +37,7 @@ export const createUser = async (
 	return axios.post('/auth/register', finalData)
 }
 
-export const update = (
+export const update = async (
 	updateUserDto: UpdateUserDto,
 	user_id: number,
 	token: string

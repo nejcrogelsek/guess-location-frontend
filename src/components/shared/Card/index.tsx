@@ -4,7 +4,7 @@ import { ButtonGuess } from '../Button/styles'
 import GuessLocationForm from '../../Forms/GuessLocationForm'
 import { motion } from 'framer-motion'
 import userStore from '../../../stores/user.store'
-import axios from '../../../api/axios'
+import { getDistanceBE } from '../../../api/location.actions'
 
 interface Props {
 	top?: string
@@ -46,13 +46,10 @@ const Card: FC<Props> = ({
 	const getDistance = async () => {
 		const token: string | null = localStorage.getItem('user')
 		if (userStore.user && token) {
-			await axios
-				.get(`/location/${location.id}/user/${userStore.user.id}`, {
-					headers: { Authorization: `Bearer ${token}` },
-				})
-				.then((res) => {
-					setDistance(res.data.distance)
-				})
+			const res = await getDistanceBE(userStore.user.id, location.id, token)
+			if (res.data) {
+				setDistance(res.data.distance)
+			}
 		} else {
 			setDistance(0)
 		}
@@ -120,7 +117,6 @@ const Card: FC<Props> = ({
 						<ModalWrapper shadow='true'>
 							<GuessLocationForm
 								image={location.location_image}
-								user_id={location.user_id}
 								location_id={location.id}
 								lat={location.lat}
 								long={location.long}
