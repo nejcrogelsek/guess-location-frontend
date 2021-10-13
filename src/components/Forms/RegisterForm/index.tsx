@@ -148,7 +148,7 @@ const RegisterForm: FC = () => {
 						</FormValidationSuccess>
 					</motion.div>
 				)}
-				<FormElement image='true'>
+				<FormElement image={true}>
 					<FormLabel htmlFor='file'>
 						<Avatar src={preview as string} />
 					</FormLabel>

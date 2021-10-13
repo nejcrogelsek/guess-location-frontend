@@ -62,7 +62,7 @@ const Header: FC = () => {
 					)}
 				</NavContainer>
 			</Navbar>
-			<MobileOverlay toggle={toggle ? 'open' : null} />
+			<MobileOverlay toggle={toggle} />
 		</>
 	)
 }

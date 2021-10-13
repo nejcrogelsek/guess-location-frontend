@@ -70,8 +70,8 @@ export const FormElement = styled.div<FormElementProps>`
 		color: red;
 	}
 	${(p) =>
-		p.image
-			? `
+		p.image &&
+		`
         position: relative;
         margin: 0 auto 1rem;
         width: 64px;
@@ -99,8 +99,7 @@ export const FormElement = styled.div<FormElementProps>`
             box-shadow: 0px 0px 8px ${p.theme.colors.shadow};
           }
         }
-      `
-			: null}
+      `}
 `
 export const FormControl = styled.input`
 	border-radius: 2rem;
@@ -112,7 +111,7 @@ export const FormControl = styled.input`
 	&:focus {
 		box-shadow: none;
 	}
-	&.is-invalid{
+	&.is-invalid {
 		border-color: red;
 	}
 `
@@ -124,7 +123,7 @@ export const FormControlSecondary = styled.input`
 	width: 100%;
 	margin-top: 0.5rem;
 	box-shadow: 0px 0px 8px ${(p) => p.theme.colors.shadow};
-	&.is-invalid{
+	&.is-invalid {
 		box-shadow: 0px 0px 3px #f00;
 	}
 `
@@ -137,7 +136,7 @@ export const FormTextArea = styled.textarea`
 	margin-top: 1rem;
 	resize: none;
 	box-shadow: 0px 0px 8px ${(p) => p.theme.colors.shadow};
-	&.is-invalid{
+	&.is-invalid {
 		box-shadow: 0px 0px 3px #f00;
 	}
 `

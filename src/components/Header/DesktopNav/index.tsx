@@ -18,7 +18,7 @@ const DesktopNav: FC = () => {
 	}
 
 	return (
-		<NavbarNav isAuth={userStore.user && 'isAuth'}>
+		<NavbarNav isAuth={userStore.user && true}>
 			{userStore.user ? (
 				<>
 					<li className='nav-item'>

@@ -24,9 +24,9 @@ const MobileNav: FC<Props> = ({ toggleNav, toggle }: Props) => {
 	}
 
 	return (
-		<NavMobile toggle={toggle ? 'open' : null}>
+		<NavMobile toggle={toggle}>
 			<div>
-				<NavButtons reverse='true'>
+				<NavButtons reverse={true}>
 					<MenuButtonClose onClick={() => toggleNav()}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
@@ -39,7 +39,7 @@ const MobileNav: FC<Props> = ({ toggleNav, toggle }: Props) => {
 						</svg>
 					</MenuButtonClose>
 				</NavButtons>
-				<NavbarNav isAuth={userStore.user && 'isAuth'}>
+				<NavbarNav isAuth={userStore.user && true}>
 					{userStore.user ? (
 						<>
 							<li className='nav-item user-item'>

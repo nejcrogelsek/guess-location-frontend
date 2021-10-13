@@ -3,7 +3,7 @@ import { TextProps } from '../../../interfaces/style.interface'
 
 export const Container = styled.div`
 	width: 100%;
-	max-width: 1320px;
+	max-width: 1356px;
 	margin: 0 auto;
 	padding: 0 2rem;
 `

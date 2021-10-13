@@ -1,48 +1,46 @@
-export interface ProfileBoxProps {
-	shadow?: string | null
-}
-export interface NavButtonsProps {
-	reverse?: string
-}
-export interface NavMobileProps {
-	toggle: string | null
-}
-export interface NavbarNavProps {
-	isAuth: string | null
-}
-export interface ButtonProps {
-	size?: string
-	color?: string
-	top?: string
-	bottom?: string
-	center?: string
-}
-export interface ModalWrapperProps {
-	shadow?: string | null
-}
-export interface CardProps {
-	image: string
-	user: string
+interface BaseLayer {
 	top?: string | null
-	bottom?: string | null
 	right?: string | null
 	left?: string | null
-	minwidth?: string | null
-	nostyle?: string | null
+	bottom?: string | null
+	center?: string | null
 }
-export interface TextProps {
+export interface ProfileBoxProps {
+	shadow?: boolean
+}
+export interface NavButtonsProps {
+	reverse?: boolean
+}
+export interface NavMobileProps {
+	toggle: boolean
+}
+export interface NavbarNavProps {
+	isAuth: boolean | null
+}
+export interface ButtonProps extends BaseLayer {
+	size?: string
+	color?: string
+}
+export interface ModalWrapperProps {
+	shadow?: boolean
+}
+export interface CardProps extends BaseLayer {
+	image: string
+	user: string
+	minwidth?: string | null
+	nostyle?: boolean
+}
+export interface TextProps extends BaseLayer {
 	textCenter?: string | null
 	font?: string | null
-	top?: string | null
-	bottom?: string | null
 	max?: string | null
 }
 export interface FormElementProps {
-	image?: string | null
+	image?: boolean
 }
 export interface LoginRegisterDesktopBackgroundProps {
 	image?: string | null
 }
 export interface LoginRegisterContentWrapProps {
-	isRegister?: string | null
+	isRegister?: boolean
 }

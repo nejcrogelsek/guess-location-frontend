@@ -84,6 +84,9 @@ export const LoginRegisterContentWrap = styled.div<LoginRegisterContentWrapProps
 			left: 70;
 		}
 	}
+	${(p) => p.theme.screens.huge} {
+		display: block;
+	}
 `
 export const LoginRegisterTitle = styled.h1`
 	font-size: 2.1875rem;

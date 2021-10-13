@@ -22,8 +22,8 @@ interface Props {
 		created_at: Date
 		updated_at: Date
 	}
-	nostyle?: string
-	mobile?: string
+	nostyle?: boolean
+	mobile?: boolean
 	isSlider?: boolean
 }
 
@@ -69,7 +69,7 @@ const Card: FC<Props> = ({
 		<>
 			<CardStyled
 				user={userStore.user ? 'true' : 'false'}
-				nostyle={nostyle ? nostyle : null}
+				nostyle={nostyle}
 				bottom={bottom ? bottom : null}
 				top={top ? top : null}
 				right={right ? right : null}
@@ -79,7 +79,7 @@ const Card: FC<Props> = ({
 				onClick={() => nostyle && setModal(true)}>
 				<div
 					className='background'
-					onClick={() => (mobile && mobile === 'true' ? setModal(true) : null)}>
+					onClick={() => (mobile && mobile ? setModal(true) : null)}>
 					{userStore.user ? (
 						<>
 							<span className='error-distance'>{distance && `${distance}m`}</span>
@@ -112,7 +112,7 @@ const Card: FC<Props> = ({
 						}}
 						animate={{ opacity: 1, transform: 'translate(-50%,-50%)' }}
 						className='motion'>
-						<ModalWrapper shadow='true'>
+						<ModalWrapper shadow={true}>
 							<GuessLocationForm
 								image={location.location_image}
 								location_id={location.id}

@@ -11,8 +11,6 @@ import {
 	FormImagePlaceholder,
 	FormLabel,
 	FormMapWrapper,
-	FormValidation,
-	FormValidationSuccess,
 } from '../../shared/Form/styles'
 import { IGuessLocation } from '../../../interfaces/location.interface'
 import * as Yup from 'yup'

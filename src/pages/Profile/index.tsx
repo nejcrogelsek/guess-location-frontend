@@ -41,10 +41,10 @@ const Profile: FC = () => {
 			<Header />
 			<Container>
 				<ProfileWrap>
-					<ProfileBox shadow='true'>
+					<ProfileBox shadow={true}>
 						<UpdateProfileForm />
 					</ProfileBox>
-					<ProfileBox shadow='true'>
+					<ProfileBox shadow={true}>
 						<AddImageForm />
 					</ProfileBox>
 					<ProfileBox>
@@ -53,7 +53,7 @@ const Profile: FC = () => {
 								key={item.location.id}
 								{...item}
 								bottom='24px'
-								mobile={isMobile ? 'true' : 'false'}
+								mobile={isMobile}
 							/>
 						))}
 					</ProfileBox>

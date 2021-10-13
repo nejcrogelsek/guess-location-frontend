@@ -29,13 +29,12 @@ const UpdateProfileForm: FC = () => {
 			first_name: Yup.string().notRequired(),
 			last_name: Yup.string().notRequired(),
 			password: Yup.string()
+				.notRequired()
 				.matches(
 					/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
 					'Password must have at least 1 upper & lower case letter, 1 number or special character and it must be long more than 5 characters.'
 				)
-				.min(6, 'Password must be at least 6 characters')
-				.nullable()
-				.notRequired(),
+				.min(6, 'Password must be at least 6 characters'),
 		},
 		[['password', 'password']]
 	)
@@ -103,7 +102,7 @@ const UpdateProfileForm: FC = () => {
 		<>
 			<Form onSubmit={onSubmit}>
 				<div>
-					<FormElement image='true'>
+					<FormElement image={true}>
 						<FormLabel htmlFor='file'>
 							<Avatar src={preview as string} />
 						</FormLabel>

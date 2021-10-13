@@ -15,8 +15,8 @@ const Register: FC = () => {
 	return (
 		<LoginRegisterContainer>
 			<Header />
-			<LoginRegisterWrap isRegister='true'>
-				<LoginRegisterContentWrap isRegister='true'>
+			<LoginRegisterWrap isRegister={true}>
+				<LoginRegisterContentWrap isRegister={true}>
 					<Logo to='/' />
 					<LoginRegisterTitle>Sign up</LoginRegisterTitle>
 					<p>Your name will appear on posts and your public profile.</p>
