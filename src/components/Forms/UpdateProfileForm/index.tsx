@@ -22,7 +22,7 @@ import {
 	generateUploadUrl,
 	update,
 	uploadImage,
-} from '../../../api/authActions'
+} from '../../../api/auth.actions'
 
 const UpdateProfileForm: FC = () => {
 	const validationSchema = Yup.object().shape(

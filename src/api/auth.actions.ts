@@ -51,3 +51,4 @@ export const update = (
 		headers: { Authorization: `Bearer ${token}` },
 	})
 }
+

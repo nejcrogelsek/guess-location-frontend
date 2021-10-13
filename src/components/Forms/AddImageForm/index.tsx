@@ -12,6 +12,8 @@ import {
 	FormLabel,
 	FormMapWrapper,
 	FormTextArea,
+	FormValidation,
+	FormValidationSuccess,
 } from '../../shared/Form/styles'
 import ImagePlaceholder from '../../../assets/images/image-placeholder.png'
 import { LocationFormData } from '../../../interfaces/location.interface'
@@ -20,6 +22,8 @@ import userStore from '../../../stores/user.store'
 import locationStore from '../../../stores/location.store'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { generateUploadUrl, uploadImage } from '../../../api/auth.actions'
+import { addLocation } from '../../../api/location.actions'
 
 const AddImageForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -27,6 +31,8 @@ const AddImageForm: FC = () => {
 		long: Yup.string().required('Longitude is required'),
 		address: Yup.string().required('Address is required'),
 	})
+	const [error, setError] = useState<string | null>(null)
+	const [success, setSuccess] = useState<string | null>(null)
 	const [file, setFile] = useState<File | null>(null)
 	const [preview, setPreview] = useState<string | null>(null)
 	const {
@@ -46,35 +52,30 @@ const AddImageForm: FC = () => {
 	const uploadLocation = async (createLocationDto: LocationFormData) => {
 		try {
 			if (file !== null) {
-				const { data } = await axios.get('users/upload')
-
-				await axios.put(data.url, file, {
-					headers: { 'Content-Type': 'multipart/form-data' },
-				})
+				const { data } = await generateUploadUrl()
+				uploadImage(data.url, file)
 				const imageUrl = data.url.split('?')
 
-				const finalData = {
+				const finalData: LocationFormData = {
 					location_image: imageUrl[0],
-					user_id: userStore.user!.id,
 					lat: createLocationDto.lat,
 					long: createLocationDto.long,
 					address: createLocationDto.address,
 				}
 				const token: string | null = localStorage.getItem('user')
 				if (token) {
-					await axios
-						.post('/location', finalData, {
-							headers: { Authorization: `Bearer ${token}` },
-						})
-						.then((res) => {
-							console.log('Upload location worked')
-							setPreview(null)
-							setFile(null)
-							reset()
-						})
+					const res = await addLocation(finalData, token)
+					if (res.data) {
+						setSuccess('Location successfully added.')
+						setPreview(null)
+						setFile(null)
+						reset()
+					} else {
+						setError('error')
+					}
 				}
 			} else {
-				alert('You need to upload a location image.')
+				setError('You need to upload a profile image.')
 			}
 		} catch (err) {
 			console.log(err)
@@ -115,6 +116,36 @@ const AddImageForm: FC = () => {
 	return (
 		<>
 			<Form className='relative' onSubmit={onSubmit}>
+				{error && (
+					<FormValidation>
+						{error}
+						<svg
+							onClick={() => setError(null)}
+							xmlns='http://www.w3.org/2000/svg'
+							width='16'
+							height='16'
+							fill='currentColor'
+							className='bi bi-x'
+							viewBox='0 0 16 16'>
+							<path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z' />
+						</svg>
+					</FormValidation>
+				)}
+				{success && (
+					<FormValidationSuccess>
+						{success}
+						<svg
+							onClick={() => setSuccess(null)}
+							xmlns='http://www.w3.org/2000/svg'
+							width='16'
+							height='16'
+							fill='currentColor'
+							className='bi bi-x'
+							viewBox='0 0 16 16'>
+							<path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z' />
+						</svg>
+					</FormValidationSuccess>
+				)}
 				<FormElementImageUpload>
 					<FormLabel htmlFor='file'>Upload image:</FormLabel>
 					<FormLabel htmlFor='file' className='second'>

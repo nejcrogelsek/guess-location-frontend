@@ -23,7 +23,7 @@ import {
 	generateUploadUrl,
 	uploadImage,
 	createUser,
-} from '../../../api/authActions'
+} from '../../../api/auth.actions'
 
 const RegisterForm: FC = () => {
 	// form validation rules
