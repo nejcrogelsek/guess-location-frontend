@@ -18,7 +18,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import userStore from '../../../stores/user.store'
 import locationStore from '../../../stores/location.store'
 import { createGuess } from '../../../api/location.actions'
-import { motion } from 'framer-motion'
 
 interface Props {
 	image: string

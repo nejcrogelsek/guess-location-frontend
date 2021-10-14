@@ -34,6 +34,7 @@ const AddImageForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
 	const [file, setFile] = useState<File | null>(null)
 	const [preview, setPreview] = useState<string | null>(null)
+	//const [addressState, setAddress] = useState<string>('')
 	const {
 		register,
 		handleSubmit,
@@ -165,6 +166,7 @@ const AddImageForm: FC = () => {
 						id='address'
 						{...register('address')}
 						name='address'
+						onChange={(e) => console.log(e.target.value)}
 						className={errors.address ? 'is-invalid' : ''}></FormTextArea>
 					{errors.address && <FormErrorText>{errors.address.message}</FormErrorText>}
 				</FormElement>
