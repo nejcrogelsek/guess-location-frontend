@@ -1,15 +1,15 @@
 import { FC } from 'react'
 import { PictureWrap, Wrapper } from './styles'
-import LogoChar from '../../assets/images/logo-char.svg'
-import Logo from '../../assets/images/logo.svg'
+import LogoCharIcon from '../../components/icons/LogoCharIcon'
+import LogoIcon from '../../components/icons/LogoIcon'
 
 const Loading: FC = () => {
 	return (
 		<Wrapper>
 			<PictureWrap>
-				<img src={LogoChar} alt='Logo' />
+				<LogoCharIcon />
 			</PictureWrap>
-			<img src={Logo} alt='Logo' />
+			<LogoIcon />
 		</Wrapper>
 	)
 }
