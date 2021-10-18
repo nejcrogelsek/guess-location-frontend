@@ -102,7 +102,6 @@ const AddImageForm: FC = () => {
 		script.src =
 			'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places,geometry&callback=initialize'
 		script.async = true
-
 		document.body.appendChild(script)
 	}, [])
 

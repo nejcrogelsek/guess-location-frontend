@@ -49,12 +49,7 @@ const Profile: FC = () => {
 					</ProfileBox>
 					<ProfileBox>
 						{locationStore.personalBest?.slice(0, 3).map((item) => (
-							<Card
-								key={item.location.id}
-								{...item}
-								bottom='24px'
-								mobile={isMobile}
-							/>
+							<Card key={item.location.id} {...item} bottom='24px' mobile={isMobile} />
 						))}
 					</ProfileBox>
 				</ProfileWrap>

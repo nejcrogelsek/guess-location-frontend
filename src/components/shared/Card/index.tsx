@@ -114,7 +114,7 @@ const Card: FC<Props> = ({
 							/>
 						</ModalWrapper>
 					</motion.div>
-					{isSlider ? (
+					{modal === true && isSlider ? (
 						<Backdrop onClick={closeModalSlider}></Backdrop>
 					) : (
 						<Backdrop onClick={() => setModal(false)}></Backdrop>
