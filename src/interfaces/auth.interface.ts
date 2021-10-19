@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from 'react'
-
 export type SignUpData = {
 	email: string
 	first_name: string
@@ -32,6 +30,10 @@ export interface AuthReturnData {
 		first_name: string
 		last_name: string
 		profile_image: string
+		confirmed: boolean
 	}
+	access_token: string
+}
+export interface IAccessToken {
 	access_token: string
 }

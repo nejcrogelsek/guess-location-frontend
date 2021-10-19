@@ -114,7 +114,7 @@ const GuessLocationForm: FC<Props> = ({
 		const script = document.createElement('script')
 
 		script.src =
-			'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places,geometry&callback=initializeSecond'
+			'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places,geometry&callback=initialize'
 		script.async = true
 		document.body.appendChild(script)
 	}, [])
@@ -128,7 +128,7 @@ const GuessLocationForm: FC<Props> = ({
 				<div className='form'>
 					<FormElement>
 						<FormMapWrapper
-							id='map-canvas2'
+							id='map-canvas'
 							className='small'
 							onClick={() => setErrorDistance(null)}></FormMapWrapper>
 					</FormElement>
@@ -136,13 +136,13 @@ const GuessLocationForm: FC<Props> = ({
 						<FormControl
 							{...register('lat')}
 							name='lat'
-							id='latitude2'
+							id='latitude'
 							placeholder='lat'
 							className={errors.lat ? 'is-invalid' : ''}></FormControl>
 						<FormControl
 							{...register('lng')}
 							name='lng'
-							id='longitude2'
+							id='longitude'
 							placeholder='lng'></FormControl>
 					</FormElement>
 					<div className='results'>
@@ -151,7 +151,7 @@ const GuessLocationForm: FC<Props> = ({
 							<FormControlSecondary
 								type='text'
 								name='error-distance'
-								id='error-distance2'
+								id='error-distance'
 								value={errorDistance ? errorDistance + 'm' : ''}
 								readOnly={true}
 								onChange={(e) => setErrorDistance(e.target.value)}
@@ -161,7 +161,7 @@ const GuessLocationForm: FC<Props> = ({
 							<FormLabel htmlFor='address'>Location</FormLabel>
 							<FormControlSecondary
 								type='text'
-								id='address2'
+								id='address'
 								{...register('address')}
 								placeholder='Address'
 								readOnly={true}

@@ -31,6 +31,7 @@ export const createGuess = async (
 		headers: { Authorization: `Bearer ${token}` },
 	})
 }
+
 export const getDistanceBE = async (
 	user_id: number,
 	location_id: number,

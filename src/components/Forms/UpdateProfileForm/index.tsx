@@ -58,8 +58,8 @@ const UpdateProfileForm: FC = () => {
 		try {
 			if (file !== null) {
 				const { data } = await generateUploadUrl()
-				uploadImage(data.url, file)
-				const imageUrl: string = data.url.split('?')
+				await uploadImage(data.url, file)
+				const imageUrl: string[] = data.url.split('?')
 				updateUserDto.profile_image = imageUrl[0]
 			}
 			const token: string | null = localStorage.getItem('user')

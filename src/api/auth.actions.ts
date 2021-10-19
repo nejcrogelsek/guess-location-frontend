@@ -1,9 +1,16 @@
 import axios from './axios'
-import { SignInData, SignUpData } from '../interfaces/auth.interface'
+import {
+	AuthReturnData,
+	IAccessToken,
+	SignInData,
+	SignUpData,
+} from '../interfaces/auth.interface'
 import { AxiosResponse } from 'axios'
-import { UpdateUserDto } from '../interfaces/user.interface'
+import { IUser, UpdateUserDto } from '../interfaces/user.interface'
 
-export const login = async (data: SignInData): Promise<AxiosResponse<any>> => {
+export const login = async (
+	data: SignInData
+): Promise<AxiosResponse<AuthReturnData>> => {
 	const finalData = {
 		username: data.email,
 		password: data.password,
@@ -13,11 +20,15 @@ export const login = async (data: SignInData): Promise<AxiosResponse<any>> => {
 	})
 }
 
-export const generateUploadUrl = async (): Promise<AxiosResponse<any>> => {
+export const generateUploadUrl = async (): Promise<AxiosResponse<Response>> => {
 	return axios.get('users/upload')
 }
-export const uploadImage = async (url: string, file: File) => {
-	axios.put(url, file, {
+
+export const uploadImage = async (
+	url: string,
+	file: File
+): Promise<AxiosResponse<void>> => {
+	return axios.put(url, file, {
 		headers: { 'Content-Type': 'multipart/form-data' },
 	})
 }
@@ -25,7 +36,7 @@ export const uploadImage = async (url: string, file: File) => {
 export const createUser = async (
 	createUserDto: SignUpData,
 	image_url: string
-): Promise<AxiosResponse<any>> => {
+): Promise<AxiosResponse<AuthReturnData>> => {
 	const finalData = {
 		profile_image: image_url,
 		email: createUserDto.email,
@@ -41,7 +52,7 @@ export const update = async (
 	updateUserDto: UpdateUserDto,
 	user_id: number,
 	token: string
-): Promise<AxiosResponse<any>> => {
+): Promise<AxiosResponse<IUser>> => {
 	return axios.patch(
 		'/users/me/update',
 		{ ...updateUserDto, id: user_id },
@@ -55,7 +66,7 @@ export const refreshTokenFC = async (
 	name: string,
 	sub: number,
 	token: string
-): Promise<AxiosResponse<any>> => {
+): Promise<AxiosResponse<IAccessToken>> => {
 	return axios.post(
 		'/auth/refresh-token',
 		{ name: name, sub: sub },
@@ -64,9 +75,10 @@ export const refreshTokenFC = async (
 		}
 	)
 }
+
 export const accessTokenFC = async (
 	token: string
-): Promise<AxiosResponse<any>> => {
+): Promise<AxiosResponse<IUser>> => {
 	return axios.get('/auth/protected', {
 		headers: { Authorization: `Bearer ${token}` },
 	})
