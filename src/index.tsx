@@ -4,9 +4,9 @@ import App from './App'
 import { Loading } from './pages'
 import reportWebVitals from './reportWebVitals'
 import * as dotenv from 'dotenv'
-import 'core-js/es6/promise'
-import 'core-js/es6/set'
-import 'core-js/es6/map'
+import 'core-js/es/promise'
+import 'core-js/es/set'
+import 'core-js/es/map'
 
 if (process.env.NODE_ENV === 'development') {
 	dotenv.config()

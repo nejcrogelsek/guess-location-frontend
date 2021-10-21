@@ -30,9 +30,6 @@ interface Props {
 const GuessLocationForm: FC<Props> = ({
 	image,
 	location_id,
-	lat,
-	long,
-	setDistance,
 }: Props) => {
 	const validationSchema = Yup.object().shape({
 		lat: Yup.string().required('Latitude is required'),
@@ -53,30 +50,16 @@ const GuessLocationForm: FC<Props> = ({
 		console.log(data)
 		addGuess(data)
 	})
-
-	//calculates distance between two points in km's
-	const calcDistance = (p1: google.maps.LatLng, p2: google.maps.LatLng) => {
-		return (
-			google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000
-		).toFixed(4)
-	}
-
+	
 	const addGuess = async (addGuessDto: IGuessLocation) => {
 		try {
-			const p1 = new google.maps.LatLng(Number(lat), Number(long))
-			const p2 = new google.maps.LatLng(
-				Number(addGuessDto.lat),
-				Number(addGuessDto.lng)
-			)
-
-			const distance: string = (+calcDistance(p1, p2) * 1000).toFixed(0)
-			setDistance(Number(distance))
 			const token: string | null = localStorage.getItem('user')
 			if (token) {
 				const res = await createGuess(
 					addGuessDto.address,
 					location_id,
-					distance,
+					addGuessDto.lat,
+					addGuessDto.lng,
 					token
 				)
 				if (res.data) {
@@ -92,23 +75,6 @@ const GuessLocationForm: FC<Props> = ({
 			console.log(err)
 		}
 	}
-
-	// const removeJS = (filename: string) => {
-	// 	const tags = document.getElementsByTagName('script')
-	// 	for (let i = tags.length; i >= 0; i--) {
-	// 		//search backwards within nodelist for matching elements to remove
-	// 		if (
-	// 			tags[i] &&
-	// 			tags[i].getAttribute('src') != null &&
-	// 			tags[i].getAttribute('src')?.indexOf(filename) != -1
-	// 		)
-	// 			tags[i].parentNode?.removeChild(tags[i]) //remove element by calling parentNode.removeChild()
-	// 	}
-	// }
-
-	// removeJS(
-	// 	'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places,geometry&callback=initialize'
-	// )
 
 	useEffect(() => {
 		const script = document.createElement('script')

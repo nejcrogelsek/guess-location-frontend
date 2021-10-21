@@ -19,12 +19,14 @@ export const addLocation = async (
 export const createGuess = async (
 	address: string,
 	location_id: number,
-	distance: string,
+	lat:string,
+	lng: string,
 	token: string
 ): Promise<AxiosResponse<IGuessLocationData>> => {
 	const finalData = {
 		address,
-		distance,
+		lat,
+		lng,
 		location_id,
 	}
 	return axios.post(`/location/guess/${location_id}`, finalData, {

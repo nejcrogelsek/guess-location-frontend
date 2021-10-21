@@ -23,6 +23,9 @@ import { generateUploadUrl, uploadImage } from '../../../api/auth.actions'
 import { addLocation } from '../../../api/location.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
+import { IMarker } from '../../../interfaces/map.interface'
+import { loadMapApi } from '../../../utils/GoogleMapsUtils'
+import Map from '../../Map'
 
 const AddImageForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -30,6 +33,8 @@ const AddImageForm: FC = () => {
 		long: Yup.string().required('Longitude is required'),
 		address: Yup.string().required('Address is required'),
 	})
+	const [scriptLoaded, setScriptLoaded] = useState(false)
+	const [marker, setMarker] = useState<IMarker>()
 	const [error, setError] = useState<string | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
 	const [file, setFile] = useState<File | null>(null)
@@ -97,14 +102,12 @@ const AddImageForm: FC = () => {
 	}, [file])
 
 	useEffect(() => {
-		const script = document.createElement('script')
-
-		script.src =
-			'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places,geometry&callback=initialize'
-		script.async = true
-		document.body.appendChild(script)
+		const googleMapScript = loadMapApi()
+		googleMapScript.addEventListener('load', function () {
+			setScriptLoaded(true)
+		})
 	}, [])
-
+	console.log(marker)
 	return (
 		<>
 			<Form className='relative' onSubmit={onSubmit}>
@@ -139,7 +142,14 @@ const AddImageForm: FC = () => {
 					/>
 				</FormElementImageUpload>
 				<FormElement>
-					<FormMapWrapper id='map-canvas'></FormMapWrapper>
+					{scriptLoaded && (
+						<Map
+							mapType={google.maps.MapTypeId.ROADMAP}
+							mapTypeControl={true}
+							marker={marker}
+							setMarker={setMarker}
+						/>
+					)}
 				</FormElement>
 				<FormElement className='hidden'>
 					<FormControl
