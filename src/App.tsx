@@ -8,6 +8,7 @@ import { Home, Login, Profile, Register } from './pages'
 import { observer } from 'mobx-react-lite'
 import userStore from './stores/user.store'
 import { accessTokenFC, refreshTokenFC } from './api/auth.actions'
+import { loadMapApi } from './utils/GoogleMapsUtils'
 
 const App: FC = () => {
 	const checkIfAccessTokenExists = async () => {
@@ -52,6 +53,10 @@ const App: FC = () => {
 		}, 1000 * 60 * 14)
 
 		return () => clearInterval(interval)
+	}, [])
+
+	useEffect(() => {
+		const googleMapScript = loadMapApi()
 	}, [])
 
 	return (

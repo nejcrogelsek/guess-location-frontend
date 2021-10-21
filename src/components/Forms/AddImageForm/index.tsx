@@ -24,8 +24,7 @@ import { addLocation } from '../../../api/location.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
 import { IMarker } from '../../../interfaces/map.interface'
-import { loadMapApi } from '../../../utils/GoogleMapsUtils'
-import Map from '../../Map'
+import { Map } from '../../shared/Map'
 
 const AddImageForm: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -33,7 +32,6 @@ const AddImageForm: FC = () => {
 		long: Yup.string().required('Longitude is required'),
 		address: Yup.string().required('Address is required'),
 	})
-	const [scriptLoaded, setScriptLoaded] = useState(false)
 	const [marker, setMarker] = useState<IMarker>()
 	const [error, setError] = useState<string | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
@@ -100,14 +98,6 @@ const AddImageForm: FC = () => {
 			setPreview(null)
 		}
 	}, [file])
-
-	useEffect(() => {
-		const googleMapScript = loadMapApi()
-		googleMapScript.addEventListener('load', function () {
-			setScriptLoaded(true)
-		})
-	}, [])
-	console.log(marker)
 	return (
 		<>
 			<Form className='relative' onSubmit={onSubmit}>
@@ -142,14 +132,12 @@ const AddImageForm: FC = () => {
 					/>
 				</FormElementImageUpload>
 				<FormElement>
-					{scriptLoaded && (
-						<Map
-							mapType={google.maps.MapTypeId.ROADMAP}
-							mapTypeControl={true}
-							marker={marker}
-							setMarker={setMarker}
-						/>
-					)}
+					<Map
+						mapType={google.maps.MapTypeId.ROADMAP}
+						mapTypeControl={true}
+						marker={marker}
+						setMarker={setMarker}
+					/>
 				</FormElement>
 				<FormElement className='hidden'>
 					<FormControl
@@ -157,14 +145,18 @@ const AddImageForm: FC = () => {
 						type='text'
 						name='lat'
 						id='latitude'
+						readOnly={true}
 						placeholder='lat'
+						value={marker && marker.latitude}
 						className={errors.lat ? 'is-invalid' : ''}></FormControl>
 					<FormControl
 						{...register('long')}
 						type='text'
 						name='long'
 						id='longitude'
+						readOnly={true}
 						placeholder='long'
+						value={marker && marker.longitude}
 						className={errors.long ? 'is-invalid' : ''}></FormControl>
 					<div id='error-distance' className='hidden'></div>
 				</FormElement>
@@ -175,7 +167,7 @@ const AddImageForm: FC = () => {
 						id='address'
 						{...register('address')}
 						name='address'
-						onChange={(e) => console.log(e.target.value)}
+						value={marker && marker.address}
 						className={errors.address ? 'is-invalid' : ''}></FormTextArea>
 					{errors.address && <FormErrorText>{errors.address.message}</FormErrorText>}
 				</FormElement>

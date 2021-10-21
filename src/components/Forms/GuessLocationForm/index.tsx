@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ButtonStyled } from '../../shared/Button/styles'
 import {
@@ -18,6 +18,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import userStore from '../../../stores/user.store'
 import locationStore from '../../../stores/location.store'
 import { createGuess } from '../../../api/location.actions'
+import { Map } from '../../shared/Map'
+import { IMarker } from '../../../interfaces/map.interface'
 
 interface Props {
 	image: string
@@ -37,6 +39,7 @@ const GuessLocationForm: FC<Props> = ({
 		address: Yup.string().required('Address is required'),
 	})
 	const [errorDistance, setErrorDistance] = useState<string | null>(null)
+	const [marker, setMarker] = useState<IMarker>()
 	const {
 		register,
 		handleSubmit,
@@ -50,7 +53,7 @@ const GuessLocationForm: FC<Props> = ({
 		console.log(data)
 		addGuess(data)
 	})
-	
+
 	const addGuess = async (addGuessDto: IGuessLocation) => {
 		try {
 			const token: string | null = localStorage.getItem('user')
@@ -64,8 +67,6 @@ const GuessLocationForm: FC<Props> = ({
 				)
 				if (res.data) {
 					setErrorDistance(res.data.distance.toString())
-					const addressEl = document.getElementById('address')!
-					addressEl.setAttribute('value', res.data.address)
 					reset()
 					// Get personal best
 					locationStore.getPersonalBest(userStore.user!.id, token)
@@ -76,15 +77,6 @@ const GuessLocationForm: FC<Props> = ({
 		}
 	}
 
-	// useEffect(() => {
-	// 	const script = document.createElement('script')
-
-	// 	script.src =
-	// 		'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places,geometry&callback=initialize'
-	// 	script.async = true
-	// 	document.body.appendChild(script)
-	// }, [])
-
 	return (
 		<>
 			<Form onSubmit={onSubmit} className='relative guess'>
@@ -93,10 +85,12 @@ const GuessLocationForm: FC<Props> = ({
 				</FormImagePlaceholder>
 				<div className='form'>
 					<FormElement>
-						<FormMapWrapper
-							id='map-canvas'
-							className='small'
-							onClick={() => setErrorDistance(null)}></FormMapWrapper>
+						<Map
+							mapType={google.maps.MapTypeId.ROADMAP}
+							mapTypeControl={true}
+							marker={marker}
+							setMarker={setMarker}
+						/>
 					</FormElement>
 					<FormElement className='hidden'>
 						<FormControl
@@ -104,11 +98,15 @@ const GuessLocationForm: FC<Props> = ({
 							name='lat'
 							id='latitude'
 							placeholder='lat'
+							readOnly={true}
+							value={marker && marker.latitude}
 							className={errors.lat ? 'is-invalid' : ''}></FormControl>
 						<FormControl
 							{...register('lng')}
 							name='lng'
 							id='longitude'
+							readOnly={true}
+							value={marker && marker.longitude}
 							placeholder='lng'></FormControl>
 					</FormElement>
 					<div className='results'>
@@ -130,6 +128,7 @@ const GuessLocationForm: FC<Props> = ({
 								id='address'
 								{...register('address')}
 								placeholder='Address'
+								value={marker && marker.address}
 								readOnly={true}
 								className={errors.address ? 'is-invalid' : ''}
 							/>

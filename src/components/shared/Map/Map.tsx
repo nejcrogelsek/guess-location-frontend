@@ -6,7 +6,6 @@ import {
 	IMap,
 } from '../../../interfaces/map.interface'
 import { FormMapWrapper } from '../Form/styles'
-import './Map.css'
 
 const Map: FC<IMap> = ({
 	mapType,
