@@ -76,14 +76,14 @@ const GuessLocationForm: FC<Props> = ({
 		}
 	}
 
-	useEffect(() => {
-		const script = document.createElement('script')
+	// useEffect(() => {
+	// 	const script = document.createElement('script')
 
-		script.src =
-			'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places,geometry&callback=initialize'
-		script.async = true
-		document.body.appendChild(script)
-	}, [])
+	// 	script.src =
+	// 		'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqcArrh8SQsephYJCy_WuZ8uoiXsWM7dQ&libraries=places,geometry&callback=initialize'
+	// 	script.async = true
+	// 	document.body.appendChild(script)
+	// }, [])
 
 	return (
 		<>
