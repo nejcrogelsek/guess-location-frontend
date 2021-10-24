@@ -1,6 +1,6 @@
 export interface LocationFormData {
-	lat: string
-	long: string
+	lat: number
+	long: number
 	location_image: string
 	address: string
 }
