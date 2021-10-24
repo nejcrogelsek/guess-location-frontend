@@ -26,8 +26,12 @@ export interface ModalWrapperProps {
 }
 export interface CardProps extends BaseLayer {
 	image: string
-	user: string
+	user: boolean
 	minwidth?: string | null
+	nostyle?: boolean
+}
+export interface CardBackgroundProps extends BaseLayer {
+	user: boolean
 	nostyle?: boolean
 }
 export interface TextProps extends BaseLayer {

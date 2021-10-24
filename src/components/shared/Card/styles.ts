@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {
+	CardBackgroundProps,
 	CardProps,
 	ModalWrapperProps,
 } from '../../../interfaces/style.interface'
@@ -46,46 +47,62 @@ export const CardStyled = styled.div<CardProps>`
 		&:nth-child(3n + 2) {
 			margin: 0 1rem 24px;
 		}
-		&:nth-child(3n) {
-			flex: 1 1;
-		}
+		
 	}
-	.background {
-		background: ${(p) =>
-			p.nostyle ? 'none' : p.theme.colors.greenLinearOpacity};
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		transition: 0.25s ease-out;
-		.bi-lock {
-			width: 50px;
-			height: 64px;
-		}
-		.error-distance {
-			font-size: 1.5rem;
-			font-weight: 700;
-			color: #fff;
-			display: ${(p) => (p.nostyle ? 'none' : 'block')};
-		}
-		${(p) =>
-			p.user && p.user === 'true'
-				? `
-            > button{
-                display: none;
-            }
-            &:hover{
-                background: ${p.nostyle ? 'none' : p.theme.colors.greenLinear};
-                .error-distance{
-                    display: none;
-                }
-                > button{
-                    display: ${p.nostyle ? 'none' : 'block'};
-                }
-            }
-        `
-				: null}
+`
+export const CardBackground = styled.div<CardBackgroundProps>`
+	background: ${(p) =>
+		p.nostyle ? 'none' : p.theme.colors.greenLinearOpacity};
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.25s ease-out;
+	position: relative;
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
+		background: ${(p) => p.nostyle ? 'none' : p.theme.colors.greenLinear};
+		opacity: 0;
+		transition: all 0.25s ease-out;
 	}
+	.bi-lock {
+		width: 50px;
+		height: 64px;
+	}
+	.error-distance {
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: #fff;
+		display: ${(p) => (p.nostyle ? 'none' : 'block')};
+	}
+	${(p) =>
+		p.user
+		&& `
+		> button{
+			opacity: 0;
+			pointer-events: none;
+			position: absolute;
+			z-index: 1;
+			transition: 0.25s ease-out;
+		}
+		&:hover{
+			&::after {
+				opacity: 1;
+			}
+			.error-distance{
+				display: none;
+			}
+			> button{
+				opacity: ${p.nostyle ? '0' : '1'};
+				pointer-events: all;
+			}
+		}
+	`}
 `
 export const Backdrop = styled.div`
 	position: fixed;

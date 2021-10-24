@@ -37,7 +37,9 @@ const AddImageForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
 	const [file, setFile] = useState<File | null>(null)
 	const [preview, setPreview] = useState<string | null>(null)
-	//const [addressState, setAddress] = useState<string>('')
+	/*const [addressState, setAddress] = useState<string>('')
+	const [latState, setLat] = useState<number>()
+	const [lngState, setLng] = useState<number>()*/
 	const {
 		register,
 		handleSubmit,
@@ -98,6 +100,23 @@ const AddImageForm: FC = () => {
 			setPreview(null)
 		}
 	}, [file])
+
+	/*useEffect(() => {
+		if (marker) {
+			setAddress(marker.address)
+			setLat(marker.latitude)
+			setLng(marker.longitude)
+		}
+	}, [marker])
+
+	const handleChangeOfLocation = () =>{
+		if (marker) {
+			setAddress(marker.address)
+			setLat(marker.latitude)
+			setLng(marker.longitude)
+		}
+	}*/
+
 	return (
 		<>
 			<Form className='relative' onSubmit={onSubmit}>
@@ -145,9 +164,9 @@ const AddImageForm: FC = () => {
 						type='text'
 						name='lat'
 						id='latitude'
+						value={marker && marker.latitude}
 						readOnly={true}
 						placeholder='lat'
-						value={marker && marker.latitude}
 						className={errors.lat ? 'is-invalid' : ''}></FormControl>
 					<FormControl
 						{...register('long')}
@@ -155,8 +174,8 @@ const AddImageForm: FC = () => {
 						name='long'
 						id='longitude'
 						readOnly={true}
-						placeholder='long'
 						value={marker && marker.longitude}
+						placeholder='long'
 						className={errors.long ? 'is-invalid' : ''}></FormControl>
 					<div id='error-distance' className='hidden'></div>
 				</FormElement>
@@ -166,8 +185,8 @@ const AddImageForm: FC = () => {
 						readOnly={true}
 						id='address'
 						{...register('address')}
-						name='address'
 						value={marker && marker.address}
+						name='address'
 						className={errors.address ? 'is-invalid' : ''}></FormTextArea>
 					{errors.address && <FormErrorText>{errors.address.message}</FormErrorText>}
 				</FormElement>

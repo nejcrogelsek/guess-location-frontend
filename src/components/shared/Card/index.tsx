@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { Backdrop, CardStyled, ModalWrapper } from './styles'
+import { Backdrop, CardBackground, CardStyled, ModalWrapper } from './styles'
 import { ButtonGuess } from '../Button/styles'
 import GuessLocationForm from '../../Forms/GuessLocationForm'
 import { motion } from 'framer-motion'
@@ -69,7 +69,7 @@ const Card: FC<Props> = ({
 	return (
 		<>
 			<CardStyled
-				user={userStore.user ? 'true' : 'false'}
+				user={userStore.user ? true : false}
 				nostyle={nostyle}
 				bottom={bottom ? bottom : null}
 				top={top ? top : null}
@@ -78,8 +78,9 @@ const Card: FC<Props> = ({
 				minwidth={minwidth ? minwidth : null}
 				image={location.location_image}
 				onClick={() => nostyle && setModal(true)}>
-				<div
-					className='background'
+				<CardBackground
+					user={userStore.user ? true : false}
+					nostyle={nostyle}
 					onClick={() => (mobile && mobile ? setModal(true) : null)}>
 					{userStore.user ? (
 						<>
@@ -93,7 +94,7 @@ const Card: FC<Props> = ({
 					) : (
 						<LockIcon />
 					)}
-				</div>
+				</CardBackground>
 			</CardStyled>
 			{modal ? (
 				<>

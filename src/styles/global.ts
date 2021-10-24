@@ -70,9 +70,6 @@ export default createGlobalStyle`
 			&:nth-child(3n + 2) {
 				margin: 0 1rem 24px;
 			}
-			&:nth-child(3n) {
-				flex: 1 1;
-			}
 		}
 	}
 	.swiper-container.modal-open{
