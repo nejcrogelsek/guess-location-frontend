@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { Backdrop, CardBackground, CardStyled, ModalWrapper } from './styles'
 import { ButtonGuess } from '../Button/styles'
 import GuessLocationForm from '../../Forms/GuessLocationForm'
@@ -26,6 +26,7 @@ interface Props {
 	nostyle?: boolean
 	mobile?: boolean
 	isSlider?: boolean
+	setSliderModal?: Dispatch<SetStateAction<boolean>>
 }
 
 const Card: FC<Props> = ({
@@ -38,8 +39,9 @@ const Card: FC<Props> = ({
 	location,
 	mobile,
 	isSlider,
+	setSliderModal
 }: Props) => {
-	const [modal, setModal] = useState(false)
+	const [modal, setModal] = useState<boolean>(false)
 	const [distance, setDistance] = useState<number | null>(null)
 
 	const getDistance = async () => {
@@ -57,10 +59,16 @@ const Card: FC<Props> = ({
 	const openModalSlider = () => {
 		document.querySelector('.swiper-container')?.classList.add('modal-open')
 		setModal(true)
+		if (setSliderModal) {
+			setSliderModal(false)
+		}
 	}
 	const closeModalSlider = () => {
 		document.querySelector('.swiper-container')?.classList.remove('modal-open')
 		setModal(false)
+		if (setSliderModal) {
+			setSliderModal(true)
+		}
 	}
 
 	useEffect(() => {

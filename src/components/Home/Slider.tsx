@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Card from '../shared/Card'
 import locationStore from '../../stores/location.store'
 import { observer } from 'mobx-react-lite'
@@ -10,6 +10,7 @@ import 'swiper/swiper.min.css'
 import userStore from '../../stores/user.store'
 
 const HomeSlider: FC = () => {
+	const [modal, setModal] = useState<boolean>(false)
 	useEffect(() => {
 		if (userStore.user) {
 			const token: string | null = localStorage.getItem('user')
@@ -21,8 +22,10 @@ const HomeSlider: FC = () => {
 	return (
 		<>
 			<Swiper
+				allowTouchMove={modal}
 				spaceBetween={16}
 				slidesPerView={1.2}
+				watchOverflow={true}
 				breakpoints={{
 					1200: {
 						width: 1200,
@@ -41,7 +44,7 @@ const HomeSlider: FC = () => {
 				onSwiper={(swiper: any) => console.log(swiper)}>
 				{locationStore.personalBest?.slice(0, 3).map((item) => (
 					<SwiperSlide key={item.location.id}>
-						<Card {...item} isSlider={true} bottom='24px' />
+						<Card {...item} isSlider={true} bottom='24px' setSliderModal={setModal} />
 					</SwiperSlide>
 				))}
 			</Swiper>
