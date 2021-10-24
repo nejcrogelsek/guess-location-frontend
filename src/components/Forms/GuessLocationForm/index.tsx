@@ -1,25 +1,23 @@
 import { observer } from 'mobx-react-lite'
-import { Dispatch, FC, SetStateAction, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Dispatch, FC, FormEvent, SetStateAction, useState } from 'react'
 import { ButtonStyled } from '../../shared/Button/styles'
 import {
 	Form,
 	FormButtonsWrap,
-	FormControl,
 	FormControlSecondary,
 	FormElement,
 	FormImagePlaceholder,
 	FormLabel,
-	FormMapWrapper,
+	FormValidation,
+	FormMapWrapper
 } from '../../shared/Form/styles'
-import { IGuessLocation } from '../../../interfaces/location.interface'
-import * as Yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import userStore from '../../../stores/user.store'
 import locationStore from '../../../stores/location.store'
 import { createGuess } from '../../../api/location.actions'
 import { Map } from '../../shared/Map'
 import { IMarker } from '../../../interfaces/map.interface'
+import { motion } from 'framer-motion'
+import CloseIcon from '../../icons/CloseIcon'
 
 interface Props {
 	image: string
@@ -33,44 +31,31 @@ const GuessLocationForm: FC<Props> = ({
 	image,
 	location_id,
 }: Props) => {
-	const validationSchema = Yup.object().shape({
-		lat: Yup.string().required('Latitude is required'),
-		lng: Yup.string().required('Longitude is required'),
-		address: Yup.string().required('Address is required'),
-	})
 	const [errorDistance, setErrorDistance] = useState<string | null>(null)
 	const [marker, setMarker] = useState<IMarker>()
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		reset,
-	} = useForm<IGuessLocation>({
-		resolver: yupResolver(validationSchema),
-		mode: 'onChange',
-	})
-	const onSubmit = handleSubmit((data) => {
-		console.log(data)
-		addGuess(data)
-	})
+	const [error, setError] = useState<string | null>(null)
 
-	const addGuess = async (addGuessDto: IGuessLocation) => {
+	const addGuess = async (e: FormEvent) => {
 		try {
-			const token: string | null = localStorage.getItem('user')
-			if (token) {
-				const res = await createGuess(
-					addGuessDto.address,
-					location_id,
-					addGuessDto.lat,
-					addGuessDto.lng,
-					token
-				)
-				if (res.data) {
-					setErrorDistance(res.data.distance.toString())
-					reset()
-					// Get personal best
-					locationStore.getPersonalBest(userStore.user!.id, token)
+			e.preventDefault()
+			if (marker && marker.address && marker.latitude && marker.longitude) {
+				const token: string | null = localStorage.getItem('user')
+				if (token) {
+					const res = await createGuess(
+						marker.address,
+						location_id,
+						marker.latitude,
+						marker.longitude,
+						token
+					)
+					if (res.data) {
+						setErrorDistance(res.data.distance.toString())
+						// Get personal best
+						locationStore.getPersonalBest(userStore.user!.id, token)
+					}
 				}
+			} else {
+				setError('You need to select a location on the map.')
 			}
 		} catch (err) {
 			console.log(err)
@@ -79,36 +64,29 @@ const GuessLocationForm: FC<Props> = ({
 
 	return (
 		<>
-			<Form onSubmit={onSubmit} className='relative guess'>
+			<Form onSubmit={addGuess} className='relative guess'>
 				<FormImagePlaceholder className='guess'>
 					<img src={image} alt='' />
 				</FormImagePlaceholder>
 				<div className='form'>
 					<FormElement>
-						<Map
-							mapType={google.maps.MapTypeId.ROADMAP}
-							mapTypeControl={true}
-							marker={marker}
-							setMarker={setMarker}
-						/>
+						<FormMapWrapper className='small'>
+							<Map
+								mapType={google.maps.MapTypeId.ROADMAP}
+								mapTypeControl={true}
+								marker={marker}
+								setMarker={setMarker}
+							/>
+						</FormMapWrapper>
 					</FormElement>
-					<FormElement className='hidden'>
-						<FormControl
-							{...register('lat')}
-							name='lat'
-							id='latitude'
-							placeholder='lat'
-							readOnly={true}
-							value={marker && marker.latitude}
-							className={errors.lat ? 'is-invalid' : ''}></FormControl>
-						<FormControl
-							{...register('lng')}
-							name='lng'
-							id='longitude'
-							readOnly={true}
-							value={marker && marker.longitude}
-							placeholder='lng'></FormControl>
-					</FormElement>
+					{error && (
+						<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+							<FormValidation>
+								{error}
+								<CloseIcon setError={setError} />
+							</FormValidation>
+						</motion.div>
+					)}
 					<div className='results'>
 						<FormElement className='error'>
 							<FormLabel htmlFor='error-distance'>Error distance</FormLabel>
@@ -126,11 +104,9 @@ const GuessLocationForm: FC<Props> = ({
 							<FormControlSecondary
 								type='text'
 								id='address'
-								{...register('address')}
 								placeholder='Address'
 								value={marker && marker.address}
 								readOnly={true}
-								className={errors.address ? 'is-invalid' : ''}
 							/>
 						</FormElement>
 					</div>

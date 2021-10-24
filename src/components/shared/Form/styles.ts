@@ -197,8 +197,14 @@ export const FormMapWrapper = styled.div`
 	background: grey;
 	border-radius: 1rem;
 	&.small {
-		height: 206px;
+		height: 205px !important;
 		margin-top: 1rem;
+		${p=>p.theme.screens.large}{
+			margin-top: 0;
+		}
+		>div{
+			height: 205px !important;
+		}
 	}
 `
 export const FormErrorText = styled.span`
