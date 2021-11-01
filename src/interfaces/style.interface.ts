@@ -23,6 +23,7 @@ export interface ButtonProps extends BaseLayer {
 }
 export interface ModalWrapperProps {
 	shadow?: boolean
+	height: boolean
 }
 export interface CardProps extends BaseLayer {
 	image: string

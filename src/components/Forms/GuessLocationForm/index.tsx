@@ -25,40 +25,42 @@ interface Props {
 	lat: number
 	long: number
 	setDistance: Dispatch<SetStateAction<number | null>>
+	error: any | null
+	setError: Dispatch<SetStateAction<any | null>>
 }
 
 const GuessLocationForm: FC<Props> = ({
 	image,
 	location_id,
+	error,
+	setError
 }: Props) => {
 	const [errorDistance, setErrorDistance] = useState<string | null>(null)
 	const [marker, setMarker] = useState<IMarker>()
-	const [error, setError] = useState<string | null>(null)
 
 	const addGuess = async (e: FormEvent) => {
-		try {
-			e.preventDefault()
-			if (marker && marker.address && marker.latitude && marker.longitude) {
-				const token: string | null = localStorage.getItem('user')
-				if (token) {
-					const res = await createGuess(
-						marker.address,
-						location_id,
-						marker.latitude,
-						marker.longitude,
-						token
-					)
-					if (res.data) {
-						setErrorDistance(res.data.distance.toString())
-						// Get personal best
-						locationStore.getPersonalBest(userStore.user!.id, token)
-					}
+		e.preventDefault()
+		if (marker && marker.address && marker.latitude && marker.longitude) {
+			const token: string | null = localStorage.getItem('user')
+			if (token) {
+				const res = await createGuess(
+					marker.address,
+					location_id,
+					marker.latitude,
+					marker.longitude,
+					token
+				)
+				if (res.request) {
+					const data = JSON.parse(res.request.response)
+					setErrorDistance(data.distance.toString())
+					// Get personal best
+					locationStore.getPersonalBest(userStore.user!.id, token)
+				} else {
+					setError(res)
 				}
-			} else {
-				setError('You need to select a location on the map.')
 			}
-		} catch (err) {
-			console.log(err)
+		} else {
+			setError('You need to select a location on the map.')
 		}
 	}
 
@@ -82,7 +84,7 @@ const GuessLocationForm: FC<Props> = ({
 					{error && (
 						<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 							<FormValidation>
-								{error}
+								{error.message ? error.message : error}
 								<CloseIcon onClick={setError} />
 							</FormValidation>
 						</motion.div>

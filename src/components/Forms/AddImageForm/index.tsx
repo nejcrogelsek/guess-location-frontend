@@ -22,38 +22,34 @@ import { Map } from '../../shared/Map'
 
 const AddImageForm: FC = () => {
 	const [marker, setMarker] = useState<IMarker>()
-	const [error, setError] = useState<string | null>(null)
+	const [error, setError] = useState<any | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
 	const [file, setFile] = useState<File | null>(null)
 	const [preview, setPreview] = useState<string | null>(null)
 
 	const uploadLocation = async (e: FormEvent) => {
-		try {
-			e.preventDefault()
-			if (file !== null) {
-				if (marker && marker.address && marker.latitude && marker.longitude) {
-					const { data } = await generateUploadUrl()
-					uploadImage(data.url, file)
-					const imageUrl = data.url.split('?')
-					const token: string | null = localStorage.getItem('user')
-					if (token) {
-						const res = await addLocation({ address: marker.address, lat: marker.latitude, long: marker.longitude, location_image: '' }, imageUrl[0], token)
-						if (res.data) {
-							setSuccess('Location successfully added.')
-							setPreview(null)
-							setFile(null)
-						} else {
-							setError('error')
-						}
+		e.preventDefault()
+		if (file !== null) {
+			if (marker && marker.address && marker.latitude && marker.longitude) {
+				const { data } = await generateUploadUrl()
+				uploadImage(data.url, file)
+				const imageUrl = data.url.split('?')
+				const token: string | null = localStorage.getItem('user')
+				if (token) {
+					const res = await addLocation({ address: marker.address, lat: marker.latitude, long: marker.longitude, location_image: '' }, imageUrl[0], token)
+					if (res.request) {
+						setSuccess('Location successfully added.')
+						setPreview(null)
+						setFile(null)
+					} else {
+						setError(res)
 					}
-				} else {
-					setError('You need to select a location on the map.')
 				}
 			} else {
-				setError('You need to upload a profile image.')
+				setError('You need to select a location on the map.')
 			}
-		} catch (err) {
-			console.log(err)
+		} else {
+			setError('You need to upload a profile image.')
 		}
 	}
 
@@ -84,7 +80,7 @@ const AddImageForm: FC = () => {
 				{error && (
 					<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 						<FormValidation>
-							{error}
+							{error.message ? error.message : error}
 							<CloseIcon onClick={setError} />
 						</FormValidation>
 					</motion.div>

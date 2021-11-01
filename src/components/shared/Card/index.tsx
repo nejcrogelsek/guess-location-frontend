@@ -43,6 +43,7 @@ const Card: FC<Props> = ({
 }: Props) => {
 	const [modal, setModal] = useState<boolean>(false)
 	const [distance, setDistance] = useState<number | null>(null)
+	const [error, setError] = useState<any | null>(null)
 
 	const getDistance = async () => {
 		const token: string | null = localStorage.getItem('user')
@@ -113,13 +114,15 @@ const Card: FC<Props> = ({
 						}}
 						animate={{ opacity: 1, transform: 'translate(-50%,-50%)' }}
 						className='motion'>
-						<ModalWrapper shadow={true}>
+						<ModalWrapper height={error ? true : false} shadow={true}>
 							<GuessLocationForm
 								image={location.location_image}
 								location_id={location.id}
 								lat={location.lat}
 								long={location.long}
 								setDistance={setDistance}
+								setError={setError}
+								error={error}
 							/>
 						</ModalWrapper>
 					</motion.div>

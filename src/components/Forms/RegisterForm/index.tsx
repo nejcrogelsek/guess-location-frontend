@@ -45,7 +45,7 @@ const RegisterForm: FC = () => {
 			.oneOf([Yup.ref('password'), null], 'Passwords must match'),
 	})
 
-	const [error, setError] = useState<string | null>(null)
+	const [error, setError] = useState<any | null>(null)
 	const [success, setSuccess] = useState<string | null>(null)
 	const [file, setFile] = useState<File | null>(null)
 	const [preview, setPreview] = useState<string | null>(null)
@@ -64,26 +64,22 @@ const RegisterForm: FC = () => {
 	})
 
 	const signup = async (createUserDto: SignUpData) => {
-		try {
-			if (file !== null) {
-				const { data } = await generateUploadUrl()
-				uploadImage(data.url, file)
-				const imageUrl = data.url.split('?')
+		if (file !== null) {
+			const { data } = await generateUploadUrl()
+			uploadImage(data.url, file)
+			const imageUrl = data.url.split('?')
 
-				const res = await createUser(createUserDto, imageUrl[0])
-				if (res.data) {
-					setSuccess('Check your inbox and verify your email.')
-					setPreview(null)
-					setFile(null)
-					reset()
-				} else {
-					setError('error')
-				}
+			const res = await createUser(createUserDto, imageUrl[0])
+			if (res.request) {
+				setSuccess('Check your inbox and verify your email.')
+				setPreview(null)
+				setFile(null)
+				reset()
 			} else {
-				setError('You need to upload a profile image.')
+				setError(res)
 			}
-		} catch (err) {
-			console.log(err)
+		} else {
+			setError('You need to upload a profile image.')
 		}
 	}
 
@@ -118,7 +114,7 @@ const RegisterForm: FC = () => {
 				{error && (
 					<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 						<FormValidation>
-							{error}
+							{error.message}
 							<CloseIcon onClick={setError} />
 						</FormValidation>
 					</motion.div>

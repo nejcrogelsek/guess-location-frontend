@@ -138,7 +138,7 @@ export const ModalWrapper = styled.div<ModalWrapperProps>`
         }
     `}
 	${(p) => p.theme.screens.large} {
-		height: 375px;
+		height: ${p => p.height ? '443px' : '375px'};
 		> form {
 			display: flex;
 			max-width: 100%;

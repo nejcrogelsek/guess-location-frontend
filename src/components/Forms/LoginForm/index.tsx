@@ -21,8 +21,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { login } from '../../../api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
-import { AxiosError } from 'axios'
-import { IError } from '../../../interfaces/app.interface'
 
 const LoginForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
@@ -48,14 +46,12 @@ const LoginForm: FC = () => {
 
 	const signin = async (dataset: SignInData) => {
 		const res = await login(dataset)
-		console.log(res)
 		if (res.request) {
 			const data = JSON.parse(res.request.response)
 			userStore.login(data.user)
 			localStorage.setItem('user', data.access_token)
 			reset()
 		} else {
-			console.log(res)
 			setError(res)
 			setOnErrorEmail(dataset.email)
 		}

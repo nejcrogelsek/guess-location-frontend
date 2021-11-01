@@ -7,7 +7,6 @@ import {
 } from '../interfaces/auth.interface'
 import { AxiosError, AxiosResponse } from 'axios'
 import { IUser, UpdateUserDto } from '../interfaces/user.interface'
-import { IError } from '../interfaces/app.interface'
 
 export const login = async (
 	data: SignInData
@@ -17,7 +16,6 @@ export const login = async (
 		password: data.password,
 	}
 	return axios.post('/auth/login', finalData).catch((err) => {
-		console.log(err.response.data)
 		return err.response.data
 	})
 }
@@ -38,7 +36,7 @@ export const uploadImage = async (
 export const createUser = async (
 	createUserDto: SignUpData,
 	image_url: string
-): Promise<AxiosResponse<AuthReturnData>> => {
+): Promise<AxiosResponse<AuthReturnData> | AxiosError> => {
 	const finalData = {
 		profile_image: image_url,
 		email: createUserDto.email,
@@ -47,7 +45,9 @@ export const createUser = async (
 		password: createUserDto.password,
 		confirm_password: createUserDto.confirm_password,
 	}
-	return axios.post('/auth/register', finalData)
+	return axios.post('/auth/register', finalData).catch((err) => {
+		return err.response.data
+	})
 }
 
 export const update = async (

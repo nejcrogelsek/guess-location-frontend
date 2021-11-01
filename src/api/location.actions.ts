@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { IGuessLocationData, LocationData, LocationFormData } from '../interfaces/location.interface'
 import axios from './axios'
 
@@ -6,13 +6,15 @@ export const addLocation = async (
 	createLocationDto: LocationFormData,
 	image_url: string,
 	token: string
-): Promise<AxiosResponse<LocationData>> => {
+): Promise<AxiosResponse<LocationData> | AxiosError> => {
 	const finalData = {
 		...createLocationDto,
 		location_image: image_url,
 	}
 	return axios.post('/location', finalData, {
 		headers: { Authorization: `Bearer ${token}` },
+	}).catch((err) => {
+		return err.response.data
 	})
 }
 
@@ -22,7 +24,7 @@ export const createGuess = async (
 	lat:number,
 	lng: number,
 	token: string
-): Promise<AxiosResponse<IGuessLocationData>> => {
+): Promise<AxiosResponse<IGuessLocationData> | AxiosError> => {
 	const finalData = {
 		address,
 		lat,
@@ -31,6 +33,8 @@ export const createGuess = async (
 	}
 	return axios.post(`/location/guess/${location_id}`, finalData, {
 		headers: { Authorization: `Bearer ${token}` },
+	}).catch((err) => {
+		return err.response.data
 	})
 }
 
