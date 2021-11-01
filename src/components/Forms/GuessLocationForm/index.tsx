@@ -33,7 +33,8 @@ const GuessLocationForm: FC<Props> = ({
 	image,
 	location_id,
 	error,
-	setError
+	setError,
+	setDistance
 }: Props) => {
 	const [errorDistance, setErrorDistance] = useState<string | null>(null)
 	const [marker, setMarker] = useState<IMarker>()
@@ -53,6 +54,7 @@ const GuessLocationForm: FC<Props> = ({
 				if (res.request) {
 					const data = JSON.parse(res.request.response)
 					setErrorDistance(data.distance.toString())
+					setDistance(data.distance)
 					// Get personal best
 					locationStore.getPersonalBest(userStore.user!.id, token)
 				} else {
