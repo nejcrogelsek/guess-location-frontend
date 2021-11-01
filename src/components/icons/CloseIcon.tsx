@@ -1,15 +1,12 @@
 import { Dispatch, FC, SetStateAction } from 'react'
 interface Props {
-	setError?: Dispatch<SetStateAction<string | null>>
-	setSuccess?: Dispatch<SetStateAction<string | null>>
+	onClick?: Dispatch<SetStateAction<string | null>>
 }
 
-const CloseIcon: FC<Props> = ({ setError, setSuccess }: Props) => {
+const CloseIcon: FC<Props> = ({ onClick }: Props) => {
 	const handleClick = () => {
-		if (setError) {
-			setError(null)
-		} else if (setSuccess) {
-			setSuccess(null)
+		if (onClick) {
+			onClick(null)
 		}
 	}
 	return (

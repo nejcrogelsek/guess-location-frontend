@@ -5,17 +5,19 @@ import {
 	SignInData,
 	SignUpData,
 } from '../interfaces/auth.interface'
-import { AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { IUser, UpdateUserDto } from '../interfaces/user.interface'
+import { IError } from '../interfaces/app.interface'
 
 export const login = async (
 	data: SignInData
-): Promise<AxiosResponse<AuthReturnData>> => {
+): Promise<AxiosResponse<SignInData> | AxiosError> => {
 	const finalData = {
 		username: data.email,
 		password: data.password,
 	}
 	return axios.post('/auth/login', finalData).catch((err) => {
+		console.log(err.response.data)
 		return err.response.data
 	})
 }

@@ -83,7 +83,7 @@ const GuessLocationForm: FC<Props> = ({
 						<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 							<FormValidation>
 								{error}
-								<CloseIcon setError={setError} />
+								<CloseIcon onClick={setError} />
 							</FormValidation>
 						</motion.div>
 					)}

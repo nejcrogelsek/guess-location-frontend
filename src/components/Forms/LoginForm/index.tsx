@@ -21,6 +21,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { login } from '../../../api/auth.actions'
 import { motion } from 'framer-motion'
 import CloseIcon from '../../icons/CloseIcon'
+import { AxiosError } from 'axios'
+import { IError } from '../../../interfaces/app.interface'
 
 const LoginForm: FC = () => {
 	const [success, setSuccess] = useState<string | null>(null)
@@ -28,7 +30,8 @@ const LoginForm: FC = () => {
 		email: Yup.string().required('Email is required').email('Email is invalid'),
 		password: Yup.string().required('Password is required'),
 	})
-	const [error, setError] = useState<string | null>(null)
+	const [error, setError] = useState<any | null>(null)
+	const [onErrorEmail, setOnErrorEmail] = useState<string | null>(null)
 	const {
 		register,
 		handleSubmit,
@@ -39,22 +42,22 @@ const LoginForm: FC = () => {
 		mode: 'onChange',
 	})
 
-	const onSubmit = handleSubmit((data) => {
-		signin(data)
+	const onSubmit = handleSubmit((dataset) => {
+		signin(dataset)
 	})
 
-	const signin = async (data: SignInData) => {
-		try {
-			const res = await login(data)
-			if (res.data) {
-				userStore.login(res.data.user)
-				localStorage.setItem('user', res.data.access_token)
-				reset()
-			} else {
-				setError('error')
-			}
-		} catch (err) {
-			console.log(err)
+	const signin = async (dataset: SignInData) => {
+		const res = await login(dataset)
+		console.log(res)
+		if (res.request) {
+			const data = JSON.parse(res.request.response)
+			userStore.login(data.user)
+			localStorage.setItem('user', data.access_token)
+			reset()
+		} else {
+			console.log(res)
+			setError(res)
+			setOnErrorEmail(dataset.email)
 		}
 	}
 
@@ -75,8 +78,8 @@ const LoginForm: FC = () => {
 			{error && (
 				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 					<FormValidation>
-						{error}
-						<CloseIcon setError={setError} />
+						{error.statusCode === 401 ? `User with email: ${onErrorEmail} does not exist.` : error.message}
+						<CloseIcon onClick={setError} />
 					</FormValidation>
 				</motion.div>
 			)}
@@ -84,7 +87,7 @@ const LoginForm: FC = () => {
 				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 					<FormValidationSuccess>
 						{success}
-						<CloseIcon setSuccess={setSuccess} />
+						<CloseIcon onClick={setSuccess} />
 					</FormValidationSuccess>
 				</motion.div>
 			)}
@@ -92,6 +95,7 @@ const LoginForm: FC = () => {
 				<FormLabel htmlFor='email'>Email</FormLabel>
 				<FormControl
 					{...register('email')}
+					id='email'
 					type='text'
 					name='email'
 					className={errors.email ? 'is-invalid' : ''}

@@ -119,7 +119,7 @@ const RegisterForm: FC = () => {
 					<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 						<FormValidation>
 							{error}
-							<CloseIcon setError={setError} />
+							<CloseIcon onClick={setError} />
 						</FormValidation>
 					</motion.div>
 				)}
@@ -127,7 +127,7 @@ const RegisterForm: FC = () => {
 					<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 						<FormValidationSuccess>
 							{success}
-							<CloseIcon setSuccess={setSuccess} />
+							<CloseIcon onClick={setSuccess} />
 						</FormValidationSuccess>
 					</motion.div>
 				)}
