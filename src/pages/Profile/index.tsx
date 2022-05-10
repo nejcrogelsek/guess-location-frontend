@@ -36,6 +36,7 @@ const Profile: FC = () => {
 			}
 		}
 	}, [userStore.user])
+
 	return (
 		<>
 			<Header />
