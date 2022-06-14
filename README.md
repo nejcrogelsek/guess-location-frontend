@@ -17,6 +17,20 @@
 Full-stack application that allows users to upload an image and mark the exact location on the Google map where the image was taken.
 Registered users then try to guess where the image was taken by placing a pin on the Google map. As a result, the app returns how accurately he chose the location (error distance).
 
+**Home page (User is not authenticated)**
+![geotagger_homepage](./src/assets/images/geotagger_homepage.png)
+![geotagger_homepage2](./src/assets/images/geotagger_homepage2.png)
+**Home page (User is authenticated)**
+![geotagger_homepage_auth](./src/assets/images/geotagger_homepage_auth.png)
+**Profile page**
+![geotagger_profile](./src/assets/images/geotagger_profile.png)
+**Add quote modal**
+![geotagger_modal_guess](./src/assets/images/geotagger_modal_guess.png)
+**Login page**
+![geotagger_login](./src/assets/images/geotagger_login.png)
+**Register page**
+![geotagger_register_filled](./src/assets/images/geotagger_register_filled.png)
+
 #### Technologies
 
 - HTML
